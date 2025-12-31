@@ -1,0 +1,11 @@
+site_name: MDM Docs
+site_url: https://mdmdocs.tripleu.org
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: mkdocs
+
+nav:
+  - Home: index.md
