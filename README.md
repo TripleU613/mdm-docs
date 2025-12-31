@@ -17,8 +17,18 @@ mkdocs build
 ```
 
 ## Cloudflare Pages
+This site is connected to GitHub and deploys automatically on every push to `main`.
+
+Build settings:
 - Build command: `mkdocs build`
 - Build output directory: `site`
+
+Manual deploy (optional):
+```bash
+pip install -r requirements.txt
+mkdocs build
+wrangler pages deploy site --project-name mdm-docs --branch main
+```
 
 ## Access control
 Basic Auth is enforced in `functions/_middleware.js`.
