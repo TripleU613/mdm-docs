@@ -1,0 +1,3 @@
+# Disable APK install
+
+TBD.

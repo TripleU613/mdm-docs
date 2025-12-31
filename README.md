@@ -4,31 +4,22 @@ MkDocs site for internal system docs.
 
 ## Local dev
 ```bash
-python -m venv .venv
-. .venv/bin/activate
-pip install -r requirements.txt
-mkdocs serve
+npm install
+npm run docs:dev
 ```
 
 ## Build
 ```bash
-pip install -r requirements.txt
-mkdocs build
+npm install
+npm run docs:build
 ```
 
 ## Cloudflare Pages
 This site is connected to GitHub and deploys automatically on every push to `main`.
 
 Build settings:
-- Build command: `mkdocs build`
-- Build output directory: `site`
-
-Manual deploy (optional):
-```bash
-pip install -r requirements.txt
-mkdocs build
-wrangler pages deploy site --project-name mdm-docs --branch main
-```
+- Build command: `npm run docs:build`
+- Build output directory: `docs/.vitepress/dist`
 
 ## Access control
 Basic Auth is enforced in `functions/_middleware.js`.

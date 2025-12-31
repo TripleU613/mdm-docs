@@ -4,8 +4,7 @@ Top-level systems:
 - Android app
 - Website
 - Firestore config
-- VPN (WireGuard) on `kvylock`
-- MITM proxy
+- VPN + MITM proxy (WireGuard) on `kvylock`
 - Directus
 
 Status: stubs; details next.

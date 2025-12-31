@@ -1,0 +1,183 @@
+import { defineConfig } from "vitepress";
+
+export default defineConfig({
+  title: "MDM Docs",
+  description: "Internal system docs",
+  themeConfig: {
+    nav: [
+      { text: "Home", link: "/" },
+      { text: "Android app", link: "/android-app/" },
+      { text: "Website", link: "/website" },
+      { text: "Firestore config", link: "/firestore-config" },
+      { text: "VPN + MITM proxy", link: "/vpn-wireguard" },
+      { text: "Directus", link: "/directus" },
+    ],
+    sidebar: {
+      "/android-app/": [
+        { text: "Overview", link: "/android-app/" },
+        {
+          text: "Home tab",
+          items: [
+            { text: "Hi", link: "/android-app/home/hi" },
+            {
+              text: "Policies at a glance",
+              link: "/android-app/home/policies-at-a-glance",
+            },
+            { text: "Did you know", link: "/android-app/home/did-you-know" },
+            {
+              text: "Policies applied counter",
+              link: "/android-app/home/policies-applied-counter",
+            },
+          ],
+        },
+        {
+          text: "System tab",
+          items: [
+            {
+              text: "Disallow adding users",
+              link: "/android-app/system/disallow-adding-users",
+            },
+            {
+              text: "Disable factory reset",
+              link: "/android-app/system/disable-factory-reset",
+            },
+            {
+              text: "Block developer options",
+              link: "/android-app/system/block-developer-options",
+            },
+            {
+              text: "Disable app settings control",
+              link: "/android-app/system/disable-app-settings-control",
+            },
+            { text: "Block phone calls", link: "/android-app/system/block-phone-calls" },
+            { text: "Disable SMS/MMS", link: "/android-app/system/disable-sms-mms" },
+          ],
+        },
+        {
+          text: "Installation",
+          items: [
+            {
+              text: "Disable APK install",
+              link: "/android-app/installation/disable-apk-install",
+            },
+            { text: "Block new apps", link: "/android-app/installation/block-new-apps" },
+            {
+              text: "Allow user updates",
+              link: "/android-app/installation/allow-user-updates",
+            },
+            { text: "Block Play Store", link: "/android-app/installation/block-play-store" },
+          ],
+        },
+        {
+          text: "Accessibility",
+          items: [
+            { text: "Android Auto quirk", link: "/android-app/accessibility/android-auto-quirk" },
+            {
+              text: "Block WhatsApp updates tab",
+              link: "/android-app/accessibility/block-whatsapp-updates-tab",
+            },
+            {
+              text: "Block WhatsApp channels",
+              link: "/android-app/accessibility/block-whatsapp-channels",
+            },
+            { text: "Block status", link: "/android-app/accessibility/block-status" },
+            { text: "Block AI chats", link: "/android-app/accessibility/block-ai-chats" },
+            {
+              text: "Block all in-app browsers",
+              link: "/android-app/accessibility/block-all-in-app-browsers",
+            },
+            {
+              text: "Block default browsers",
+              link: "/android-app/accessibility/block-default-browsers",
+            },
+          ],
+        },
+        {
+          text: "Network tab",
+          items: [
+            {
+              text: "Disable tethering and hotspot",
+              link: "/android-app/network/disable-tethering-and-hotspot",
+            },
+            { text: "Block Wi-Fi", link: "/android-app/network/block-wi-fi" },
+            { text: "Block all traffic", link: "/android-app/network/block-all-traffic" },
+            { text: "Enable private DNS", link: "/android-app/network/enable-private-dns" },
+            {
+              text: "Enable VPN firewall (regular VPN, not VPN2)",
+              link: "/android-app/network/enable-vpn-firewall",
+            },
+            {
+              text: "Whitelist domains (regular VPN, not VPN2)",
+              link: "/android-app/network/whitelist-domains",
+            },
+          ],
+        },
+        {
+          text: "Updates tab",
+          items: [{ text: "Aurora updater", link: "/android-app/updates/aurora-updater" }],
+        },
+        {
+          text: "Apps tab",
+          items: [
+            {
+              text: "App management tabs",
+              items: [
+                { text: "Users apps", link: "/android-app/apps/users-apps" },
+                { text: "System apps", link: "/android-app/apps/system-apps" },
+                { text: "Managed apps", link: "/android-app/apps/managed-apps" },
+              ],
+            },
+            {
+              text: "App actions",
+              items: [
+                { text: "Hide", link: "/android-app/apps/hide" },
+                { text: "Make offline", link: "/android-app/apps/make-offline" },
+                { text: "Make suspended", link: "/android-app/apps/make-suspended" },
+                { text: "Disable", link: "/android-app/apps/disable" },
+                { text: "Block video", link: "/android-app/apps/block-video" },
+                {
+                  text: "Block in-app browser",
+                  link: "/android-app/apps/block-in-app-browser",
+                },
+                { text: "Block uninstall", link: "/android-app/apps/block-uninstall" },
+                {
+                  text: "Add WebView exception",
+                  link: "/android-app/apps/add-webview-exception",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          text: "Settings tab",
+          items: [
+            { text: "Switch to Hebrew", link: "/android-app/settings/switch-to-hebrew" },
+            { text: "Export profile", link: "/android-app/settings/export-profile" },
+            { text: "Import profile", link: "/android-app/settings/import-profile" },
+            { text: "Import whitelist", link: "/android-app/settings/import-whitelist" },
+            { text: "Account info", link: "/android-app/settings/account-info" },
+            { text: "Privacy policy", link: "/android-app/settings/privacy-policy" },
+            {
+              text: "Check for app updates",
+              link: "/android-app/settings/check-for-app-updates",
+            },
+            { text: "Support us", link: "/android-app/settings/support-us" },
+            { text: "App density", link: "/android-app/settings/app-density" },
+            { text: "Muted updates", link: "/android-app/settings/muted-updates" },
+            { text: "Reset MDM PIN", link: "/android-app/settings/reset-mdm-pin" },
+            { text: "Uninstall", link: "/android-app/settings/uninstall" },
+            { text: "Delete my account", link: "/android-app/settings/delete-my-account" },
+          ],
+        },
+      ],
+      "/": [
+        { text: "Home", link: "/" },
+        { text: "Android app", link: "/android-app/" },
+        { text: "Website", link: "/website" },
+        { text: "Firestore config", link: "/firestore-config" },
+        { text: "VPN + MITM proxy", link: "/vpn-wireguard" },
+        { text: "Directus", link: "/directus" },
+      ],
+    },
+  },
+});
