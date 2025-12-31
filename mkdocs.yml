@@ -9,3 +9,9 @@ theme:
 
 nav:
   - Home: index.md
+  - Android app: android-app.md
+  - Website: website.md
+  - Firestore config: firestore-config.md
+  - VPN (WireGuard): vpn-wireguard.md
+  - MITM proxy: mitm-proxy.md
+  - Directus: directus.md
