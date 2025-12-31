@@ -1,3 +1,16 @@
 # Disallow adding users
 
-TBD.
+Where it lives:
+- `app/src/main/java/com/tripleu/ui/fragments/PrivacyFragment.kt`
+- `app/src/main/java/com/tripleu/ui/privacy/SystemToggleHandler.kt`
+- `app/src/main/java/com/tripleu/policy/PolicyManager.kt`
+- `app/src/main/java/com/tripleu/policy/UserRestrictionController.kt`
+
+What it does:
+- Applies `UserManager.DISALLOW_ADD_USER`.
+- Persists `system.add_users_blocked` in `ConfigStore`.
+
+How it runs:
+- Toggle in `PrivacyFragment` calls `SystemToggleHandler.onAddUsersToggle`.
+- That calls `PolicyManager.toggleUserRestriction(...)`.
+- Requires device owner (enforced by `DeviceOwnerActionExecutor`).
