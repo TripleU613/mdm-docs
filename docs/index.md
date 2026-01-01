@@ -1,6 +1,6 @@
 # MDM Docs
 
-Top-level systems:
+## Top-level systems
 - Android app
 - Website
 - Firestore config

@@ -1,13 +1,13 @@
 # Delete my account
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/SettingsFragment.kt`
 
-What it does:
+## What it does
 - Deletes the signed-in account via Firebase.
 - Signs the user out and returns to the login screen.
 
-How it runs:
+## How it runs
 - Shows a confirmation dialog.
 - Calls Firebase Function `deleteAccount`.
 - On success:

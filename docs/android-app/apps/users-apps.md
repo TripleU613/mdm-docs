@@ -1,13 +1,13 @@
 # Users apps
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/UpdateAppsFragment.kt`
 - `app/src/main/java/com/tripleu/network/FirewallManager.kt`
 
-What it does:
+## What it does
 - Shows launchable apps with no active management flags.
 
-How it runs:
+## How it runs
 - `loadInstalledApps()` pulls app data via `FirewallManager.getRules(...)`.
 - Apps with any managed flag are routed to the Managed tab.
 - Remaining apps with a launch intent are shown here.

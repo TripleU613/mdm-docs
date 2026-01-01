@@ -1,13 +1,13 @@
 # Managed apps
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/UpdateAppsFragment.kt`
 - `app/src/main/java/com/tripleu/network/FirewallManager.kt`
 
-What it does:
+## What it does
 - Shows apps with any active management flag.
 
-Managed flags:
+## Managed flags
 - Hidden
 - Suspended
 - Network blocked
@@ -16,7 +16,7 @@ Managed flags:
 - WebView exception
 - Video blocked
 
-How it runs:
+## How it runs
 - `loadInstalledApps()` pulls app data via `FirewallManager.getRules(...)`.
 - If any flag above is true, the app appears here.
 - Status dots are built by `buildIndicators(...)` and match the active flags.

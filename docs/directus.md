@@ -1,6 +1,6 @@
 # Directus
 
-TBD:
+## TBD
 - Purpose
 - Schema/collections
 - Auth/roles

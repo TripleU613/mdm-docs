@@ -1,16 +1,16 @@
 # Permissions check
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/activities/PermissionsCheckActivity.kt`
 - `app/src/main/java/com/tripleu/policy/DefaultPolicyHandler.kt`
 - `app/src/main/java/com/tripleu/device/DeviceInfoUploader.kt`
 
-What it does:
+## What it does
 - Ensures the app is Device Owner + Device Admin.
 - Grants required runtime permissions and accessibility automation.
 - Applies default policies and marks setup complete.
 
-How it runs:
+## How it runs
 - Required checks:
   - Device Owner: `DevicePolicyManager.isDeviceOwnerApp`.
   - Device Admin: `DevicePolicyManager.isAdminActive`.

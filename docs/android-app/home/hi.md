@@ -1,17 +1,17 @@
 # Hi
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/HomeFragment.kt`
 - `app/src/main/java/com/tripleu/ui/fragments/HomeScreenContent.kt`
 - `app/src/main/java/com/tripleu/content/TechTakeRepository.kt`
 
-What it does:
+## What it does
 - Shows the greeting title + subtitle in the Hero card.
 - Uses Firebase user display name when available.
 - Falls back to email prefix, then the default string ("there").
-- Shows the “Tech take of the day” block (title + date + take text).
+- Shows the "Tech take of the day" block (title + date + take text).
 
-Code path:
+## Code path
 - `HomeFragment.updateGreetingName()` builds the `greetingName`.
 - `HomeFragment.refreshAll()` loads the tech take via `TechTakeRepository.loadTechTake()`.
 - `HomeScreenContent.HeroCard()` renders the greeting and `TechTakeBlock`.

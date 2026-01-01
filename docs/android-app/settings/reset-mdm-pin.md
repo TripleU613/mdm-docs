@@ -1,14 +1,14 @@
 # Reset MDM PIN
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/SettingsFragment.kt`
 - `app/src/main/java/com/tripleu/ui/activities/ResetPinActivity.kt`
 
-What it does:
+## What it does
 - Changes the MDM PIN.
 - Requires the current PIN and a new 4+ digit PIN.
 
-How it runs:
+## How it runs
 - Settings opens `ResetPinActivity`.
 - `ResetPinActivity.resetPin()`:
   - Validates old PIN (unless in recovery mode).

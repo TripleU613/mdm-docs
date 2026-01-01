@@ -1,16 +1,16 @@
 # Import profile
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/SettingsFragment.kt`
 - `app/src/main/java/com/tripleu/config/ProfileBackupManager.kt`
 - `app/src/main/java/com/tripleu/config/ConfigStore.kt`
 
-What it does:
+## What it does
 - Imports a previously exported profile file.
 - Applies settings into `ConfigStore` and shows how many were applied.
 - Warns if VPN consent is missing after a profile enables VPN or whitelist.
 
-How it runs:
+## How it runs
 - `importProfileLauncher` uses `OpenDocument()` and accepts `application/octet-stream` and `*/*`.
 - `ProfileBackupManager.import()`:
   - Decrypts the file and parses the JSON array.

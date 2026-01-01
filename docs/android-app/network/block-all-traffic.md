@@ -1,15 +1,15 @@
 # Block all traffic
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/PrivacyFragment.kt`
 - `app/src/main/java/com/tripleu/vpn/AdVpnThread.java`
 - `app/src/main/java/com/tripleu/config/ConfigPoller.kt`
 
-What it does:
+## What it does
 - Forces a blocking VPN profile and disables mobile network config.
 - Forces Wi-Fi block while active.
 
-How it runs:
+## How it runs
 - Toggle is enabled only when the VPN firewall is running and whitelist mode is off.
 - Enabling shows a warning dialog, then `applyGlobalNetworkBlock(true)`:
   - Applies `UserManager.DISALLOW_CONFIG_MOBILE_NETWORKS`.

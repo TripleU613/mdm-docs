@@ -1,6 +1,6 @@
 # Firestore config
 
-TBD:
+## TBD
 - Collections
 - Config keys
 - Sync flow

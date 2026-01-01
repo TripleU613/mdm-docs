@@ -1,15 +1,15 @@
 # App density
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/SettingsFragment.kt`
 - `app/src/main/java/com/tripleu/ui/components/AppDensityDialog.kt`
 - `app/src/main/java/com/tripleu/display/AppDensityManager.kt`
 
-What it does:
+## What it does
 - Changes the app UI density without touching system settings.
 - Saves the selection so it persists after restart.
 
-How it runs:
+## How it runs
 - `AppDensityDialog` lists options: Default (0), 20%, 25%, 50%, 75%, 100%.
 - `AppDensityManager.applyDensity()`:
   - Stores the base DPI and target percent in `MDMSettings`.

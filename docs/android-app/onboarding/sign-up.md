@@ -1,15 +1,15 @@
 # Sign up
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/activities/RegisterPage.kt`
 - `app/src/main/java/com/tripleu/device/DeviceBindingManager.kt`
 
-What it does:
+## What it does
 - Creates a new Firebase account.
 - Writes a basic user profile to Firestore.
 - Enforces one-device-per-account.
 
-How it runs:
+## How it runs
 - Validates name, phone, email, password, and PIN (4+ digits).
 - Calls Firebase Function `isEmailAllowed`.
 - Creates the user with `createUserWithEmailAndPassword`.

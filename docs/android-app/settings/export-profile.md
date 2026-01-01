@@ -1,15 +1,15 @@
 # Export profile
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/SettingsFragment.kt`
 - `app/src/main/java/com/tripleu/config/ProfileBackupManager.kt`
 - `app/src/main/java/com/tripleu/config/ConfigStore.kt`
 
-What it does:
+## What it does
 - Exports non-sensitive config entries to an encrypted file.
 - Uses the file picker to create a file named `mdm_profile.tripleu`.
 
-How it runs:
+## How it runs
 - `exportProfileLauncher` uses `CreateDocument("application/octet-stream")`.
 - `ProfileBackupManager.export()`:
   - Reads all `ConfigStore` entries and filters out sensitive keys (`pin`, `auth`, `uid`, `email`, `snapshot.*`).

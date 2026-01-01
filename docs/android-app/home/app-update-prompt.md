@@ -1,15 +1,15 @@
 # App update prompt
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/HomeFragment.kt`
 - `app/src/main/java/com/tripleu/ui/fragments/HomeScreenContent.kt`
 - `app/src/main/java/com/tripleu/updates/AppReleaseChecker.kt`
 
-What it does:
+## What it does
 - Shows a modal when a newer app build is available.
 - Actions: Download, Remind later, Never show.
 
-How it runs:
+## How it runs
 - `HomeFragment.checkForAppRelease()` runs on resume and after manual checks.
 - It calls `AppReleaseChecker.fetchLatestRelease()` and compares `versionCode`.
 - Suppression prefs:

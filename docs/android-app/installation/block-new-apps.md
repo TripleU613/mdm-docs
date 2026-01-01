@@ -1,6 +1,6 @@
 # Block new apps
 
-Where it lives:
+## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/PrivacyFragment.kt`
 - `app/src/main/java/com/tripleu/appcontrol/AppInstallReceiver.kt`
 - `app/src/main/java/com/tripleu/appcontrol/NewAppDetector.kt`
@@ -12,12 +12,12 @@ Where it lives:
 - `app/src/main/java/com/tripleu/vpn/AdVpnService.java`
 - `app/src/main/java/com/tripleu/vpn/AdVpnServiceKt.kt`
 
-What it does:
+## What it does
 - When enabled, newly installed apps are hidden + suspended unless approved.
 - Update installs are ignored (`Intent.EXTRA_REPLACING`).
 - Detected apps are mirrored into local snapshot + Firestore for review.
 
-How it works:
+## How it works
 - Toggle calls `handleBlockNewAppsToggle` and sets `block_new_apps` (prefs) + `apps.block_new_apps` (`ConfigStore`).
 - On enable:
   - Seeds `known_installed_packages` (current launchable apps).
@@ -33,20 +33,20 @@ How it works:
   - Writes a pending app record to `AppSnapshotStorage` and Firestore.
   - Receiver/worker paths trigger `CloudSyncManager.manualSync()`.
 
-How approval works:
+## How approval works
 - Local approvals: `approved_apps` (prefs).
 - Cloud approvals: `apps.approved` from `ConfigStore`, plus Firestore `devices/{deviceId}/apps/{package}` where `approved=true` or `hidden=false` + `suspended=false`.
 - `UpdateAppsFragment` marks apps approved when you Unhide, Unsuspend, or Enable.
 - `AppInstallReceiver` removes packages from `approved_apps` on uninstall.
 - Approved apps are unblocked on each monitor pass.
 
-Firestore/snapshot fields written:
+## Firestore/snapshot fields written
 - `deviceId`, `label`, `system`, `versionName`, `versionCode`.
 - `hidden`, `suspended`, `uninstallBlocked`, `networkBlocked`, `webviewBlocked`, `webviewException`, `videoBlocked`, `approved`.
 - `detectedAtMs`, `updatedAtMs`, `source`, `installed`, `managed`.
 Note: `system` means "not launchable" (based on `getLaunchIntentForPackage`).
 
-State stored:
+## State stored
 - Prefs: `block_new_apps`, `approved_apps`, `known_installed_packages`.
 - `ConfigStore`: `apps.block_new_apps`, `apps.approved`, `apps.known_installed`.
 - Firestore: `devices/{deviceId}/apps/{package}`.
