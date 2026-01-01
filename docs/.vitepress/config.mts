@@ -1,16 +1,16 @@
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
-  title: "MDM Docs",
+  title: "TripleUMDM Docs",
   description: "Internal system docs",
   themeConfig: {
     nav: [
       { text: "Home", link: "/" },
-      { text: "Android app", link: "/android-app/" },
-      { text: "Website", link: "/website" },
-      { text: "Firestore config", link: "/firestore-config" },
+      { text: "Android MDM app", link: "/android-app/" },
+      { text: "Website TS", link: "/website" },
+      { text: "Firestore config DB", link: "/firestore-config" },
       { text: "VPN + MITM proxy", link: "/vpn-wireguard" },
-      { text: "Directus", link: "/directus" },
+      { text: "Directus DB", link: "/directus" },
     ],
     sidebar: {
       "/android-app/": [
@@ -18,7 +18,7 @@ export default defineConfig({
         {
           text: "Home tab",
           items: [
-            { text: "Hi", link: "/android-app/home/hi" },
+            { text: "Hi <name>", link: "/android-app/home/hi" },
             {
               text: "Policies at a glance",
               link: "/android-app/home/policies-at-a-glance",
