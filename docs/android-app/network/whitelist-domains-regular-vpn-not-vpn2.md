@@ -2,6 +2,7 @@
 
 ## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/PrivacyFragment.kt`
+- `app/src/main/java/com/tripleu/ui/fragments/PrivacyDialogState.kt`
 - `app/src/main/java/com/tripleu/ui/components/HostWhitelistDialogUi.kt`
 - `app/src/main/java/com/tripleu/vpn/WhitelistVpnService.kt`
 - `app/src/main/java/com/tripleu/vpn/AdVpnThread.java`

@@ -63,6 +63,19 @@
 - Finds the Gboard window and detects a search bar + search icon.
 - If detected, it triggers back three times to exit the pane.
 
+## Accessibility node text matcher
+
+### Where it lives
+- `app/src/main/java/com/tripleu/accessibility/AccessibilityNodeUtils.kt`
+
+### What it does
+- Recursively scans an accessibility node tree for keyword matches.
+- Checks both `text` and `contentDescription`.
+
+### How it runs
+- `containsText(...)` walks children up to `maxDepth` (default 12).
+- Used by accessibility blockers that detect UI labels.
+
 ## Accessibility screenshot capturer (unused)
 
 ### Where it lives

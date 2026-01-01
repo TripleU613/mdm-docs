@@ -3,6 +3,7 @@
 ## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/UpdateAppsFragment.kt`
 - `app/src/main/java/com/tripleu/network/FirewallManager.kt`
+- `app/src/main/java/com/tripleu/appcontrol/AppInfo.kt`
 
 ## What it does
 - Shows non-launchable apps with no active management flags.

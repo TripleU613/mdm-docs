@@ -5,8 +5,16 @@
 - `app/src/main/java/com/tripleu/updates/UpdatesViewModel.kt`
 - `app/src/main/java/com/tripleu/updates/AuroraUpdateRepository.kt`
 - `app/src/main/java/com/tripleu/updates/AuroraUpdateInstallManager.kt`
+- `app/src/main/java/com/tripleu/updates/AuroraUpdateInstallReceiver.kt`
+- `app/src/main/java/com/tripleu/updates/UpdateItem.kt`
+- `app/src/main/java/com/tripleu/updates/InstalledApp.kt`
+- `app/src/main/java/com/tripleu/updates/DeliveryFile.kt`
+- `app/src/main/java/com/tripleu/updates/UpdateInstallState.kt`
 - `app/src/main/java/com/tripleu/updates/PlayAuthStore.kt`
 - `app/src/main/java/com/tripleu/updates/PlayHttpClient.kt`
+- `app/src/main/java/com/tripleu/updates/IProxyHttpClient.kt`
+- `app/src/main/java/com/tripleu/updates/ProxyInfo.kt`
+- `app/src/main/java/com/tripleu/updates/EglExtensionProvider.kt`
 - `app/src/main/java/com/tripleu/updates/PlayDeviceSpoofManager.kt`
 - `app/src/main/java/com/tripleu/updates/UpdatesMuteStore.kt`
 
@@ -27,13 +35,18 @@
 - Updates are kept only if `versionCode` is newer than what's installed.
 - `UpdatesMuteStore` filters muted packages and writes `updates.muted_packages` to `ConfigStore`.
 - "Update All" only includes apps that are not already queued or installing.
+- `UpdateItem` holds the update card data, and `InstalledApp` holds the installed snapshot.
+- `PlayHttpClient` implements `IProxyHttpClient` (proxy hook exists but is not called in app code).
 
 ## Install flow
 - Tap Update adds the item to a queue (`UpdateStatus.QUEUED`), processed one-by-one.
 - `resolveDownloadInfo()` uses Aurora `PurchaseHelper` to fetch base/split download URLs.
 - `AuroraUpdateInstallManager` downloads slices to cache and installs via `PackageInstaller.Session`.
 - If `DISALLOW_INSTALL_APPS` is active, it is temporarily disabled for the install and restored after ~3s.
+- `DeliveryFile` entries are used to install split APKs when provided.
+- `AuroraUpdateInstallReceiver` emits an internal broadcast with install results and extras.
 
 ## State and progress
 - Status: `IDLE`, `QUEUED`, `DOWNLOADING`, `INSTALLING`, `SUCCESS`, `FAILED`.
 - Progress appears on the action button and icon ring.
+- `UpdateInstallState` tracks status + progress per package.

@@ -52,6 +52,39 @@
 - Reads IMEI via `TelephonyManager.imei`.
 - Writes to `users/{uid}.imei` and caches `imei_last` + `imei_uploaded` in `MDMSettings`.
 
+## Device-owner action wrapper
+
+### Where it lives
+- `app/src/main/java/com/tripleu/policy/DeviceOwnerActionExecutor.kt`
+
+### What it does
+- Guards DPM actions behind a device-owner check.
+- Shows a failure toast (and optional success toast) unless `silent=true`.
+
+### How it runs
+- Verifies `dpm.isDeviceOwnerApp(...)` before running the action.
+- Executes the action with the active admin component.
+- Catches exceptions and shows the failure message.
+
+## Branding + FRP policy controller
+
+### Where it lives
+- `app/src/main/java/com/tripleu/policy/BrandingPolicyController.kt`
+- `app/src/main/java/com/tripleu/policy/PolicyManager.kt`
+
+### What it does
+- Sets factory reset protection (FRP) accounts.
+- Sets organization name and optional lock screen message.
+
+### How it runs
+- FRP accounts:
+  - Requires device owner and Android 9+.
+  - Skips emulators and devices without `PersistentDataBlockManager`.
+  - Applies `FactoryResetProtectionPolicy`.
+- Branding:
+  - Requires device owner.
+  - Sets org name on Android 8+ and lock screen message on Android 7+.
+
 ## Default policies (first-time setup)
 
 ### Where it lives

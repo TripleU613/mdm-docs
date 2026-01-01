@@ -5,7 +5,9 @@
 - `app/src/main/java/com/tripleu/vpn/AdVpnService.java`
 - `app/src/main/java/com/tripleu/vpn/AdVpnThread.java`
 - `app/src/main/java/com/tripleu/vpn/VpnPermissionHelper.kt`
+- `app/src/main/java/com/tripleu/vpn/Command.java`
 - `app/src/main/java/com/tripleu/policy/PolicyManager.kt`
+- `app/src/main/java/com/tripleu/policy/VpnPolicyController.kt`
 - `app/src/main/java/com/tripleu/network/FirewallManager.kt`
 - `app/src/main/java/com/tripleu/config/ConfigPoller.kt`
 

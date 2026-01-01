@@ -3,6 +3,7 @@
 ## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/PrivacyFragment.kt`
 - `app/src/main/java/com/tripleu/ui/activities/AuthActivity.kt`
+- `app/src/main/java/com/tripleu/ui/activities/UpdatesGuestActivity.kt`
 - `app/src/main/java/com/tripleu/preferences/PreferenceKeys.kt`
 
 ## What it does

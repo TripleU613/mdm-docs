@@ -4,6 +4,7 @@
 - `app/src/main/java/com/tripleu/ui/fragments/HomeFragment.kt`
 - `app/src/main/java/com/tripleu/ui/fragments/HomeScreenContent.kt`
 - `app/src/main/java/com/tripleu/content/TechTakeRepository.kt`
+- `app/src/main/java/com/tripleu/ui/home/TechTake.kt`
 
 ## What it does
 - Shows the greeting title + subtitle in the Hero card.

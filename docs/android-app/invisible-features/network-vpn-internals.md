@@ -6,6 +6,7 @@
 - `app/src/main/java/com/tripleu/dp/RuleDatabaseUpdateJobService.java`
 - `app/src/main/java/com/tripleu/dp/RuleDatabaseUpdateTask.java`
 - `app/src/main/java/com/tripleu/dp/RuleDatabaseItemUpdateRunnable.java`
+- `app/src/main/java/com/tripleu/vpn/SingleWriterMultipleReaderFile.java`
 - `app/src/main/java/com/tripleu/ui/fragments/SettingsFragment.kt`
 
 ### What it does

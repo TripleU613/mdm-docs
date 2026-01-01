@@ -1,5 +1,14 @@
 # Apps tab
 
+## Apps tab shell
+
+### Where it lives
+- `app/src/main/java/com/tripleu/ui/fragments/AppsContainerFragment.kt`
+- `app/src/main/java/com/tripleu/ui/fragments/UpdateAppsFragment.kt`
+
+### What it does
+- Hosts the Apps tab and renders the apps lists.
+
 - [Users apps](./users-apps)
 - [System apps](./system-apps)
 - [Managed apps](./managed-apps)

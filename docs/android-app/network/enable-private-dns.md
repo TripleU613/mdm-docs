@@ -2,6 +2,7 @@
 
 ## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/PrivacyFragment.kt`
+- `app/src/main/java/com/tripleu/ui/fragments/PrivacyDialogState.kt`
 - `app/src/main/java/com/tripleu/config/ConfigPoller.kt`
 
 ## What it does

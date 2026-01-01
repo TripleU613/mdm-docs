@@ -3,6 +3,7 @@
 ## Where it lives
 - `app/src/main/java/com/tripleu/ui/activities/RegisterActivity.kt`
 - `app/src/main/java/com/tripleu/ui/activities/AuthActivity.kt`
+- `app/src/main/java/com/tripleu/ui/activities/AuthComponents.kt`
 - `app/src/main/java/com/tripleu/ui/activities/PermissionsCheckActivity.kt`
 - `app/src/main/java/com/tripleu/MainActivity.kt`
 
