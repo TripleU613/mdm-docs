@@ -18,3 +18,5 @@ Sections shown:
 Data source:
 - `PolicySummaryProvider.build()` aggregates device restrictions, prefs, and app state.
 - The UI builds sections with `buildPolicySections(summary)`.
+- Uses `FirewallManager.getRules()` to count managed apps and per-app blocks.
+- Uses `Hawk` flags for network lock (`isBlockNetwork`) and private DNS (`isPrivateDnsChecked`).

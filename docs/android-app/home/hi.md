@@ -16,3 +16,4 @@ Code path:
 - `HomeFragment.refreshAll()` loads the tech take via `TechTakeRepository.loadTechTake()`.
 - `HomeScreenContent.HeroCard()` renders the greeting and `TechTakeBlock`.
 - `TechTakeBlock` selects Hebrew/English by locale and uses `home_tech_take_empty` as fallback.
+- `TechTakeRepository` caches the latest take in `tech_take_prefs` for offline use.

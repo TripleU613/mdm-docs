@@ -7,7 +7,7 @@ Where it lives:
 
 What it does:
 - Checks for a newer app release.
-- Triggers the manual update flow when a newer build is found.
+- Triggers the Home update prompt when a newer build is found.
 
 How it runs:
 - Calls `AppReleaseChecker.fetchLatestRelease()` which posts to:
@@ -15,3 +15,4 @@ How it runs:
   - Repo: `TripleU613/TripleUMDM_Public`
 - Compares the remote `versionCode` with the installed app version.
 - If newer, calls `HomeUpdateBridge.triggerManualCheck(...)` to start the update flow.
+- The Home dialog uses `AppReleaseChecker.downloadAndInstall()` for the download/install step.

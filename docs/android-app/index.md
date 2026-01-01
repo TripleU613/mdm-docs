@@ -7,6 +7,22 @@ Home tab:
 - Policies at a glance: summary card grouped by System/Installation/Network/Accessibility.
 - Did you know: hardcoded tip list rotated on each resume.
 - Policies applied counter: count of enabled summary items.
+- Managed apps overview: shows counts of managed/total apps with a breakdown by restriction type.
+- Whitelist summary: shows active domain whitelist domains (hides internal Firebase hosts).
+- App update prompt: shows a modal with Download/Remind/Never show when a new build is available.
+
+Onboarding:
+- Welcome + terms: requires checkbox before continuing; links to privacy policy.
+- Sign in: email + password + PIN, then device binding.
+- Sign up: validates email via `isEmailAllowed`, creates Firebase user, writes `users/{uid}` profile.
+- Verify email: reloads user and gates entry until verified.
+- RegisterActivity routing: verified users jump to AuthActivity/MainActivity; unverified users go to verify page.
+- Password reset: sends Firebase reset email.
+- Device binding: RSA keypair + Functions `requestDeviceBinding` / `confirmDeviceBinding`.
+- MDM PIN gate: validates `mdm_pin` or `mdm_pin_hash`, can trigger recovery.
+- PIN recovery: `validateRecoveryPin` or email/password -> ResetPinActivity.
+- Permissions check: requires device owner/admin + `WRITE_SECURE_SETTINGS`, then applies defaults and sets `setup_complete=true`.
+- Extra gates: Privacy tab re-checks storage/install packages/VPN consent; blocked emails list can trigger uninstall.
 
 System tab:
 - Disallow adding users: applies `UserManager.DISALLOW_ADD_USER`.
@@ -62,3 +78,38 @@ Settings tab:
 - Reset MDM PIN: changes PIN and updates `auth.pin_sha256`.
 - Uninstall: reverts policies, clears device owner, starts uninstall.
 - Delete my account: calls Firebase `deleteAccount`, signs out.
+
+Invisible features:
+- App startup bootstrap: deferred startup starts watchers/services after first resume.
+- Boot behavior: restarts VPN/accessibility/app monitor after device boot.
+- Device identity: generates `device-<uuid>` and centralizes Firestore paths.
+- Device admin receiver selection: picks the active DeviceAdminReceiver (new vs legacy).
+- Device info uploader (IMEI): uploads IMEI to `users/{uid}` when device owner + permission.
+- Config store (local SQLite): stores key/value config in `config.db` for sync.
+- Cloud config sync: bi-directional sync between `ConfigStore` and Firestore.
+- Config poller: applies config flags to policies, apps, network, and settings.
+- Default policies (first-time setup): network reset block + FRP account + branding + self-block.
+- Initial config snapshot: writes `snapshot.initial_payload` once after setup.
+- App snapshot storage: mirrors per-app policy state to `devices/{deviceId}/apps/{package}`.
+- Host file auto-refresh: daily host file update job with progress notifications.
+- VPN watchdog keepalive: pings DNS path and restarts VPN on timeout.
+- App remote watcher: applies per-app policy changes from Firestore.
+- App inventory uploader: uploads installed app list + icons to Firestore.
+- Auto update checks: background APK checks and optional silent install.
+- Aurora device spoofing: builds and caches Play profile for Aurora auth.
+- Chrome SafeSearch enforcement: forces SafeSearch and disables Chrome DoH/QUIC.
+- Accessibility auto-enable: re-enables the accessibility service via Settings.Secure.
+- Notification channels: defines service/update channel groups used by foreground services.
+- Accessibility settings self-block: blocks disabling the accessibility service in Settings.
+- Screen capture dialog auto-accept: auto-clicks MediaProjection consent.
+- Gboard GIF search blocker: exits the GIF/search pane when enabled.
+- Remote command receiver: executes admin commands (lock/wipe/sync/uninstall/remote).
+- Remote support: WebRTC screen share + remote input via accessibility.
+- Accessibility screenshot capturer (unused): Accessibility screenshot capturer exists but is not wired.
+- Report portal share: share a URL to open the local report portal.
+- Session lock: auth resets immediately when app backgrounds.
+- Lockout mode: kiosk-style lock driven by `system.lockout_enabled`.
+- Remote uninstall flag: Firestore `pendingUninstall` triggers uninstall flow.
+- Blocked email uninstall: Realtime DB `blockedEmails` triggers uninstall flow.
+- VPN2 WireGuard watcher: premium WireGuard + CA install + lockdown.
+- Play Integrity checks: background device integrity verification.

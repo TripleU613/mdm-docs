@@ -7,6 +7,7 @@ Where it lives:
 What it does:
 - Shows the "Policies applied" number in the Hero card.
 - The value is the count of enabled policy items across all sections.
+- The Hero card also shows a "Controlled apps" highlight using `summary.managedApps`.
 
 Code path:
 - `HomeScreen()` builds `policySections` and sets `totalPolicies`.
