@@ -24,10 +24,6 @@
 ## Issues spotted (current)
 - Website Remote Control uses hardcoded TURN values and ignores `config/turn` and callable functions.
 - `accessibility.block_webview` appears in Firestore keys but is not referenced elsewhere.
-- Website defaults `settings.app_density_percent` to `100`, and `0` is coerced to `100` when loading config.
-- Website defaults `settings.language` to `en`, forcing English on save instead of system locale.
-- Website default `network.private_dns_hostname` is `all.dns.mullvadd.net` (typo vs app default `all.dns.mullvad.net`).
-- Website includes `auth.pin_sha256` as empty by default; saving can write an empty hash to devices.
 - App-only config keys `apps.approved` and `apps.known_installed` are not surfaced in the website UI.
 - SafeSearch DNS config file has no `address=` overrides.
 - `apps-graphql.service` is disabled; if used for policy editing, it is currently offline.
