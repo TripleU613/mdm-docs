@@ -192,12 +192,15 @@
 - Block Play Store.
 - Allow user updates.
 - App Detection Console (Pending / Approved lists).
+- Legacy app lists (raw JSON).
 
 ### Config keys written
 - `system.apk_install_blocked`
 - `apps.block_new_apps`
 - `system.play_store_blocked`
 - `apps.allow_user_updates`
+- `apps.approved`
+- `apps.known_installed`
 
 ### App approvals (console)
 - Data source: `devices/{deviceId}/apps`.
@@ -229,8 +232,8 @@
 
 ### Firestore flow
 - Start:
-  - Writes `devices/{deviceId}/remote_session/current` with `status=idle` and `updatedAtMs`.
-  - Adds `devices/{deviceId}/commands` with `type=start_remote`.
+  - Calls callable `remoteStart` with `deviceId`.
+  - Function writes `remote_session/current` (status + timestamps), clears `ice_candidates`, and enqueues `start_remote`.
 - Session:
   - Listens to `devices/{deviceId}/remote_session/current`.
   - When `status=offering`, reads `offer` and writes `answer`.
@@ -239,14 +242,13 @@
   - Writes to `devices/{deviceId}/remote_session/current/remote_candidates`.
   - Listens to `devices/{deviceId}/remote_session/current/ice_candidates`.
 - Stop:
-  - Adds `devices/{deviceId}/commands` with `type=stop_remote`.
-  - Writes `remote_session/current` with `status=ended`.
+  - Calls callable `remoteStop` with `deviceId`.
+  - Function enqueues `stop_remote` and marks `remote_session/current` as ended.
 
 ### WebRTC + input
-- PeerConnection uses hardcoded STUN + TURN:
-  - `stun:stun.l.google.com:19302`
-  - `stun:159.65.173.60:3478`
-  - `turn:159.65.173.60:3478` (username `tripleu`, credential `451341`) + TCP variant.
+- PeerConnection uses TURN from callables (`remoteStart`, fallback `remoteStatus`):
+  - `turnConfig.urls` (array or string), plus optional `username`/`user` and `credential`/`password`.
+  - Always includes `stun:stun.l.google.com:19302` as a fallback.
 - Data channel messages:
   - `type: "input"` with `{ action, x, y }` (normalized 0..1).
   - `type: "nav"` with `{ action: "back" | "home" | "recents" }`.
@@ -259,7 +261,6 @@
   - Touch events map to the same `input` messages.
   - Pointer coordinates account for letterboxing (actual video display bounds).
 - TURN server details: see `vpn-wireguard`.
-- Note: Remote Control does not use `config/turn` or callable TURN helpers.
 
 ## Accessibility tab
 ### Where it lives

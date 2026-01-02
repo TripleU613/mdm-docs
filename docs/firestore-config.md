@@ -131,7 +131,7 @@
 - `users/{uid}`: `deviceAllowance`, `activeDeviceId`, `activeDevices`, `deviceStatus`, `pendingUninstall`, `stripeCustomerId`, `stripeLastCheckoutId`, `stripeUpdatedAt`, `lastDeviceCheck`.
 - `pinResets/{uid}`: `hash`, `salt`, `expiresAt`.
 - `uninstallTokens/{uid}`: `hash`, `salt`, `expiresAt`.
-- `bannedEmails/{email}`: `reason`, `bannedAt`.
+- `bannedEmails/{email}`: `reason`, `bannedAt`. Read by Android on launch to force uninstall.
 - `mail/{docId}`: email payloads for the mail extension.
 - `metadata/tech_take`: `date`, `english`, `hebrew`, `lastUpdatedAt`.
 - `config/turn`: TURN urls + credentials (server details in `vpn-wireguard`).
@@ -147,13 +147,6 @@
 - `metadata/tech_take` is readable only for signed-in users.
 - `config/turn` is public read; all other config docs are write-denied.
 
-## Technical mismatches (current)
-- Website Remote Control uses hardcoded TURN values instead of `config/turn` or callable functions.
-- Callable functions `remoteStart`/`remoteStop` exist, but the website uses direct Firestore writes.
-- Config key `accessibility.block_webview` appears in the key list but is not referenced elsewhere.
-- App-only config keys `apps.approved` and `apps.known_installed` are not surfaced in the website.
-- Email blocklist is split: Android reads RTDB `blockedEmails`, backend uses Firestore `bannedEmails`.
-
 ## Backend: Firestore database
 - Type: Firestore Native.
 - Location: `nam5`.
@@ -167,7 +160,7 @@
 - Template is empty (`{}`).
 
 ## Backend: Realtime Database
-- `blockedEmails`: list of email strings. Read by Android on startup to force uninstall. No writers in this repo.
+- Not used by the current Android app or website.
 
 ## Backend: Admin scripts (local)
 - `functions/check_commands.js`: list latest commands for a device.
@@ -188,7 +181,7 @@
 ### Services in use
 - Firebase Auth (email + password).
 - Firestore (config, inventory, commands, remote session).
-- Firebase Functions SDK is initialized in `lib/firebase.ts` (region us-central1) but not called in the website UI.
+- Firebase Functions (callables for Remote Control: `remoteStart`, `remoteStop`, `remoteStatus`).
 - Firebase Analytics is initialized client-side only (no custom events in this repo).
 - Realtime Database and Storage are configured in the client config but not used in the website UI.
 
@@ -223,7 +216,8 @@
 - onSnapshot
 
 #### firebase/functions
-- getFunctions (initialized only)
+- getFunctions
+- httpsCallable (`remoteStart`, `remoteStop`, `remoteStatus`)
 
 #### firebase/analytics
 - getAnalytics (client-side guarded; returns null on SSR)
@@ -264,6 +258,8 @@ Fields written (on Save):
 Config keys (from `app/components/dashboard/constants.ts`):
 - apps.block_new_apps
 - apps.allow_user_updates
+- apps.approved
+- apps.known_installed
 - system.apk_install_blocked
 - system.play_store_blocked
 - accessibility.android_auto_quirk
@@ -271,7 +267,6 @@ Config keys (from `app/components/dashboard/constants.ts`):
 - accessibility.whatsapp_channels_blocked
 - accessibility.whatsapp_status_blocked
 - accessibility.in_app_ai_blocked
-- accessibility.block_webview
 - accessibility.webview_block_all
 - accessibility.browser_dummy_mode
 - system.add_users_blocked
@@ -298,7 +293,7 @@ Config keys (from `app/components/dashboard/constants.ts`):
 Type handling (UI):
 - settings.app_density_percent -> int
 - settings.language, network.private_dns_hostname, auth.pin_sha256 -> string
-- network.domain_whitelist_hosts, updates.muted_packages -> JSON string arrays
+- network.domain_whitelist_hosts, updates.muted_packages, apps.approved, apps.known_installed -> JSON string arrays
 - all other keys -> boolean
 
 #### `devices/{deviceId}/apps` (collection)
@@ -387,8 +382,8 @@ Writes:
 - `users/{uid}`: writes profile on sign-up + IMEI updates; reads `pendingUninstall` and `activeDeviceId`.
 - `metadata/tech_take`: read for Home "Tech Take of the Day".
 
-### Realtime Database (Android only)
-- `blockedEmails`: read-only list of blocked emails; if current email is present, app clears device owner and starts uninstall.
+### Email blocklist
+- `bannedEmails/{email}`: if current email exists, app clears device owner and starts uninstall.
 
 ## Firestore path map (all readers/writers)
 - `devices/{deviceId}`: writes from Cloud Functions (device binding + VPN status) and Android (markDeviceAlive, VPN2 wgPublicKey); reads by website, Android (VPN2), and `onDeviceWrite`. Key fields used: `ownerUid`, `ownerEmail`, `publicKey`, `status`, `pendingChallenge`, `challengeCreatedAt`, `lastVerifiedAt`, `lastSeen`, `lastSeenMs`, `deviceInfo`, `deviceId`, `deviceName`, `displayName`, `installTimestamp`, `dateInstalled`, `vpn.*`.
@@ -400,7 +395,7 @@ Writes:
 - `devices/{deviceId}/notes/{noteId}`: website only.
 - `users/{uid}`: writes from Android sign-up + IMEI updates and Cloud Functions (device allowance, device binding status, pending uninstall, Stripe); reads by Android (pendingUninstall, activeDeviceId) and Cloud Functions.
 - `pinResets/{uid}` + `uninstallTokens/{uid}`: Cloud Functions only.
-- `bannedEmails/{email}`: Cloud Functions only; used by `isEmailAllowed` + `deleteAccount`.
+- `bannedEmails/{email}`: Cloud Functions write; Android reads on launch; used by `isEmailAllowed` + `deleteAccount`.
 - `mail/{docId}`: Cloud Functions writes; mail extension consumes.
 - `metadata/tech_take`: Cloud Functions write; Android reads.
 - `config/turn`: Cloud Functions read; TURN config for remote control.
@@ -413,11 +408,11 @@ Writes:
 - Device slots: website `DashboardPage` calls `createDeviceSlotCheckoutHttp`; Firebase `stripeDeviceSlotWebhook` updates `users/{uid}.deviceAllowance`; Android binding enforces allowance.
 - Policy sync: website `DashboardPage` writes `entries[]` + `cloudUpdated`; Android `CloudSyncManager` pulls/applies; Firebase `onConfigWrite` clears `deviceUpdated`.
 - App approvals: Android `NewAppDetectorWorker` + `AppInventoryUploader` write apps with `approved=false`; website Installation/Apps toggles; Android `AppRemoteWatcher` applies.
-- Remote control: website `RemoteControl.tsx` writes `start_remote` + `remote_session`; Android `CommandReceiver` + `RemoteStreamManager` stream/answer; Firebase functions `remoteStart`/`remoteStop` are optional helpers.
+- Remote control: website `RemoteControl.tsx` calls `remoteStart`/`remoteStop` and listens to `remote_session`; Android `CommandReceiver` + `RemoteStreamManager` stream/answer.
 - VPN firewall + whitelist: website toggles `network.*` + per-app `networkBlocked`; Android `ConfigPoller` + `AdVpnService`/`WhitelistVpnService`; Firebase config doc + apps docs.
 - VPN2 WireGuard: website VPN tab starts checkout + edits Directus categories; Firebase writes `devices/{deviceId}.vpn` and `onDeviceWrite` provisions WG; Android `Vpn2RemoteWatcher` uploads `vpn.wgPublicKey` and starts WireGuard.
 - PIN recovery + uninstall: Android `AuthActivity` calls `validateRecoveryPin`, `MainActivity` watches `users/{uid}.pendingUninstall`; Firebase functions handle reset/uninstall tokens; website does not call these.
 - Tech take: Firebase `techTakeCron` writes `metadata/tech_take`; Android `TechTakeRepository` reads; website does not use it.
 - App updates: Android `AppReleaseChecker` calls `getLatestGitHubRelease` Cloud Run; website does not use it.
-- Blocked emails: Firebase Realtime DB `blockedEmails` is read by Android `MainActivity`; website does not use it.
+- Blocked emails: Firestore `bannedEmails/{email}` is checked on app launch; website does not read it directly (uses `isEmailAllowed`).
 - Server stack details for VPN/MITM/Directus: `vpn-wireguard` and `directus`.

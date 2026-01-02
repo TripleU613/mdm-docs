@@ -28,4 +28,4 @@
 - If `Session.isAuthenticated` is false -> `AuthActivity`.
 - If user is missing or email is unverified -> `AuthActivity`.
 - If `setup_complete=false` -> `PermissionsCheckActivity`.
-- If the signed-in email exists in Realtime DB `blockedEmails`, it clears device owner and starts uninstall.
+- If the signed-in email exists in Firestore `bannedEmails/{email}`, it clears device owner and starts uninstall.

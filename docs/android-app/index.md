@@ -10,11 +10,9 @@
 ## Request map (Android -> backend)
 - Firebase Auth: sign in, sign up, verify email, password reset.
 - Firebase Functions: device binding, recovery PIN, integrity check, delete account.
-- Firestore: config sync, apps policy, commands, remote session.
-- Realtime Database: `blockedEmails` for forced uninstall.
+- Firestore: config sync, apps policy, commands, remote session, email blocklist check.
 - Cloud Run: `getLatestGitHubRelease` for update checks.
 - VPN2 WireGuard: reads `devices/{deviceId}.vpn` set by backend; see `vpn-wireguard`.
-- Email blocklist: RTDB `blockedEmails` is separate from Firestore `bannedEmails`.
 
 ## Home tab
 - Hi: uses Firebase display name or email prefix; includes Tech Take from `metadata/tech_take`.
@@ -36,7 +34,7 @@
 - MDM PIN gate: validates `mdm_pin`/`mdm_pin_hash`; can trigger recovery.
 - PIN recovery: `validateRecoveryPin` or email/password -> `ResetPinActivity`.
 - Permissions check: device owner/admin + `WRITE_SECURE_SETTINGS`; applies defaults and sets `setup_complete=true`.
-- Extra gates: Privacy tab re-checks storage/install packages/VPN consent; `blockedEmails` can trigger uninstall.
+- Extra gates: Privacy tab re-checks storage/install packages/VPN consent; `bannedEmails` can trigger uninstall.
 
 ## System tab
 - Disallow adding users: applies `UserManager.DISALLOW_ADD_USER`.
@@ -144,5 +142,5 @@
 
 ## Security + integrity
 - Remote uninstall flag: Firestore `pendingUninstall` triggers uninstall flow.
-- Blocked email uninstall: Realtime DB `blockedEmails` triggers uninstall flow.
+- Blocked email uninstall: Firestore `bannedEmails/{email}` triggers uninstall flow.
 - Play Integrity checks: background device integrity verification.
