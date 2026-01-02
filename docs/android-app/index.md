@@ -1,28 +1,33 @@
 # Android app
 
-## Overview (growing list)
+## Overview
+- Config lives in `ConfigStore` and syncs to `devices/{deviceId}/config/state/current/current`.
+- Per-app policy lives in `devices/{deviceId}/apps/{package}` and is applied by `AppRemoteWatcher`.
+- Remote commands come from `devices/{deviceId}/commands`.
+- Website admin UI writes config/app policy; see `website`.
+- Full path map + backend notes: `firestore-config`.
 
 ## Home tab
-- Hi: greeting uses Firebase display name, else email prefix; includes Tech take of the day from Firestore `metadata/tech_take`.
-- Policies at a glance: summary card grouped by System/Installation/Network/Accessibility.
-- Did you know: hardcoded tip list rotated on each resume.
-- Policies applied counter: count of enabled summary items.
-- Managed apps overview: shows counts of managed/total apps with a breakdown by restriction type.
-- Whitelist summary: shows active domain whitelist domains (hides internal Firebase hosts).
-- App update prompt: shows a modal with Download/Remind/Never show when a new build is available.
+- Hi: uses Firebase display name or email prefix; includes Tech Take from `metadata/tech_take`.
+- Policies at a glance: summary grouped by System/Installation/Network/Accessibility.
+- Did you know: rotates hardcoded tips on resume.
+- Policies applied counter: counts enabled policy chips.
+- Managed apps overview: counts managed/total apps and restriction types.
+- Whitelist summary: shows active domains; hides internal Firebase hosts.
+- App update prompt: modal with Download/Remind/Never when a newer build is found.
 
 ## Onboarding
-- Welcome + terms: requires checkbox before continuing; links to privacy policy.
+- Welcome + terms: must accept; links to privacy policy.
 - Sign in: email + password + PIN, then device binding.
-- Sign up: validates email via `isEmailAllowed`, creates Firebase user, writes `users/{uid}` profile.
-- Verify email: reloads user and gates entry until verified.
-- RegisterActivity routing: verified users jump to AuthActivity/MainActivity; unverified users go to verify page.
+- Sign up: `isEmailAllowed` check, create user, write `users/{uid}` profile.
+- Verify email: reloads user; blocks until verified.
+- RegisterActivity: verified -> Auth/Main; unverified -> Verify.
 - Password reset: sends Firebase reset email.
-- Device binding: RSA keypair + Functions `requestDeviceBinding` / `confirmDeviceBinding`.
-- MDM PIN gate: validates `mdm_pin` or `mdm_pin_hash`, can trigger recovery.
-- PIN recovery: `validateRecoveryPin` or email/password -> ResetPinActivity.
-- Permissions check: requires device owner/admin + `WRITE_SECURE_SETTINGS`, then applies defaults and sets `setup_complete=true`.
-- Extra gates: Privacy tab re-checks storage/install packages/VPN consent; blocked emails list can trigger uninstall.
+- Device binding: RSA keypair + Functions `requestDeviceBinding`/`confirmDeviceBinding`.
+- MDM PIN gate: validates `mdm_pin`/`mdm_pin_hash`; can trigger recovery.
+- PIN recovery: `validateRecoveryPin` or email/password -> `ResetPinActivity`.
+- Permissions check: device owner/admin + `WRITE_SECURE_SETTINGS`; applies defaults and sets `setup_complete=true`.
+- Extra gates: Privacy tab re-checks storage/install packages/VPN consent; `blockedEmails` can trigger uninstall.
 
 ## System tab
 - Disallow adding users: applies `UserManager.DISALLOW_ADD_USER`.
@@ -34,25 +39,25 @@
 
 ## Installation
 - Disable APK install: applies `UserManager.DISALLOW_INSTALL_APPS`.
-- Block new apps: hides + suspends new installs unless approved; detects via install receiver + monitor service + periodic worker; approvals from prefs + `ConfigStore` + Firestore `devices/{deviceId}/apps/{package}`.
-- Allow user updates: shows the Updates link on the PIN screen to open the Updates tab (UpdatesGuestActivity).
+- Block new apps: hides + suspends new installs unless approved; approvals from prefs, `ConfigStore`, and Firestore `devices/{deviceId}/apps/{package}`.
+- Allow user updates: shows Updates link on the PIN screen to open the Updates tab (`UpdatesGuestActivity`).
 - Block Play Store: hides `com.android.vending`.
 
 ## Network tab
 - Disable tethering and hotspot: applies `UserManager.DISALLOW_CONFIG_TETHERING`.
 - Block Wi-Fi: applies `UserManager.DISALLOW_CONFIG_WIFI` and stores `network.wifi_blocked`.
-- Block all traffic: uses the VPN firewall and `isBlockNetwork` to block traffic; forces Wi-Fi block while active.
+- Block all traffic: uses VPN firewall; forces Wi-Fi block while active.
 - Enable private DNS: sets `private_dns_mode` + hostname; requires `WRITE_SECURE_SETTINGS`.
 - Enable VPN firewall: starts `AdVpnService`, sets Always-On, blocks VPN settings changes; per-app blocks use `firewall_rules`.
-- Whitelist domains: runs `WhitelistVpnService`, disables Private DNS and main VPN toggle; DNS allowlist via `RuleDatabase`.
+- Whitelist domains: runs `WhitelistVpnService`, disables Private DNS and main VPN; DNS allowlist via `RuleDatabase`.
 
 ## Accessibility tab
 - Android Auto quirk: returns Home on Google Search/Maps accessibility events.
 - Block WhatsApp updates tab: exits if the Updates tab is selected.
-- Block WhatsApp channels: detects channel UI and applies penalty timers.
-- Block status: detects Status UI and exits (penalty timers).
+- Block WhatsApp channels: detects channel UI; applies penalty timers.
+- Block status: detects Status UI; exits (penalty timers).
 - Block AI chats: blocks Meta AI, Gemini chats, and Google Photos Create.
-- Block all in-app browsers: global mode blocks all except exception list; when off it only blocks per-app blocklist.
+- Block all in-app browsers: on blocks all except exception list; off blocks only per-app blocklist.
 - Block default browsers: hides/suspends browser-capable apps; blocks default-app changes on Android 14+.
 
 ## Apps tab
@@ -62,27 +67,27 @@
 - Actions: hide, suspend, disable, make offline (VPN), block in-app browser, add WebView exception, block video, block uninstall.
 
 ## Updates tab
-- Aurora updater: lists available updates via Aurora GPlay API; pull to refresh, update all, swipe to mute; installs require device owner.
+- Aurora updater: lists updates via Aurora GPlay API; pull to refresh, update all, swipe to mute; installs require device owner.
 
 ## Settings tab
 - Switch to Hebrew: toggles app locale via AppCompatDelegate; stores `settings.language`.
 - Export profile: writes encrypted ConfigStore export (no pins/auth/uid/email/snapshot).
 - Import profile: decrypts and applies entries; warns if VPN consent is missing.
 - Import whitelist: edits domain whitelist; parses domain lists and saves `network.domain_whitelist_hosts`.
-- Account info: shows signed-in email and copy to clipboard.
+- Account info: shows signed-in email; copy to clipboard.
 - Privacy policy: opens in-app WebView to GitHub `Privacy.md`.
 - Check for app updates: queries latest release and triggers manual update check.
 - Support us: opens `https://tripleu.org/support`.
 - App density: applies app-only density scale and stores percent.
-- Muted updates: list of muted packages; unmute from dialog.
+- Muted updates: list of muted packages; unmute in dialog.
 - Reset MDM PIN: changes PIN and updates `auth.pin_sha256`.
 - Uninstall: reverts policies, clears device owner, starts uninstall.
 - Delete my account: calls Firebase `deleteAccount`, signs out.
 
-## Invisible features (grouped)
+## Invisible features
 
 ## Lifecycle + session
-- App startup bootstrap: deferred startup starts watchers/services after first resume.
+- App startup bootstrap: defers watchers/services until first resume.
 - Boot behavior: restarts VPN/accessibility/app monitor after device boot.
 - Session lock: auth resets immediately when app backgrounds.
 - Lockout mode: kiosk-style lock driven by `system.lockout_enabled`.
@@ -115,7 +120,7 @@
 - Accessibility settings self-block: blocks disabling the accessibility service in Settings.
 - Screen capture dialog auto-accept: auto-clicks MediaProjection consent.
 - Gboard GIF search blocker: exits the GIF/search pane when enabled.
-- Accessibility screenshot capturer (unused): Accessibility screenshot capturer exists but is not wired.
+- Accessibility screenshot capturer: exists but unused.
 
 ## Remote control + reporting
 - Remote command receiver: executes admin commands (lock/wipe/sync/uninstall/remote).
