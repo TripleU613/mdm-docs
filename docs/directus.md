@@ -309,6 +309,8 @@ Content-Type: application/json
 - `app_policies`, `app_policy_rules`.
 - `website_categories`, `website_category_rules`.
 - `bad_words`, `store_apps`.
+### Ops note
+- No systemd timer/service is configured for these import scripts on `kvylock`; runs are manual.
 
 ## App policy data (Postgres)
 - `app_network_policies` and related `app_network_variants` and `app_network_hosts` are created by `import_app_policies.py`.

@@ -14,6 +14,7 @@
 - Realtime Database: `blockedEmails` for forced uninstall.
 - Cloud Run: `getLatestGitHubRelease` for update checks.
 - VPN2 WireGuard: reads `devices/{deviceId}.vpn` set by backend; see `vpn-wireguard`.
+- Email blocklist: RTDB `blockedEmails` is separate from Firestore `bannedEmails`.
 
 ## Home tab
 - Hi: uses Firebase display name or email prefix; includes Tech Take from `metadata/tech_take`.

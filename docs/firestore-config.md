@@ -147,6 +147,17 @@
 - `metadata/tech_take` is readable only for signed-in users.
 - `config/turn` is public read; all other config docs are write-denied.
 
+## Technical mismatches (current)
+- Website Remote Control uses hardcoded TURN values instead of `config/turn` or callable functions.
+- Callable functions `remoteStart`/`remoteStop` exist, but the website uses direct Firestore writes.
+- Config key `accessibility.block_webview` appears in the key list but is not referenced elsewhere.
+- Website defaults `settings.app_density_percent` to `100`, and `loadConfig` coerces `0` to `100`; default density cannot persist.
+- Website defaults `settings.language` to `en`; the app only applies language when the key exists, so saving defaults forces English.
+- Website default `network.private_dns_hostname` is `all.dns.mullvadd.net` (double `d`); app default is `all.dns.mullvad.net`.
+- Website includes `auth.pin_sha256` as empty by default; a save can write an empty hash that the app applies to `mdm_pin_hash`.
+- App-only config keys `apps.approved` and `apps.known_installed` are not surfaced in the website.
+- Email blocklist is split: Android reads RTDB `blockedEmails`, backend uses Firestore `bannedEmails`.
+
 ## Backend: Firestore database
 - Type: Firestore Native.
 - Location: `nam5`.

@@ -259,6 +259,7 @@
   - Touch events map to the same `input` messages.
   - Pointer coordinates account for letterboxing (actual video display bounds).
 - TURN server details: see `vpn-wireguard`.
+- Note: Remote Control does not use `config/turn` or callable TURN helpers.
 
 ## Accessibility tab
 ### Where it lives

@@ -232,6 +232,7 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 - DNS redirect: iptables sends TCP/UDP 53 from `10.9.0.0/24` to `:5353`.
 - DNS upstream: `dnsmasq` uses `1.1.1.1` and `1.0.0.1` (`/etc/dnsmasq.d/kvylock-safesearch.conf`).
 - Port `5353` is only accepted from `10.9.0.0/24` and localhost; other sources are dropped.
+- SafeSearch override list is empty in the current dnsmasq config file.
 - DoT blocked: iptables drops TCP/UDP 853 for `10.9.0.0/24`.
 - UDP 443 from VPN clients is rejected (QUIC block).
 - NAT: `10.9.0.0/24` is masqueraded out `eth0`.
