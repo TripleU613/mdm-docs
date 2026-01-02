@@ -3,6 +3,8 @@
 ## Connections
 - Android app: device binding, config sync, inventory. See `android-app`.
 - Website: admin UI for config/apps/commands. See `website`.
+- VPN + MITM server stack: `vpn-wireguard`.
+- Directus schema + ops: `directus`.
 
 ## Backend: Cloud Functions (Firebase)
 ### Global settings
@@ -81,7 +83,7 @@
 ### External dependencies
 - Stripe (device slots + VPN subscriptions).
 - Directus (VPN categories, appeals, site overrides).
-- VPN API (WireGuard peer upsert/remove).
+- VPN API (WireGuard peer upsert/remove) hosted on `kvylock`; see `vpn-wireguard`.
 - Play Integrity API (token verification).
 - Gemini API (tech take content).
 - GitHub API (latest release lookup).
@@ -132,7 +134,7 @@
 - `bannedEmails/{email}`: `reason`, `bannedAt`.
 - `mail/{docId}`: email payloads for the mail extension.
 - `metadata/tech_take`: `date`, `english`, `hebrew`, `lastUpdatedAt`.
-- `config/turn`: TURN urls + credentials.
+- `config/turn`: TURN urls + credentials (server details in `vpn-wireguard`).
 - `config/wg`: endpoint + public keys.
 - `config/wg_pool`: next host counters.
 - `online_pin/current`: `pinValue`.
@@ -411,3 +413,4 @@ Writes:
 - Tech take: Firebase `techTakeCron` writes `metadata/tech_take`; Android `TechTakeRepository` reads; website does not use it.
 - App updates: Android `AppReleaseChecker` calls `getLatestGitHubRelease` Cloud Run; website does not use it.
 - Blocked emails: Firebase Realtime DB `blockedEmails` is read by Android `MainActivity`; website does not use it.
+- Server stack details for VPN/MITM/Directus: `vpn-wireguard` and `directus`.

@@ -9,6 +9,15 @@
 ## Connections
 - Android app applies config/app policies written here; see `android-app`.
 - Full path map + backend details: `firestore-config`.
+- VPN + MITM server stack: `vpn-wireguard`.
+- Directus schema + ops: `directus`.
+
+## Request map (website -> backend)
+- Firebase Auth: login, session guard, sign out, password reset.
+- Firestore: devices list, config state, apps, commands, notes, remote session.
+- Cloud Run: device slot checkout and VPN checkout (ID token in Authorization header).
+- Directus: VPN categories, appeals, category prefs, site overrides.
+- WebRTC: STUN/TURN for Remote Control (TURN host on `kvylock`; see `vpn-wireguard`).
 
 ## Auth + access
 - Login uses Firebase Auth email + password.
@@ -249,6 +258,7 @@
   - Mouse move events throttle to ~30fps.
   - Touch events map to the same `input` messages.
   - Pointer coordinates account for letterboxing (actual video display bounds).
+- TURN server details: see `vpn-wireguard`.
 
 ## Accessibility tab
 ### Where it lives
@@ -317,6 +327,10 @@
 - Writes config key `network.premium_vpn_enabled`.
 - Disabled if the subscription check above fails.
 
+### Flow
+- Buy VPN -> Cloud Run checkout -> Stripe webhook -> Firebase writes `devices/{deviceId}.vpn`.
+- Android reads the VPN fields and starts WireGuard; server stack is in `vpn-wireguard`.
+
 ### Appeals (blocked sites)
 - Reads from Directus `vpn_appeals` filtered by `device_id`.
 - Orders by `created_at` (desc) and only shows `pending` or empty status.
@@ -335,6 +349,8 @@
   - Sorts by `sort_order`, then name.
   - `default_image_blocking` falls back to `default_gif_blocking` when present.
 - Deletes a pref row when a category matches defaults.
+### Directus details
+- Schema and server notes: `directus`.
 
 ### Payments
 - "Buy VPN" calls Cloud Run:

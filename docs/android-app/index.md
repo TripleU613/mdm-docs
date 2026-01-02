@@ -7,6 +7,14 @@
 - Website admin UI writes config/app policy; see `website`.
 - Full path map + backend notes: `firestore-config`.
 
+## Request map (Android -> backend)
+- Firebase Auth: sign in, sign up, verify email, password reset.
+- Firebase Functions: device binding, recovery PIN, integrity check, delete account.
+- Firestore: config sync, apps policy, commands, remote session.
+- Realtime Database: `blockedEmails` for forced uninstall.
+- Cloud Run: `getLatestGitHubRelease` for update checks.
+- VPN2 WireGuard: reads `devices/{deviceId}.vpn` set by backend; see `vpn-wireguard`.
+
 ## Home tab
 - Hi: uses Firebase display name or email prefix; includes Tech Take from `metadata/tech_take`.
 - Policies at a glance: summary grouped by System/Installation/Network/Accessibility.
@@ -114,6 +122,7 @@
 - VPN watchdog keepalive: pings DNS path and restarts VPN on timeout.
 - Chrome SafeSearch enforcement: forces SafeSearch and disables Chrome DoH/QUIC.
 - VPN2 WireGuard watcher: premium WireGuard + CA install + lockdown.
+- Server stack details for VPN2/MITM: `vpn-wireguard`.
 
 ## Accessibility helpers
 - Accessibility auto-enable: re-enables the accessibility service via Settings.Secure.
