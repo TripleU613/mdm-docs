@@ -9,7 +9,7 @@
 
 ## Request map (Android -> backend)
 - Firebase Auth: sign in, sign up, verify email, password reset.
-- Firebase Functions: device binding, recovery PIN, integrity check, delete account.
+- Firebase Functions: device binding, recovery PIN, delete account.
 - Firestore: config sync, apps policy, commands, remote session, email blocklist check.
 - Cloud Run: `getLatestGitHubRelease` for update checks.
 - VPN2 WireGuard: reads `devices/{deviceId}.vpn` set by backend; see `vpn-wireguard`.
@@ -140,7 +140,6 @@
 - Aurora device spoofing: builds and caches Play profile for Aurora auth.
 - Notification channels: defines service/update channel groups used by foreground services.
 
-## Security + integrity
+## Security
 - Remote uninstall flag: Firestore `pendingUninstall` triggers uninstall flow.
 - Blocked email uninstall: Firestore `bannedEmails/{email}` triggers uninstall flow.
-- Play Integrity checks: background device integrity verification.

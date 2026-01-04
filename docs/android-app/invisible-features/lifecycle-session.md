@@ -8,7 +8,7 @@
 ### What it does
 - Boots background services and watchers after first resume (or 10s fallback).
 - Runs only in the main app process.
-- Reapplies app density and initializes integrity checks.
+- Reapplies app density.
 
 ### How it runs
 - `triggerDeferredStartup()` waits ~350ms after first resume.
@@ -18,6 +18,7 @@
   - `HomeUpdateBridge`, `ConfigPoller`, `CloudSyncManager`.
   - `CommandReceiver`, `AppRemoteWatcher`, `Vpn2RemoteWatcher`.
   - `AppInventoryUploader` and `NewAppDetector`.
+  - `PeriodicTaskRunner` for shared 5s/30s/60s ticks.
 - Registers `SessionLifecycleCallbacks` to lock the app on background.
 
 ## Boot behavior

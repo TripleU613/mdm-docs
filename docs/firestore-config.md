@@ -55,7 +55,6 @@
 - `requestDeviceChallenge`: input `deviceId`; writes new challenge on device.
 - `verifyDeviceChallenge`: input `deviceId`, `signature`; verifies challenge, updates device + user doc.
 - `setDeviceAllowance`: requires admin secret; input `email`, `allowance`; updates `users/{uid}.deviceAllowance`.
-- `verifyIntegrityToken`: input `token`; calls Play Integrity API; returns verdicts.
 - `createDeviceSlotCheckout`: Stripe one-time checkout; input `quantity`; returns `url`.
 - `cancelVpnSubscription`: input `deviceId`, optional `subscriptionId`, `cancelNow`; updates Stripe + `devices/{deviceId}.vpn`.
 - `listWebsiteCategories`: returns Directus `website_categories`.
@@ -84,7 +83,6 @@
 - Stripe (device slots + VPN subscriptions).
 - Directus (VPN categories, appeals, site overrides).
 - VPN API (WireGuard peer upsert/remove) hosted on `kvylock`; see `vpn-wireguard`.
-- Play Integrity API (token verification).
 - Gemini API (tech take content).
 - GitHub API (latest release lookup).
 
@@ -104,7 +102,6 @@
   - requestUninstall
   - confirmUninstall
   - validateRecoveryPin
-  - verifyIntegrityToken
   - deleteAccount
   - isEmailAllowed
   - setDeviceAllowance
@@ -368,7 +365,6 @@ Writes:
 - `isEmailAllowed`.
 - `validateRecoveryPin`.
 - `deleteAccount`.
-- `verifyIntegrityToken`.
 
 ### HTTP endpoints used by Android (Cloud Run)
 - `getLatestGitHubRelease`: POST `https://getlatestgithubrelease-xjmaoa4a5a-uc.a.run.app` with `{"data":{"repoOwner":"TripleU613","repoName":"TripleUMDM_Public"}}`.

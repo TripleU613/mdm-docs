@@ -205,7 +205,7 @@
 ### App approvals (console)
 - Data source: `devices/{deviceId}/apps`.
 - Pending list:
-  - apps where `approved === false` (explicitly rejected), unless locally approved.
+  - apps that are currently blocked (`hidden` or `suspended`) and not approved.
 - Approved list:
   - apps where `approved === true`, or locally approved.
 - Clicking Approve/Reject only updates local state until Save.

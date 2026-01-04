@@ -8,4 +8,4 @@
 - [Accessibility helpers](./accessibility-helpers)
 - [Remote control + reporting](./remote-control-reporting)
 - [Updates + notifications](./updates-notifications)
-- [Security + integrity](./security-integrity)
+- [Security](./security-integrity)
