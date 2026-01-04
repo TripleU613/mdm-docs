@@ -1,4 +1,4 @@
-# VPN + MITM proxy (WireGuard)
+# VPN + proxies (WireGuard)
 
 Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Directus).
 
@@ -76,7 +76,8 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 ### Core services
 - WireGuard: `wg-quick@wg-mitm` with config `/etc/wireguard/wg-mitm.conf`.
 - VPN API: `api-http.service` runs `/opt/api/server.py` on `127.0.0.1:8000`.
-- MITM proxy: `mitmproxy.service` runs `mitmweb` in transparent mode on `:8080` with web UI on `127.0.0.1:8081`.
+- Squid: `squid.service` provides the VPN intercept proxy on `3128/3129`.
+- MITM proxy: `mitmproxy.service` runs `mitmweb` in explicit mode on `:8080` with web UI on `127.0.0.1:8081`.
 - DNS: `dnsmasq` listens on `0.0.0.0:5353` for VPN clients.
 - Directus: Docker `directus` + `directus-postgres`, proxied by Nginx.
 - Nginx: TLS entrypoint for `vpn.kvylock.com`.
@@ -107,14 +108,30 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 - Responses are JSON with `status` (`success` or `failure`) and an `error` string on failure.
 - Logs: `/opt/api/log.txt`.
 
+### Squid proxy (intercept)
+- Config:
+  - `/etc/squid/squid.conf` (`http_port 3128 intercept`).
+  - `/etc/squid/conf.d/tripleu-mdm.conf` (allow `10.9.0.0/24`).
+  - `/etc/squid/conf.d/tripleu-ssl.conf` (TLS intercept + ssl-bump).
+- Ports:
+  - `3128` HTTP intercept.
+  - `3129` HTTPS intercept (`ssl-bump` + generated certs).
+  - `127.0.0.1:3127` local forward-proxy port (needed by Squid for bumping).
+- TLS behavior:
+  - `ssl_bump peek step1`, then `splice all` (no decrypt).
+- Certs:
+  - CA cert/key: `/etc/squid/ssl_cert/squid-ca.pem`.
+  - SSL DB: `/var/lib/squid/ssl_db`.
+
 ### MITM proxy
-- Transparent proxy: iptables redirects TCP 80/443 from `10.9.0.0/24` to `:8080`.
+- Explicit proxy on `0.0.0.0:8080` (clients must point to it).
+- Input is limited to WireGuard clients (`10.9.0.0/24`).
 - Web UI: `https://vpn.kvylock.com/logs/` -> `127.0.0.1:8081` (Nginx basic auth).
 - Certs: `/opt/mitmproxy/certs/mitmproxy-ca.pem` and `mitmproxy-dhparam.pem`.
 - Runner: `/opt/blockers/runner.py` loads the blocker modules below.
 - Version: mitmproxy 12.2.0 in `/opt/mitmproxy-venv`.
 - Directus defaults: blockers use `http://127.0.0.1:8055` and read `/opt/directus/.env` when `DIRECTUS_TOKEN` is not set.
-- Service flags: `--mode transparent`, `--showhost`, `--set confdir=/opt/mitmproxy/certs/`, `--set web_password=...`.
+- Service flags: `--mode regular`, `--showhost`, `--set confdir=/opt/mitmproxy/certs/`, `--set web_password=...`.
 - SNI logging: `SNI_LOG_IPS=*` and `SNI_LOG_TTL=30` are set on the service.
 
 #### Blocker modules
@@ -229,6 +246,7 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
   - Message uses the server response text.
 
 ### DNS + firewall
+- HTTP/HTTPS redirect: iptables sends TCP 80 -> `3128` and TCP 443 -> `3129` for `10.9.0.0/24`.
 - DNS redirect: iptables sends TCP/UDP 53 from `10.9.0.0/24` to `:5353`.
 - DNS upstream: `dnsmasq` uses `1.1.1.1` and `1.0.0.1` (`/etc/dnsmasq.d/kvylock-safesearch.conf`).
 - Port `5353` is only accepted from `10.9.0.0/24` and localhost; other sources are dropped.
@@ -238,11 +256,12 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 - NAT: `10.9.0.0/24` is masqueraded out `eth0`.
 - iptables restore: `/etc/iptables/rules.v4` loaded by `iptables-restore.service` at boot.
 
-### Traffic path (MITM)
+### Traffic path (current)
 - VPN client connects to WireGuard `wg-mitm`.
-- TCP 80/443 is redirected to mitmweb `:8080` for transparent proxying.
+- TCP 80/443 is redirected to Squid (`3128/3129`) for intercept proxying (peek + splice).
+- Chrome (premium VPN active) uses explicit proxy `10.9.0.1:8080` to `mitmproxy`.
 - DNS requests hit `dnsmasq` on `:5353` before leaving the box.
-- QUIC and DNS-over-TLS are blocked to force MITM and DNS control.
+- QUIC and DNS-over-TLS are blocked to keep traffic on TCP and DNS on `dnsmasq`.
 
 ### Nginx routes
 - `vpn.kvylock.com/api` -> local VPN API.

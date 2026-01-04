@@ -50,14 +50,19 @@
 ### What it does
 - Forces Google SafeSearch in Chrome.
 - Disables Chrome QUIC and DNS-over-HTTPS so filtering stays enforceable.
+- When premium VPN is active, forces Chrome to use the MITM explicit proxy on the VPN gateway.
+- Clears the proxy when premium VPN is not active.
 
 ### How it runs
-- `ConfigPoller` calls `PolicyManager.setChromeSafeSearch(..., true)` each poll.
+- `ConfigPoller` calls `PolicyManager.setChromeSafeSearch(..., proxyEnabled=Vpn2State.isActive(context))` each poll.
+- `Vpn2RemoteWatcher` re-applies the policy when premium VPN starts/stops.
 - The controller sets application restrictions for installed Chrome packages:
   - `ForceGoogleSafeSearch=true`
   - `QuicAllowed=false`
   - `DnsOverHttpsMode=off`
   - `DnsOverHttpsTemplates=""`
+  - `ProxyMode=fixed_servers` (only when premium VPN is active)
+  - `ProxyServer=http=10.9.0.1:8080;https=10.9.0.1:8080` (only when premium VPN is active)
 
 ## VPN2 WireGuard watcher
 

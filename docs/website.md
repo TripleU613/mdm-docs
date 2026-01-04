@@ -97,7 +97,7 @@
 - `status`.
 - `lastSeenMs` or `lastSeen`.
 - `deviceInfo` (model, release/sdk, versionName, brand/manufacturer).
-- `vpn` (used for VPN tab visibility): `active`, `stripeSubscriptionId`, `expiresAtMs`.
+- `vpn` (premium status): `active`, `stripeSubscriptionId`, `expiresAtMs`.
 
 ### Config doc (`devices/{deviceId}/config/state/current/current`)
 - `entries[]`: `{ key, value, type, updatedAtMs, source }`.
@@ -320,10 +320,14 @@
 - Directus calls use `NEXT_PUBLIC_DIRECTUS_URL` (default `https://vpn.kvylock.com/directus`) and `NEXT_PUBLIC_DIRECTUS_TOKEN`.
 
 ### Tab visibility
-- Only shows if `devices/{deviceId}.vpn` has:
+- Always visible.
+
+### Premium access gate
+- Uses `devices/{deviceId}.vpn` and requires:
   - `active=true`
   - `stripeSubscriptionId` not empty
   - `expiresAtMs` in the future
+- When invalid, premium actions are disabled and panels stay collapsed.
 
 ### Premium VPN toggle
 - Writes config key `network.premium_vpn_enabled`.
