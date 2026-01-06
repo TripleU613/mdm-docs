@@ -46,8 +46,8 @@
 ### How it runs
 - Controlled by `AppBlockAccessibilityService.autoAcceptScreenCapture` (default true).
 - On accessibility events, it checks dialog keywords in English/Hebrew.
-- Clicks accept buttons or their clickable parent.
-- Fallback: clicks any non-cancel button that looks like accept.
+- Requires a matching Cancel/Deny button to confirm it's a real capture dialog.
+- Clicks accept buttons (or their clickable parent) only when the dialog match is confirmed.
 
 ## Gboard GIF search blocker
 

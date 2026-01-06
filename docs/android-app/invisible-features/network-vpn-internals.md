@@ -1,5 +1,13 @@
 # Network + VPN internals
 
+## Mode precedence (what wins)
+- Premium VPN (WireGuard) overrides legacy VPN and whitelist modes.
+- Domain whitelist mode disables Private DNS and the main VPN toggle.
+- Block all traffic requires the legacy VPN and is disabled while whitelist or premium VPN is active.
+- Per-app network blocks are stored in `firewall_rules`:
+  - Legacy VPN uses them to build a selective VPN.
+  - Premium VPN passes them as excluded apps (those apps bypass the tunnel).
+
 ## Host file auto-refresh
 
 ### Where it lives
@@ -63,6 +71,10 @@
   - `DnsOverHttpsTemplates=""`
   - `ProxyMode=fixed_servers` (only when premium VPN is active)
   - `ProxyServer=http=10.9.0.1:8080;https=10.9.0.1:8080` (only when premium VPN is active)
+
+### Routing summary
+- Chrome traffic goes to the explicit proxy on the VPN gateway when premium VPN is active.
+- Non-Chrome traffic stays in the WireGuard tunnel and is filtered by the VPN-side blocklists (Squid + DNS/ipset).
 
 ## VPN2 WireGuard watcher
 

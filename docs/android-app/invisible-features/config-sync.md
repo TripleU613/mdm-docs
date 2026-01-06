@@ -34,8 +34,10 @@
 - Firestore doc: `devices/{deviceId}/config/state/current/current`.
 - Snapshot listener applies newer remote entries to `ConfigStore`.
 - Uses `cloudUpdated`/`deviceUpdated` flags to coordinate which side is newer.
-- Every 30s, `syncOnce()` pushes newer local entries.
-- Every 60s, `writeHeartbeat()` updates `lastSeenMs` + `deviceInfo`.
+- `PeriodicTaskRunner` drives:
+  - `tickAttach()` every ~5s until the listener is attached.
+  - `tickSync()` every ~30s to push newer local entries.
+  - `tickHeartbeat()` every ~60s for `lastSeenMs` + `deviceInfo`.
 - On first attach, it creates the config doc and triggers `AppInventoryUploader.uploadNow()`.
 - `uploadFcmToken()` attaches `deviceInfo.fcmToken` when available.
 - If `auth.pin_sha256` is received, it also stores `mdm_pin_hash` in `MDMSettings`.
@@ -50,7 +52,8 @@
 - Runs continuously when the app is in process and device owner is set.
 
 ### How it runs
-- `start()` loops every ~30s and calls `applyIfChanged()`.
+- `start()` only arms the poller; no internal loop.
+- `PeriodicTaskRunner` calls `tick()` every ~30s to run `applyIfChanged()`.
 - Applies:
   - System restrictions (users, factory reset, APK install, etc).
   - App rules (hide/suspend/uninstall/network/webview/video).

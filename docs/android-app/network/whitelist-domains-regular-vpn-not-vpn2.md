@@ -15,6 +15,7 @@
 - Enables the domain whitelist mode using `WhitelistVpnService` (extends `AdVpnService`).
 - Uses `Configuration.hosts` as the active host list.
 - Disables Private DNS and the main VPN toggle while whitelist mode is active.
+- DNS-level filtering only (no TLS decrypt).
 
 ## How domain filtering works
 - `RuleDatabase.initialize(...)` loads allowed hosts when `config.hosts.enabled=true`.

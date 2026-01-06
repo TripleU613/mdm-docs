@@ -11,6 +11,7 @@
 
 ## How it runs
 - Toggle is enabled only when the VPN firewall is running and whitelist mode is off.
+- Ignored when premium VPN (WireGuard) is active.
 - Enabling shows a warning dialog, then `applyGlobalNetworkBlock(true)`:
   - Applies `UserManager.DISALLOW_CONFIG_MOBILE_NETWORKS`.
   - Sets `global_network_block_enabled` (prefs) and `Hawk` key `isBlockNetwork`.

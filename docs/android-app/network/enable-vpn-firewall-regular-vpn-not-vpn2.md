@@ -16,6 +16,8 @@
 - Sets Always-On VPN and blocks VPN settings changes.
 - Stores `is_vpn_on` (prefs) and `network.vpn_enabled` (`ConfigStore`).
 - Powers per-app network blocking via the `firewall_rules` prefs.
+- Skips all legacy VPN behavior when premium VPN (WireGuard) is active.
+- No MITM: this VPN is DNS/firewall-only and does not proxy Chrome.
 
 ## How it runs
 - Toggle on calls `startStopService(true)`:
@@ -37,6 +39,7 @@
   - Adds default routes (`0.0.0.0/0` and `::/0`) so VPN captures all traffic.
   - Disallows every app except the blocked list (so only blocked apps go through the VPN).
   - The VPN thread only handles DNS packets; non-DNS packets are not forwarded.
+- If whitelist mode is on, per-app blocking is ignored to avoid conflicting VPN modes.
 
 ## On boot
 - `BootComplete` calls `AdVpnService.checkStartVpnOnBoot(...)`.

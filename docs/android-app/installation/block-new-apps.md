@@ -39,6 +39,9 @@
 - `UpdateAppsFragment` marks apps approved when you Unhide, Unsuspend, or Enable.
 - `AppInstallReceiver` removes packages from `approved_apps` on uninstall.
 - Approved apps are unblocked on each monitor pass.
+- Portal-enforced hides/suspends are respected via:
+  - `MDMSettings.policy_hidden_apps`
+  - `MDMSettings.policy_suspended_apps`
 
 ## Firestore/snapshot fields written
 - `deviceId`, `label`, `system`, `versionName`, `versionCode`.

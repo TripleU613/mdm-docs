@@ -10,6 +10,7 @@
 ## What it does
 - Guides a new user from account creation to device-owner setup.
 - Enforces email verification, device binding, and MDM PIN before the main app opens.
+- Auth screens show a blocking loading overlay during network actions.
 
 ## Flow summary
 - Welcome -> Sign in / Sign up (RegisterActivity nav flow).

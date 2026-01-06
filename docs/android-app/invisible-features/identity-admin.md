@@ -36,6 +36,19 @@
   - Falls back to `com.tripleu.device.AdminReceiver` if active.
   - Defaults to `com.tripleu.mdm.a`.
 
+## Policy update receiver (Android 14+)
+
+### Where it lives
+- `app/src/main/java/com/tripleu/device/PolicyUpdateReceiver.kt`
+- `app/src/main/AndroidManifest.xml`
+
+### What it does
+- Satisfies `ACTION_DEVICE_POLICY_SET_RESULT` broadcasts to stop system log spam.
+
+### How it runs
+- Registered as a `PolicyUpdateReceiver`.
+- `onPolicySetResult` and `onPolicyChanged` are no-ops.
+
 ## Device info uploader (IMEI)
 
 ### Where it lives

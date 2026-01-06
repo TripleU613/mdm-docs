@@ -31,6 +31,7 @@
 
 ### How it runs
 - Calls `AdVpnService.checkStartVpnOnBoot(...)`.
+- Starts `Vpn2RemoteWatcher` and `PeriodicTaskRunner`.
 - Starts `AccessibilityMonitorService` as a foreground service.
 - If `block_new_apps` is enabled:
   - Seeds known apps.

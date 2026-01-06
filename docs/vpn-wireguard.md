@@ -7,6 +7,20 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 - Website admin UI (VPN tab + appeals): `website`.
 - Directus schema + ops: `directus`.
 
+## Traffic paths (Chrome vs rest)
+- Chrome uses an explicit proxy only when premium VPN is active:
+  - Proxy target: `http://10.9.0.1:8080`.
+  - Enforced by Chrome app restrictions (SafeSearch + QUIC/DoH off).
+- The proxy connection itself travels inside the WireGuard tunnel (Chrome still uses the VPN path).
+- All other apps stay inside the WireGuard tunnel and are not sent to the MITM proxy.
+- Squid is the domain/SNI blocker for VPN traffic:
+  - Deny-list only (no TLS decrypt).
+  - Uses DNS/ipset + firewall rules to block domains.
+- MITM proxy is for Chrome-only, explicit-proxy traffic.
+- Result:
+  - Chrome -> WireGuard -> MITM proxy -> Internet.
+  - Other apps -> WireGuard -> Squid/dnsmasq domain blocks -> Internet.
+
 ## Where it lives
 - `app/src/main/java/com/tripleu/vpn2/Vpn2RemoteWatcher.kt`
 - `app/src/main/java/com/tripleu/vpn2/Vpn2WireGuardManager.kt`
@@ -15,8 +29,9 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 - `app/src/main/java/com/tripleu/TripleUApp.kt`
 
 ## When it runs
-- `Vpn2RemoteWatcher.start(...)` runs during deferred app startup.
-- It attaches a Firestore listener on `devices/{deviceId}` and also polls every ~5s.
+- `Vpn2RemoteWatcher.start(...)` runs during deferred app startup and on boot.
+- `PeriodicTaskRunner` calls `Vpn2RemoteWatcher.tick()` every ~5s.
+- It attaches a Firestore listener on `devices/{deviceId}` and also applies on each tick.
 
 ## Gating (must be true)
 - `ConfigStore` flag `network.premium_vpn_enabled=true`.
@@ -82,6 +97,12 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 - Directus: Docker `directus` + `directus-postgres`, proxied by Nginx.
 - Nginx: TLS entrypoint for `vpn.kvylock.com`.
 
+### Admin UIs
+- `https://vpn.kvylock.com/logs/`: MITM proxy web UI (basic auth).
+- `https://vpn.kvylock.com/squid/`: Squid GoAccess report (basic auth).
+- `https://vpn.kvylock.com/live/`: Live MITM log viewer (basic auth).
+  - Shows live allow/deny/unknown markers and collapses repeated domains with a counter.
+
 ### WireGuard config + keys
 - Interface: `wg-mitm` address `10.9.0.1/24`, listen port `51820`.
 - Peer blocks are annotated with `# device:<id>` and `AllowedIPs = <ip>/32`.
@@ -124,10 +145,14 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
     - `/etc/squid/blocklists/general-urls.txt` + `/etc/squid/blocklists/general-domains.txt`
     - `/etc/squid/blocklists/app_urls-urls.txt` + `/etc/squid/blocklists/app_urls-domains.txt`
   - Behavior: deny only; everything else is allowed.
-  - Source: Directus collections `maps`, `squid-general_block`, `gifs` (field `url`), and `app_urls` (field `urls`).
+  - Source:
+    - Directus collections `maps`, `gifs`, `squid-general_block` (field `url`).
+    - `app_urls` (field `urls`).
+    - Any Directus collection in the `apps` group (one list per collection; uses `url` or `urls`).
   - Per-device toggles: Directus `vpn_squid_prefs` (default enabled; only disabled lists are stored).
   - Device mapping: `/etc/wireguard/wg-mitm.conf` uses `# device:<id>` comments with `AllowedIPs` for IP rules.
   - Sync: `squid-blocklist-sync.timer` (runs every 30 seconds).
+  - Expect up to ~30s for new entries/toggles to take effect; removals can lag due to ipset TTL.
   - Sync script: `/opt/squid-blocklist/sync.py` (auth uses Directus admin in `/opt/directus/.env`).
   - Ad Block source: `/opt/squid-blocklist/lists/oisd-full.txt` (OISD Full), synced daily by `oisd-sync.timer`.
   - `maps` is informational only (no per-app routing); entries are enforced per-device.

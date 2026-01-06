@@ -65,7 +65,8 @@
 - Reads Firestore `devices` where `ownerUid == currentUser.uid`.
 - If empty and `user.email` exists, falls back to `ownerEmail == user.email`.
 - Limits to 25 devices.
-- Auto-selects the first device in the list.
+- Restores the last selected device from `localStorage` (`mdm.last_device.<uid>`).
+- Falls back to the first device when no stored match exists.
 
 ### Device metadata
 - Reads `devices/{deviceId}` to build the header and status chips.
@@ -300,6 +301,10 @@
 - Block Tethering.
 - Domain Whitelist Mode + host list editor.
 - Private DNS + hostname (disabled while whitelist is on).
+- UI gating:
+  - Enable VPN + Block All are disabled when Domain Whitelist is on or Premium VPN is active.
+  - Domain Whitelist is disabled when Premium VPN is active.
+  - Private DNS is disabled while Domain Whitelist is on.
 
 ### Config keys written
 - `network.vpn_enabled`
@@ -317,7 +322,10 @@
 ## VPN tab (premium)
 ### Where it lives
 - `app/components/dashboard/DashboardPage.tsx`
-- Directus calls use `NEXT_PUBLIC_DIRECTUS_URL` (default `https://vpn.kvylock.com/directus`) and `NEXT_PUBLIC_DIRECTUS_TOKEN`.
+- Directus calls use `NEXT_PUBLIC_DIRECTUS_URL` (default `https://vpn.kvylock.com/directus`) plus:
+  - `NEXT_PUBLIC_DIRECTUS_TOKEN` (static API token), or
+  - `NEXT_PUBLIC_DIRECTUS_USERNAME` + `NEXT_PUBLIC_DIRECTUS_PASSWORD` (login to fetch access/refresh tokens).
+- Access/refresh tokens are cached in localStorage (`directus.access_token`, `directus.refresh_token`) and refreshed on 401/403.
 
 ### Tab visibility
 - Always visible.
@@ -328,14 +336,22 @@
   - `stripeSubscriptionId` not empty
   - `expiresAtMs` in the future
 - When invalid, premium actions are disabled and panels stay collapsed.
+- Subtabs: Blocklists, Website Categories, Appeals (panel is disabled when subscription is invalid).
 
 ### Premium VPN toggle
 - Writes config key `network.premium_vpn_enabled`.
 - Disabled if the subscription check above fails.
+- When active, legacy VPN controls (Network tab) are disabled.
 
 ### Flow
 - Buy VPN -> Cloud Run checkout -> Stripe webhook -> Firebase writes `devices/{deviceId}.vpn`.
 - Android reads the VPN fields and starts WireGuard; server stack is in `vpn-wireguard`.
+- Traffic model:
+  - Chrome is forced to use the MITM explicit proxy on the VPN gateway.
+  - Other apps stay in the WireGuard tunnel and are filtered by Squid blocklists.
+- Cancel VPN:
+  - Button switches to "Cancel subscription" when a valid subscription exists.
+  - Uses `devices/{deviceId}.vpn.cancelAtPeriodEnd` to show "Cancel scheduled".
 
 ### Appeals (blocked sites)
 - Reads from Directus `vpn_appeals` filtered by `device_id`.
@@ -347,9 +363,13 @@
 
 ### VPN blocklists
 - Reads `vpn_squid_lists` for labels and writes `vpn_squid_prefs` per device.
-- Lists: `maps`, `gifs`, `adblock`, `general`, `app_urls`.
+- Defaults to `maps`, `gifs`, `adblock` if no list metadata exists.
+- Hidden keys (e.g. `zing`) are filtered out of the UI.
+- `general` and `app_urls` are intentionally not shown in the portal.
 - `adblock` is sourced from OISD Full on the server.
 - Defaults to enabled; disabled lists are stored with `enabled=false`.
+- Also adds Directus collections that have `meta.group = "apps"` (one toggle per collection).
+  - Collection name becomes the key; label comes from the collection name or `meta.note`.
 
 ### Category defaults
 - Reads categories from Directus `website_categories`.
@@ -382,7 +402,8 @@
 - Per-app policy chips: Hide, Suspend, Offline, Block Video, WebView block/exception, Lock Uninstall.
 
 ### App data source
-- `devices/{deviceId}/apps` (limit 200, reused across tabs).
+- `devices/{deviceId}/apps` (base list) plus targeted queries for `hidden=true` and `suspended=true`.
+- Merges results by package to avoid missing blocked apps.
 
 ### App actions
 - Inventory refresh sends command:
@@ -393,6 +414,9 @@
   - `updatedAtMs` and `source=admin`.
 - When `accessibility.webview_block_all` is on:
   - The per-app WebView chip becomes an exception toggle.
+- Offline (network block) chip is disabled when:
+  - Domain Whitelist is enabled, or
+  - Premium VPN is active.
 - "Managed" filter is policy-based (hidden/suspended/network/webview/video/uninstall), not the Firestore `managed` flag.
 - Search matches app label or package substring (case-insensitive).
 
@@ -439,6 +463,8 @@
 - `NEXT_PUBLIC_CF_ANALYTICS_TOKEN` (optional): enables Cloudflare Insights beacon.
 - `NEXT_PUBLIC_DIRECTUS_URL` (optional): Directus base URL (defaults to `https://vpn.kvylock.com/directus`).
 - `NEXT_PUBLIC_DIRECTUS_TOKEN` (required for VPN tab): Directus API token.
+- `NEXT_PUBLIC_DIRECTUS_USERNAME` (optional): Directus login username (fallback when no token).
+- `NEXT_PUBLIC_DIRECTUS_PASSWORD` (optional): Directus login password (fallback when no token).
 - `NEXT_PUBLIC_SITE_URL` (optional): base URL for robots/sitemap.
 - `VERCEL_URL` (fallback): used when `NEXT_PUBLIC_SITE_URL` is missing.
 
@@ -458,6 +484,7 @@
 - Commands:
   - `npm run dev` (local)
   - `npm run build` (static export)
+  - `npm run deploy:pages` (build + Cloudflare Pages deploy)
 
 ## Firebase client
 - Config in `lib/firebase.ts` (hard-coded).

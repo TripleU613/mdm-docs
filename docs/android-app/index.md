@@ -30,6 +30,7 @@
 - Verify email: reloads user; blocks until verified.
 - RegisterActivity: verified -> Auth/Main; unverified -> Verify.
 - Password reset: sends Firebase reset email.
+- Auth screens show a blocking loading overlay while network requests run.
 - Device binding: RSA keypair + Functions `requestDeviceBinding`/`confirmDeviceBinding`.
 - MDM PIN gate: validates `mdm_pin`/`mdm_pin_hash`; can trigger recovery.
 - PIN recovery: `validateRecoveryPin` or email/password -> `ResetPinActivity`.
@@ -78,8 +79,8 @@
 
 ## Settings tab
 - Switch to Hebrew: toggles app locale via AppCompatDelegate; stores `settings.language`.
-- Export profile: writes encrypted ConfigStore export (no pins/auth/uid/email/snapshot).
-- Import profile: decrypts and applies entries; warns if VPN consent is missing.
+- Export profile: writes encrypted ConfigStore export plus managed/approved app policies (no pins/auth/uid/email/snapshot).
+- Import profile: applies entries + app policies; warns if VPN consent is missing.
 - Import whitelist: edits domain whitelist; parses domain lists and saves `network.domain_whitelist_hosts`.
 - Account info: shows signed-in email; copy to clipboard.
 - Privacy policy: opens in-app WebView to GitHub `Privacy.md`.
@@ -113,7 +114,7 @@
 
 ## App state sync
 - App snapshot storage: mirrors per-app policy state to `devices/{deviceId}/apps/{package}`.
-- App remote watcher: applies per-app policy changes from Firestore.
+- App remote watcher: applies per-app policy changes and tracks portal-enforced hide/suspend lists.
 - App inventory uploader: uploads installed app list + icons to Firestore.
 
 ## Network + VPN internals

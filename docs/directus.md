@@ -78,6 +78,10 @@
 - `squid-general_block`: `url` (Squid blocklist; enforced by Squid).
 - `mitm_block_domains`: `domain` (and `enabled` when present).
 - `mitm_ignore_domains`: `domain`.
+- Any collection with `meta.group = "apps"` is treated as an extra per-device Squid blocklist:
+  - The portal shows one toggle per collection.
+  - Lists may use `url` or `urls` fields (domain or host rules).
+  - Collection names are normalized to lowercase snake-case for list keys.
 
 ## Field map (observed in code)
 Note: fields below are the ones referenced by the server, website, or import scripts.
