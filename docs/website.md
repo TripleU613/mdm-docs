@@ -47,7 +47,7 @@
   - Device picker, Add device, Support, Contact, account menu (email + Sign out).
 - Left nav: `app/components/dashboard/NavigationPanel.tsx`.
   - Tabs come from `app/components/dashboard/constants.ts` (`deviceTabs`).
-- Save/Discard bar appears when config/app/device name/VPN category changes exist.
+- Save/Discard bar appears when config/app/device name/VPN category/blocklist changes exist.
 - Support opens `https://tripleu.org`.
 - Contact opens `mailto:tripleuworld@gmail.com`.
 
@@ -344,6 +344,12 @@
   - Allow site -> upsert `vpn_site_overrides` with `enabled_override=force_allow`.
   - Allow category -> upsert `vpn_category_prefs` with `enabled=true`.
   - Deny -> updates `vpn_appeals.status=denied`.
+
+### VPN blocklists
+- Reads `vpn_squid_lists` for labels and writes `vpn_squid_prefs` per device.
+- Lists: `maps`, `gifs`, `adblock`, `general`, `app_urls`.
+- `adblock` is sourced from OISD Full on the server.
+- Defaults to enabled; disabled lists are stored with `enabled=false`.
 
 ### Category defaults
 - Reads categories from Directus `website_categories`.

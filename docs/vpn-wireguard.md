@@ -113,6 +113,37 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
   - `/etc/squid/squid.conf` (`http_port 3128 intercept`).
   - `/etc/squid/conf.d/tripleu-mdm.conf` (allow `10.9.0.0/24`).
   - `/etc/squid/conf.d/tripleu-ssl.conf` (TLS intercept + ssl-bump).
+  - `/etc/squid/conf.d/goaccess.conf` (GoAccess log format).
+  - `/etc/squid/conf.d/tripleu-host-verify.conf` (`host_verify_strict off` to avoid SNI/IP mismatch blocks).
+  - `/etc/squid/conf.d/tripleu-dns.conf` (forces DNS to `1.1.1.1/1.0.0.1` to match client resolution).
+- Blocklist:
+  - Per-list files (HTTP URL regex + HTTPS domains):
+    - `/etc/squid/blocklists/maps-urls.txt` + `/etc/squid/blocklists/maps-domains.txt`
+    - `/etc/squid/blocklists/gifs-urls.txt` + `/etc/squid/blocklists/gifs-domains.txt`
+    - `/etc/squid/blocklists/adblock-urls.txt` + `/etc/squid/blocklists/adblock-domains.txt`
+    - `/etc/squid/blocklists/general-urls.txt` + `/etc/squid/blocklists/general-domains.txt`
+    - `/etc/squid/blocklists/app_urls-urls.txt` + `/etc/squid/blocklists/app_urls-domains.txt`
+  - Behavior: deny only; everything else is allowed.
+  - Source: Directus collections `maps`, `squid-general_block`, `gifs` (field `url`), and `app_urls` (field `urls`).
+  - Per-device toggles: Directus `vpn_squid_prefs` (default enabled; only disabled lists are stored).
+  - Device mapping: `/etc/wireguard/wg-mitm.conf` uses `# device:<id>` comments with `AllowedIPs` for IP rules.
+  - Sync: `squid-blocklist-sync.timer` (runs every 30 seconds).
+  - Sync script: `/opt/squid-blocklist/sync.py` (auth uses Directus admin in `/opt/directus/.env`).
+  - Ad Block source: `/opt/squid-blocklist/lists/oisd-full.txt` (OISD Full), synced daily by `oisd-sync.timer`.
+  - `maps` is informational only (no per-app routing); entries are enforced per-device.
+  - Entry rules:
+    - `example.com` -> domain block (SNI/dstdomain).
+    - `||example.com^` -> domain block (Adblock-style).
+    - `0.0.0.0 example.com` -> domain block (hosts-file style).
+    - `http://example.com/path` or `example.com/path` -> HTTP URL block only.
+    - HTTPS URL paths cannot be blocked without MITM; only the domain is used.
+  - Squid ACLs (generated): `/etc/squid/conf.d/10-tripleu-device-blocklists.conf`.
+  - DNS/ipset:
+    - `/etc/dnsmasq.d/squid-blocklist.conf` maps domains into ipsets.
+    - ipsets per list: `squid_maps`, `squid_gifs`, `squid_adblock`, `squid_general`, `squid_app_urls` (+ `*6` for IPv6).
+    - ipset entries expire after 86400s (set by `SQUID_IPSET_TIMEOUT`); removals can take up to the timeout.
+    - HTTPS blocks are enforced in iptables per device using the list ipsets (no Squid intercept).
+    - `squid-ipset.service` ensures the ipsets exist at boot.
 - Ports:
   - `3128` HTTP intercept.
   - `3129` HTTPS intercept (`ssl-bump` + generated certs).
@@ -122,6 +153,13 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 - Certs:
   - CA cert/key: `/etc/squid/ssl_cert/squid-ca.pem`.
   - SSL DB: `/var/lib/squid/ssl_db`.
+- Logs:
+  - GoAccess log file: `/var/log/squid/access-goaccess.log`.
+- Log UI (GoAccess):
+  - Service: `goaccess-squid.service`.
+  - Output: `/opt/goaccess/squid.html`.
+  - WebSocket: `127.0.0.1:8090` (proxied at `/squid/ws`).
+- URL: `https://vpn.kvylock.com/squid/` (basic auth; same as `/logs`).
 
 ### MITM proxy
 - Explicit proxy on `0.0.0.0:8080` (clients must point to it).
@@ -173,19 +211,14 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
   - Enforces Google SafeSearch by adding `safe=active`.
   - Only triggers on search hosts and query keys like `q`, `query`, `search`.
   - This list is local and separate from Directus `bad_words`.
-- App URL blocklist: `/opt/blockers/app-url-blocker/blocker.py`.
-  - Pulls `app_urls.urls` from Directus and kills matching hosts.
-  - Matches exact domains and suffixes (subdomains included).
-  - Cache TTL uses `APP_URLS_TTL`.
-  - Normalizes entries by stripping leading `|`, trailing `^`, and leading `*.`.
 - SNI blocker: `/opt/blockers/sni-blocker/blocker.py`.
-  - Reads domains from Directus `app_urls.urls` and `mitm_block_domains.domain`.
+  - Reads domains from Directus `mitm_block_domains.domain`.
   - Blocks at TLS/QUIC client hello (before MITM).
   - SNI logging is enabled in `mitmproxy.service` (`SNI_LOG_IPS=*`).
   - Sources can be overridden with `SNI_BLOCK_SOURCES`.
   - Cache TTL uses `SNI_BLOCK_TTL`.
   - Log throttling uses `SNI_LOG_TTL`.
-  - Defaults to `app_urls:urls` and `mitm_block_domains:domain` when sources are not set.
+  - Defaults to `mitm_block_domains:domain` when sources are not set.
 - MITM ignore list: `/opt/blockers/mitm-ignore/blocker.py`.
   - Pulls `mitm_ignore_domains.domain` and merges into `ignore_hosts`.
   - Resolves IPs unless `MITM_IGNORE_RESOLVE` is disabled.
@@ -195,7 +228,6 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 - `DIRECTUS_URL`, `DIRECTUS_ENV`, `DIRECTUS_TOKEN` (shared across blockers).
 - `WEBSITES_TTL`, `DEVICE_POLICY_TTL`, `WG_CONFIG_PATH` (policy core).
 - `APPEAL_CATEGORIES_TTL`, `PORTAL_HOST` (portal behavior).
-- `APP_URLS_TTL` (app URL blocklist).
 - `SNI_BLOCK_TTL`, `SNI_BLOCK_SOURCES`, `SNI_BLOCK_COLLECTION`, `SNI_BLOCK_FIELD`, `SNI_LOG_IPS`, `SNI_LOG_TTL` (SNI blocker).
 - `MITM_IGNORE_TTL`, `MITM_IGNORE_RESOLVE` (MITM ignore list).
 - `IMAGE_BLOCKER_CACHE`, `IMAGE_BLOCKER_PARSE_LIMIT` (image blocker).
@@ -246,7 +278,8 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
   - Message uses the server response text.
 
 ### DNS + firewall
-- HTTP/HTTPS redirect: iptables sends TCP 80 -> `3128` and TCP 443 -> `3129` for `10.9.0.0/24`.
+- HTTP redirect: iptables sends TCP 80 -> `3128` for `10.9.0.0/24`.
+- HTTPS blocklist: iptables chain `SQUID_BLOCKLISTS` rejects TCP 443 per device when destination matches list ipsets.
 - DNS redirect: iptables sends TCP/UDP 53 from `10.9.0.0/24` to `:5353`.
 - DNS upstream: `dnsmasq` uses `1.1.1.1` and `1.0.0.1` (`/etc/dnsmasq.d/kvylock-safesearch.conf`).
 - Port `5353` is only accepted from `10.9.0.0/24` and localhost; other sources are dropped.
@@ -258,16 +291,18 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 
 ### Traffic path (current)
 - VPN client connects to WireGuard `wg-mitm`.
-- TCP 80/443 is redirected to Squid (`3128/3129`) for intercept proxying (peek + splice).
+- TCP 80 is redirected to Squid (`3128`) for HTTP URL blocking.
+- TCP 443 goes direct unless the destination is in the Squid blocklist (then it is rejected).
 - Chrome (premium VPN active) uses explicit proxy `10.9.0.1:8080` to `mitmproxy`.
 - DNS requests hit `dnsmasq` on `:5353` before leaving the box.
 - QUIC and DNS-over-TLS are blocked to keep traffic on TCP and DNS on `dnsmasq`.
 
 ### Nginx routes
 - `vpn.kvylock.com/api` -> local VPN API.
-- `vpn.kvylock.com/directus/` -> local Directus.
+- `vpn.kvylock.com/directus/` -> local Directus (basic auth).
 - `vpn.kvylock.com/logs/` -> mitmweb UI (basic auth; adds an Authorization header in Nginx config).
-- Basic auth file: `/etc/nginx/htpasswd-mitmweb`.
+- `vpn.kvylock.com/squid/` -> Squid log UI (basic auth).
+- Basic auth file: `/etc/nginx/htpasswd-mitmweb` (user `tripleu`, PIN `Aa45301826`).
 
 ## Request map (server side)
 - Firebase `onDeviceWrite` calls the VPN API to upsert WireGuard peers.

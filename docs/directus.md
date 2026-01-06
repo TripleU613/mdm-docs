@@ -5,7 +5,7 @@
 - Image: `directus/directus:10.13.1`.
 - Local port: `127.0.0.1:8055`.
 - Postgres: `directus-postgres` on `127.0.0.1:5432`.
-- Public path: `https://vpn.kvylock.com/directus/` (Nginx reverse proxy).
+- Public path: `https://vpn.kvylock.com/directus/` (Nginx reverse proxy, basic auth user `tripleu`, PIN `Aa45301826`).
 - Storage:
   - Postgres data: `/opt/directus/postgres`.
   - Uploads: `/opt/directus/uploads`.
@@ -72,7 +72,10 @@
   - `category_id` from the requested category name
 
 ### Blocklists / allowlists
-- `app_urls`: `urls` (domain list).
+- `app_urls`: `urls` (Squid blocklist; enforced by Squid).
+- `gifs`: `url` (Squid blocklist; enforced by Squid).
+- `maps`: `url` (Squid blocklist notes; enforced by Squid).
+- `squid-general_block`: `url` (Squid blocklist; enforced by Squid).
 - `mitm_block_domains`: `domain` (and `enabled` when present).
 - `mitm_ignore_domains`: `domain`.
 
@@ -100,6 +103,15 @@ Note: fields below are the ones referenced by the server, website, or import scr
 - `device_id`, `host`
 - `enabled_override`, `image_policy`, `word_policy`
 
+### vpn_squid_prefs
+- `device_id`, `list`
+- `enabled`
+- `list` values: `maps`, `gifs`, `adblock`, `general`, `app_urls` (missing row = enabled).
+
+### vpn_squid_lists
+- `key`, `label`, `description`, `sort`
+- Display labels for per-device Squid blocklists.
+
 ### vpn_appeals
 - `url`, `host`, `category_id`, `category_name`
 - `reason`, `request_type`, `status`
@@ -116,8 +128,17 @@ Note: fields below are the ones referenced by the server, website, or import scr
 ### app_urls
 - `urls`
 
+### gifs
+- `url`
+
 ### mitm_block_domains
 - `domain`, `enabled` (optional)
+
+### maps
+- `url`
+
+### squid-general_block
+- `url`
 
 ### mitm_ignore_domains
 - `domain`
@@ -184,7 +205,7 @@ Note: fields below are the ones referenced by the server, website, or import scr
 ## REST endpoints (Directus)
 Base URL:
 - Local: `http://127.0.0.1:8055`
-- Public via Nginx: `https://vpn.kvylock.com/directus`
+- Public via Nginx: `https://vpn.kvylock.com/directus` (basic auth user `tripleu`, PIN `Aa45301826`)
 
 ### Auth
 - `POST /auth/login` with email and password.
@@ -216,9 +237,11 @@ Example login response:
 
 Collections used by the system:
 - `website_categories`, `websites`, `bad_words`
-- `vpn_category_prefs`, `vpn_site_overrides`
+- `vpn_category_prefs`, `vpn_site_overrides`, `vpn_squid_prefs`, `vpn_squid_lists`
 - `vpn_appeals`, `website_appeals`
-- `app_urls`, `mitm_block_domains`, `mitm_ignore_domains`
+- `app_urls`, `gifs`, `maps`, `squid-general_block` (Directus sources)
+- `adblock` is local (OISD Full in `/opt/squid-blocklist/lists/oisd-full.txt`, synced daily).
+- `mitm_block_domains`, `mitm_ignore_domains`
 
 Example category list:
 ```http
@@ -294,8 +317,12 @@ Content-Type: application/json
 ## Integrations
 - MITM proxy uses Directus for:
   - website rules, categories, bad words, and per-device overrides.
-  - blocklists (app URLs + SNI domains) and ignore list.
-- Website uses Directus for VPN categories and appeal actions.
+  - SNI domains and ignore list.
+- Squid blocklist sync uses Directus for:
+  - blocklist sources (`maps`, `gifs`, `squid-general_block`, `app_urls`).
+  - local list: `adblock` (OISD Full from `/opt/squid-blocklist/lists/oisd-full.txt`).
+  - per-device list toggles (`vpn_squid_prefs`).
+- Website uses Directus for VPN categories, blocklists, and appeal actions.
 - Cloud Functions call Directus for category defaults and website appeal actions.
   - Functions include `listWebsiteCategories`, `updateWebsiteCategory`, `listWebsiteAppeals`, `resolveWebsiteAppeal`.
 - MITM server details: `vpn-wireguard`.
