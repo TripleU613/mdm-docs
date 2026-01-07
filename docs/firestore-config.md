@@ -61,9 +61,15 @@
 - `updateWebsiteCategory`: patches Directus `website_categories/{id}` defaults.
 - `listWebsiteAppeals`: returns pending Directus `website_appeals`.
 - `resolveWebsiteAppeal`: approves/denies Directus appeal and upserts `websites`.
+- `listVpnCategories`: returns Directus `website_categories` + `vpn_category_prefs` for a device (VPN subscription required).
+- `saveVpnCategoryPrefs`: upserts/deletes `vpn_category_prefs` for a device (VPN subscription required).
+- `listVpnBlocklists`: returns Directus squid list defs + prefs (VPN subscription required).
+- `saveVpnBlocklistPrefs`: upserts/deletes `vpn_squid_prefs` for a device (VPN subscription required).
+- `listVpnAppeals`: returns Directus `vpn_appeals` for a device (VPN subscription required).
+- `resolveVpnAppeal`: resolves Directus `vpn_appeals` + overrides (VPN subscription required).
 
 ### HTTP functions (onRequest)
-- `provisionNewDevice` (POST): input `deviceModel`; creates a new `devices` doc; returns `deviceId`.
+- `provisionNewDevice` (POST): requires bearer ID token or admin secret + owner info; input `deviceModel`; creates a new `devices` doc; returns `deviceId`.
 - `techTakeManual`: requires `x-tech-take-secret`; refreshes `metadata/tech_take`.
 - `getLatestGitHubRelease`: input `repoOwner`, `repoName`; returns tag, parsed `versionCode`, assets.
 - `stripeDeviceSlotWebhook`: Stripe checkout webhook; increments `users/{uid}.deviceAllowance`.
@@ -138,11 +144,13 @@
 - `devices/{deviceId}` + subcollections (commands, apps, remote_session).
 
 ## Backend: Firestore rules (current file)
-- `users/{uid}` is owner-only.
-- `devices/{deviceId}` and subcollections are open (`allow read, write: if true`).
+- Auth required for all reads/writes (anons blocked).
+- `users/{uid}` is owner-only with limited writable fields.
+- `devices/{deviceId}` + subcollections are owner-only.
+- `devices/{deviceId}.vpn` is server-owned (client can only set `vpn.wgPublicKey`).
 - `pinResets`, `uninstallTokens`, `mail` are server-only (no client read/write).
 - `metadata/tech_take` is readable only for signed-in users.
-- `config/turn` is public read; all other config docs are write-denied.
+- `config/turn` is read-only for signed-in users; other config docs are write-denied.
 
 ## Backend: Firestore database
 - Type: Firestore Native.

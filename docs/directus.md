@@ -14,8 +14,8 @@
 ## Auth + access
 - Admin credentials live in `/opt/directus/.env`.
 - Server-side callers fall back to admin login when `DIRECTUS_TOKEN` is not set.
-- Website uses a Directus API token from `NEXT_PUBLIC_DIRECTUS_TOKEN`.
-- Cloud Functions also use a Directus token from env.
+- Website uses Firebase Functions; Directus is not called from the browser.
+- Cloud Functions use a Directus token from env.
 
 ## Config + env
 - Env file: `/opt/directus/.env`.

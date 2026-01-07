@@ -4,7 +4,7 @@
 - Next.js App Router.
 - Main entry: `app/page.tsx` -> `app/components/dashboard/DashboardPage.tsx`.
 - Login route: `app/login/page.tsx`.
-- All data calls are client-side (Firestore/Directus/Cloud Run).
+- All data calls are client-side (Firestore/Cloud Run) with Directus routed through Firebase Functions.
 
 ## Connections
 - Android app applies config/app policies written here; see `android-app`.
@@ -16,7 +16,7 @@
 - Firebase Auth: login, session guard, sign out, password reset.
 - Firestore: devices list, config state, apps, commands, notes, remote session.
 - Cloud Run: device slot checkout and VPN checkout (ID token in Authorization header).
-- Directus: VPN categories, appeals, category prefs, site overrides.
+- Directus (via Firebase Functions): VPN categories, appeals, category prefs, site overrides.
 - WebRTC: STUN/TURN for Remote Control (TURN host on `kvylock`; see `vpn-wireguard`).
 
 ## Auth + access
@@ -85,7 +85,7 @@
 - Writes config `entries[]` back with `source=admin` and `updatedAtMs` (all keys).
 - Preserves existing entries for unknown keys.
 - Writes app changes in a Firestore batch.
-- Saves VPN category changes (Directus) after Firestore writes.
+- Saves VPN category changes (Functions) after Firestore writes.
 
 ### Discard
 - Resets pending config/app changes, VPN category edits, and inputs.
@@ -322,10 +322,7 @@
 ## VPN tab (premium)
 ### Where it lives
 - `app/components/dashboard/DashboardPage.tsx`
-- Directus calls use `NEXT_PUBLIC_DIRECTUS_URL` (default `https://vpn.kvylock.com/directus`) plus:
-  - `NEXT_PUBLIC_DIRECTUS_TOKEN` (static API token), or
-  - `NEXT_PUBLIC_DIRECTUS_USERNAME` + `NEXT_PUBLIC_DIRECTUS_PASSWORD` (login to fetch access/refresh tokens).
-- Access/refresh tokens are cached in localStorage (`directus.access_token`, `directus.refresh_token`) and refreshed on 401/403.
+- Directus calls are server-side via Firebase Functions.
 
 ### Tab visibility
 - Always visible.
@@ -354,7 +351,7 @@
   - Uses `devices/{deviceId}.vpn.cancelAtPeriodEnd` to show "Cancel scheduled".
 
 ### Appeals (blocked sites)
-- Reads from Directus `vpn_appeals` filtered by `device_id`.
+- Reads from Directus `vpn_appeals` filtered by `device_id` (via Functions).
 - Orders by `created_at` (desc) and only shows `pending` or empty status.
 - Actions:
   - Allow site -> upsert `vpn_site_overrides` with `enabled_override=force_allow`.
@@ -362,7 +359,7 @@
   - Deny -> updates `vpn_appeals.status=denied`.
 
 ### VPN blocklists
-- Reads `vpn_squid_lists` for labels and writes `vpn_squid_prefs` per device.
+- Reads `vpn_squid_lists` for labels and writes `vpn_squid_prefs` per device (via Functions).
 - Defaults to `maps`, `gifs`, `adblock` if no list metadata exists.
 - Hidden keys (e.g. `zing`) are filtered out of the UI.
 - `general` and `app_urls` are intentionally not shown in the portal.
@@ -372,8 +369,8 @@
   - Collection name becomes the key; label comes from the collection name or `meta.note`.
 
 ### Category defaults
-- Reads categories from Directus `website_categories`.
-- Reads and writes per-device overrides in `vpn_category_prefs`.
+- Reads categories from Directus `website_categories` (via Functions).
+- Reads and writes per-device overrides in `vpn_category_prefs` (via Functions).
 - Saves only the fields that differ from defaults.
 - Category list rules:
   - Only `visibility=public|more`.
@@ -461,10 +458,6 @@
 ## Environment vars
 - `NEXT_PUBLIC_CF_TURNSTILE_SITEKEY` (optional): enables Turnstile on login.
 - `NEXT_PUBLIC_CF_ANALYTICS_TOKEN` (optional): enables Cloudflare Insights beacon.
-- `NEXT_PUBLIC_DIRECTUS_URL` (optional): Directus base URL (defaults to `https://vpn.kvylock.com/directus`).
-- `NEXT_PUBLIC_DIRECTUS_TOKEN` (required for VPN tab): Directus API token.
-- `NEXT_PUBLIC_DIRECTUS_USERNAME` (optional): Directus login username (fallback when no token).
-- `NEXT_PUBLIC_DIRECTUS_PASSWORD` (optional): Directus login password (fallback when no token).
 - `NEXT_PUBLIC_SITE_URL` (optional): base URL for robots/sitemap.
 - `VERCEL_URL` (fallback): used when `NEXT_PUBLIC_SITE_URL` is missing.
 
