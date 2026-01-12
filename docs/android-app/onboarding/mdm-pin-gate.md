@@ -6,7 +6,7 @@
 ## What it does
 - Requires the MDM PIN before entering the app.
 - Creates the PIN on first run if none exists.
-- Offers a recovery flow when the PIN is wrong or the device is locked out.
+- Shows a simple lockout after too many failures (local only).
 
 ## How it runs
 - If `mdm_pin` is missing:
@@ -18,7 +18,10 @@
   - On success, sets `Session.isAuthenticated = true` and routes to:
     - `PermissionsCheckActivity` if `setup_complete=false`.
     - `MainActivity` if setup is complete.
-- If PIN fails, calls the recovery flow (`validateRecoveryPin`).
+- If PIN fails:
+  - Increments a local fail counter; after 5 failures, locks input for 5 minutes.
+  - Resets the counter on success.
+- No online recovery call is made anymore; validation is fully local.
 - Shows an Updates link when `allow_user_updates=true` to open `UpdatesGuestActivity`.
 - Provides a manual refresh button that calls `CloudSyncManager.manualSync()`.
 - Shows the device ID label at the bottom of the screen.
