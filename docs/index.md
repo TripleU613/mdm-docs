@@ -24,3 +24,5 @@
 - `apps-graphql.service` is disabled; if used for policy editing, it is currently offline.
 - Directus import scripts are manual; no scheduler is configured.
 - `wg-clean`/`wg-block` keys exist but no configs are present.
+
+*Last updated: Mon Jan 12 2026*
