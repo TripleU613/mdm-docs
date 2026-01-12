@@ -31,9 +31,23 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
+          # 1. Clean variables (remove whitespace/newlines)
+          SSH_HOST=$(echo "${SSH_HOST}" | tr -d '[:space:]')
+          SSH_PORT=$(echo "${SSH_PORT}" | tr -d '[:space:]')
+          SSH_USER=$(echo "${SSH_USER}" | tr -d '[:space:]')
+          
+          # 2. Verify variables exist
+          if [ -z "$SSH_HOST" ]; then echo "Error: SSH_HOST is empty"; exit 1; fi
+          if [ -z "$SSH_PORT" ]; then echo "Error: SSH_PORT is empty"; exit 1; fi
+          if [ -z "$SSH_USER" ]; then echo "Error: SSH_USER is empty"; exit 1; fi
+
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
           
-          rsync -avz -e "ssh -p $SSH_PORT" docs/.vitepress/dist/ $SSH_USER@$SSH_HOST:/opt/atlas/docs/ --delete
+          # 3. Add to known_hosts
+          ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
+          
+          # 4. Deploy
+          echo "Deploying to $SSH_USER@$SSH_HOST:$SSH_PORT..."
+          rsync -avz -e "ssh -p $SSH_PORT -o StrictHostKeyChecking=no" docs/.vitepress/dist/ $SSH_USER@$SSH_HOST:/opt/atlas/docs/ --delete
