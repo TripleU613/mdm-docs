@@ -51,3 +51,11 @@ jobs:
           # 4. Deploy
           echo "Deploying to $SSH_USER@$SSH_HOST:$SSH_PORT..."
           rsync -avz -e "ssh -p $SSH_PORT -o StrictHostKeyChecking=no" docs/.vitepress/dist/ $SSH_USER@$SSH_HOST:/opt/atlas/docs/ --delete
+
+      # To enable auto-purge of Cloudflare cache, add these secrets and uncomment:
+      # - name: Purge Cloudflare cache
+      #   run: |
+      #     curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+      #          -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+      #          -H "Content-Type: application/json" \
+      #          --data '{"files":["https://admin.tripleu.org/docs/", {"url": "https://admin.tripleu.org/docs/", "prefixes": ["admin.tripleu.org/docs"]}]}'
