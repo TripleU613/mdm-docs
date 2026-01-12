@@ -7,6 +7,9 @@
 - Per-app network blocks are stored in `firewall_rules`:
   - Legacy VPN uses them to build a selective VPN.
   - Premium VPN passes them as excluded apps (those apps bypass the tunnel).
+- Master offline switches (server-enforced):
+  - Portal keys `network.vpn_offline_non_chrome` and `network.chrome_offline`.
+  - Synced to Directus `vpn_master_controls` and enforced on Squid/MITM; Android does not enforce locally.
 
 ## Host file auto-refresh
 

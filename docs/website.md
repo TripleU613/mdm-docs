@@ -340,6 +340,13 @@
 - Disabled if the subscription check above fails.
 - When active, legacy VPN controls (Network tab) are disabled.
 
+### Master offline switches
+- UI keys: `network.vpn_offline_non_chrome` (cuts Squid/VPN traffic) and `network.chrome_offline` (cuts Chrome/MITM).
+- On Save, Cloud Function `syncMasterOfflineFlagsDirectus` upserts Directus `vpn_master_controls`.
+- Squid sync reads the flags and hard-denies the device when either is true; MITM also blocks Chrome when `chrome_offline` is true.
+- Expect ~30s for Squid to apply (or run `/opt/squid-blocklist/sync.py` on the server for instant apply).
+ - Flags are server-enforced; the Android app only reflects the setting.
+
 ### Flow
 - Buy VPN -> Cloud Run checkout -> Stripe webhook -> Firebase writes `devices/{deviceId}.vpn`.
 - Android reads the VPN fields and starts WireGuard; server stack is in `vpn-wireguard`.

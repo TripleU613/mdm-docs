@@ -5,7 +5,7 @@
 - Image: `directus/directus:10.13.1`.
 - Local port: `127.0.0.1:8055`.
 - Postgres: `directus-postgres` on `127.0.0.1:5432`.
-- Public path: `https://vpn.kvylock.com/directus/` (Nginx reverse proxy, basic auth user `tripleu`, PIN `Aa45301826`).
+- Public path: `https://admin.tripleu.org/directus/` (Nginx reverse proxy, CF Access + basic auth user `tripleu`, PIN `Aa45301826`). Legacy path `https://vpn.kvylock.com/directus/` still forwards.
 - Storage:
   - Postgres data: `/opt/directus/postgres`.
   - Uploads: `/opt/directus/uploads`.
@@ -16,6 +16,7 @@
 - Server-side callers fall back to admin login when `DIRECTUS_TOKEN` is not set.
 - Website uses Firebase Functions; Directus is not called from the browser.
 - Cloud Functions use a Directus token from env.
+- CF Access headers (`DIRECTUS_ACCESS_CLIENT_ID/SECRET`) and basic auth (`DIRECTUS_BASIC_USER/PASSWORD`) are used by Functions when present; local services (Squid/MITM) talk to `http://127.0.0.1:8055` directly.
 
 ## Config + env
 - Env file: `/opt/directus/.env`.
@@ -82,6 +83,18 @@
   - The portal shows one toggle per collection.
   - Lists may use `url` or `urls` fields (domain or host rules).
   - Collection names are normalized to lowercase snake-case for list keys.
+
+### Master offline flags
+- `vpn_master_controls`: `device_id` (unique), `chrome_offline` (bool), `vpn_offline_non_chrome` (bool).
+- Written by Cloud Function `syncMasterOfflineFlagsDirectus` when the website Save runs.
+- Read by:
+  - MITM policy to hard-block Chrome when `chrome_offline=true`.
+  - Squid sync to hard-deny all traffic for the device when either flag is true.
+
+## Timers / automation (server side)
+- `squid-blocklist-sync.timer`: every ~30s updates Squid ACLs/ipsets from Directus blocklists and `vpn_master_controls`.
+- `oisd-sync.timer`: daily fetch of OISD Full adblock list into Squid.
+- `appeal-approver.timer`: promotes approved `website_appeals` into `websites`.
 
 ## Field map (observed in code)
 Note: fields below are the ones referenced by the server, website, or import scripts.

@@ -21,6 +21,21 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
   - Chrome -> WireGuard -> MITM proxy -> Internet.
   - Other apps -> WireGuard -> Squid/dnsmasq domain blocks -> Internet.
 
+### Master offline switches (kill switches)
+- Sources:
+  - Website config keys: `network.chrome_offline`, `network.vpn_offline_non_chrome`.
+  - Cloud Function `syncMasterOfflineFlagsDirectus` mirrors them into Directus `vpn_master_controls`.
+- Enforcement:
+  - Squid sync reads `vpn_master_controls` and emits `http_access deny <device>` when either flag is true (Chrome or VPN paths both cut).
+  - MITM policy also checks `chrome_offline` and blocks Chrome outright.
+- Propagation:
+  - Website Save writes the flags; Squid applies on its next sync (~30s or manual `/opt/squid-blocklist/sync.py`).
+
+### Sync/refresh cadence
+- Squid blocklists + master flags: `squid-blocklist-sync.timer` (~30s). Manual: `/opt/squid-blocklist/sync.py`.
+- Adblock source: `oisd-sync.timer` (daily) fetches OISD Full into Squid.
+- ipset TTL: entries expire after `SQUID_IPSET_TIMEOUT` (default 86400s); removals can lag until expiry.
+
 ## Where it lives
 - `app/src/main/java/com/tripleu/vpn2/Vpn2RemoteWatcher.kt`
 - `app/src/main/java/com/tripleu/vpn2/Vpn2WireGuardManager.kt`

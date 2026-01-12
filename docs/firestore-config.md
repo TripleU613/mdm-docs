@@ -32,6 +32,10 @@
 - `DIRECTUS_TOKEN`
 - `DIRECTUS_ADMIN_EMAIL`
 - `DIRECTUS_ADMIN_PASSWORD`
+- `DIRECTUS_BASIC_USER`
+- `DIRECTUS_BASIC_PASSWORD`
+- `DIRECTUS_ACCESS_CLIENT_ID`
+- `DIRECTUS_ACCESS_CLIENT_SECRET`
 - `TURN_HOST`
 - `TURN_URLS` / `TURN_URL`
 - `TURN_USERNAME` / `TURN_USER`
@@ -67,6 +71,7 @@
 - `saveVpnBlocklistPrefs`: upserts/deletes `vpn_squid_prefs` for a device (VPN subscription required).
 - `listVpnAppeals`: returns Directus `vpn_appeals` for a device (VPN subscription required).
 - `resolveVpnAppeal`: resolves Directus `vpn_appeals` + overrides (VPN subscription required).
+- `syncMasterOfflineFlagsDirectus`: upserts Directus `vpn_master_controls` with `chrome_offline` / `vpn_offline_non_chrome` for a device (called on web Save).
 
 ### HTTP functions (onRequest)
 - `provisionNewDevice` (POST): requires bearer ID token or admin secret + owner info; input `deviceModel`; creates a new `devices` doc; returns `deviceId`.
