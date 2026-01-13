@@ -6,12 +6,14 @@
 - Firestore config
 - VPN + MITM proxy (WireGuard) on `kvylock`
 - Directus
+- Infra ops summary
 
 ## Quick map
 - Cross-system map (Android + Website + Firebase): `firestore-config`.
 - Android UI details: `android-app`.
 - Website UI + flows: `website`.
 - Server stack (VPN + MITM + Directus): `vpn-wireguard` and `directus`.
+- Full infra/ops record: `infra-ops-summary`.
 
 ## Improvement goals
 - Add a scheduled sync from SQLite sources to Directus Postgres (import scripts are manual).
@@ -25,4 +27,4 @@
 - Directus import scripts are manual; no scheduler is configured.
 - `wg-clean`/`wg-block` keys exist but no configs are present.
 
-*Last updated: Mon Jan 12 2026*
+*Last updated: Tue Jan 13 2026*
