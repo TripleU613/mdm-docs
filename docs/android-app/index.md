@@ -7,6 +7,9 @@
 - Website admin UI writes config/app policy; see `website`.
 - Full path map + backend notes: `firestore-config`.
 
+## Recent changes
+- 2026-01-15: `changes-2026-01-15`
+
 ## Request map (Android -> backend)
 - Firebase Auth: sign in, sign up, verify email, password reset.
 - Firebase Functions: device binding, recovery PIN, delete account.
