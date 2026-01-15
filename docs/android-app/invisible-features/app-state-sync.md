@@ -7,7 +7,6 @@
 - `app/src/main/java/com/tripleu/appcontrol/AppInstallReceiver.kt`
 - `app/src/main/java/com/tripleu/appcontrol/NewAppDetectorWorker.kt`
 - `app/src/main/java/com/tripleu/ui/fragments/UpdateAppsFragment.kt`
-- `app/src/main/java/com/tripleu/vpn/AdVpnService.java`
 - `app/src/main/java/com/tripleu/vpn/AdVpnServiceKt.kt`
 
 ### What it does

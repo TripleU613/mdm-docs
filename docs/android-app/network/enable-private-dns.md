@@ -20,7 +20,6 @@
   - Writes `Settings.Global` `private_dns_mode=hostname` and `private_dns_specifier`.
   - Stores `private_dns_set` + `custom_dns_server` in prefs and `Hawk.isPrivateDnsChecked`.
   - Locks the Private DNS setting.
-  - Triggers `AdVpnService` refresh after ~3s if VPN is running.
+  - Triggers `PcapVpnService` refresh after ~3s if VPN is running.
 - Toggle off clears the `Settings.Global` keys and removes the restriction + stored values.
-- When whitelist mode is enabled, private DNS is forced off and the toggle is disabled.
-- `AdVpnThread` skips DNS interception while Private DNS is on, unless whitelist mode is active.
+- Private DNS can remain enabled alongside whitelist/blacklist modes; the DNS host is auto-allowed.

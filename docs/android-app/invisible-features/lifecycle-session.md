@@ -30,7 +30,7 @@
 - Restarts key services after device boot.
 
 ### How it runs
-- Calls `AdVpnService.checkStartVpnOnBoot(...)`.
+- Calls `BootComplete.checkStartPcapOnBoot(...)`.
 - Starts `Vpn2RemoteWatcher` and `PeriodicTaskRunner`.
 - Starts `AccessibilityMonitorService` as a foreground service.
 - If `block_new_apps` is enabled:

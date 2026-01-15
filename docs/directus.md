@@ -1,31 +1,33 @@
 # Directus
 
 ## Overview
-- Runs on `kvylock` in Docker (`directus` + `directus-postgres`).
+- Runs on `kvylock` only.
 - Image: `directus/directus:10.13.1`.
-- Local port: `127.0.0.1:8055`.
-- Postgres: `directus-postgres` on `127.0.0.1:5432`.
-- Public path: `https://admin.tripleu.org/directus/` (Nginx reverse proxy, CF Access + basic auth user `tripleu`, PIN `Aa45301826`). Legacy path `https://vpn.kvylock.com/directus/` still forwards.
+- Directus container: `127.0.0.1:8055`.
+- HAProxy on kvylock: `127.0.0.1:8056` routes to the local Directus container.
+- Postgres: Patroni single-node on `kvylock`.
+- Public path: `https://admin.tripleu.org/directus/` (Nginx reverse proxy, CF Access + basic auth user `tripleu`, PIN `Aa45301826`).
 - Storage:
-  - Postgres data: `/opt/directus/postgres`.
-  - Uploads: `/opt/directus/uploads`.
-  - Extensions: `/opt/directus/extensions` (currently empty).
+  - Uploads: DO Spaces `kvylockstorage/directus-uploads`.
+  - Extensions: `/opt/directus/extensions`.
 
 ## Auth + access
 - Admin credentials live in `/opt/directus/.env`.
 - Server-side callers fall back to admin login when `DIRECTUS_TOKEN` is not set.
 - Website uses Firebase Functions; Directus is not called from the browser.
 - Cloud Functions use a Directus token from env.
-- CF Access headers (`DIRECTUS_ACCESS_CLIENT_ID/SECRET`) and basic auth (`DIRECTUS_BASIC_USER/PASSWORD`) are used by Functions when present; local services (Squid/MITM) talk to `http://127.0.0.1:8055` directly.
+- CF Access headers (`DIRECTUS_ACCESS_CLIENT_ID/SECRET`) and basic auth (`DIRECTUS_BASIC_USER/PASSWORD`) are used by Functions when present.
+- Local services can use `http://127.0.0.1:8055` (direct) or `http://127.0.0.1:8056` (HAProxy) depending on `DIRECTUS_URL`.
 
 ## Config + env
 - Env file: `/opt/directus/.env`.
 - Keys present: `KEY`, `SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `DB_*`, `PUBLIC_URL`, `CORS_*`.
-- CORS origins: `http://localhost:3000`, `https://mdm.tripleu.org`.
-- Directus base URL defaults to `http://127.0.0.1:8055` for local callers.
+- CORS origin: `https://admin.tripleu.org`.
+- Public base URL: `https://admin.tripleu.org/directus`.
+- Local base URLs: `http://127.0.0.1:8055` (direct) or `http://127.0.0.1:8056` (HAProxy).
 
 ## Nginx routing
-- `/directus/` -> `127.0.0.1:8055`.
+- `/directus/` -> `127.0.0.1:8056` (HAProxy).
 - `X-Forwarded-Prefix` is set to `/directus`.
 
 ## Collections used by the system
@@ -222,7 +224,7 @@ Note: fields below are the ones referenced by the server, website, or import scr
 ## REST endpoints (Directus)
 Base URL:
 - Local: `http://127.0.0.1:8055`
-- Public via Nginx: `https://vpn.kvylock.com/directus` (basic auth user `tripleu`, PIN `Aa45301826`)
+- Public via Nginx: `https://admin.tripleu.org/directus/` (basic auth user `tripleu`, PIN `Aa45301826`)
 
 ### Auth
 - `POST /auth/login` with email and password.

@@ -93,7 +93,7 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 
 ## Legacy VPN interaction
 - `Vpn2State.shouldBlockLegacy(...)` is true when premium is enabled or active.
-- The watcher stops `AdVpnService` and `WhitelistVpnService` before starting WireGuard.
+- The watcher stops `PcapVpnService` before starting WireGuard.
 - Legacy VPN toggles are skipped while premium is active.
 
 ## MITM CA install (app side)
@@ -109,13 +109,13 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 - Squid: `squid.service` provides the VPN intercept proxy on `3128/3129`.
 - MITM proxy: `mitmproxy.service` runs `mitmweb` in explicit mode on `:8080` with web UI on `127.0.0.1:8081`.
 - DNS: `dnsmasq` listens on `0.0.0.0:5353` for VPN clients.
-- Directus: Docker `directus` + `directus-postgres`, proxied by Nginx.
-- Nginx: TLS entrypoint for `vpn.kvylock.com`.
+- Directus: Docker `directus` on kvylock behind HAProxy (see `directus`).
+- Nginx: TLS entrypoint for `vpn.kvylock.com` and `admin.tripleu.org`.
 
 ### Admin UIs
-- `https://vpn.kvylock.com/logs/`: MITM proxy web UI (basic auth).
-- `https://vpn.kvylock.com/squid/`: Squid GoAccess report (basic auth).
-- `https://vpn.kvylock.com/live/`: Live MITM log viewer (basic auth).
+- `https://admin.tripleu.org/logs/`: MITM proxy web UI (basic auth).
+- `https://admin.tripleu.org/squid/`: Squid GoAccess report (basic auth).
+- `https://admin.tripleu.org/live/`: Live MITM log viewer (basic auth).
   - Shows live allow/deny/unknown markers and collapses repeated domains with a counter.
 
 ### WireGuard config + keys
@@ -199,12 +199,12 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
   - Service: `goaccess-squid.service`.
   - Output: `/opt/goaccess/squid.html`.
   - WebSocket: `127.0.0.1:8090` (proxied at `/squid/ws`).
-- URL: `https://vpn.kvylock.com/squid/` (basic auth; same as `/logs`).
+- URL: `https://admin.tripleu.org/squid/` (basic auth; same as `/logs`).
 
 ### MITM proxy
 - Explicit proxy on `0.0.0.0:8080` (clients must point to it).
 - Input is limited to WireGuard clients (`10.9.0.0/24`).
-- Web UI: `https://vpn.kvylock.com/logs/` -> `127.0.0.1:8081` (Nginx basic auth).
+- Web UI: `https://admin.tripleu.org/logs/` -> `127.0.0.1:8081` (Nginx basic auth).
 - Certs: `/opt/mitmproxy/certs/mitmproxy-ca.pem` and `mitmproxy-dhparam.pem`.
 - Runner: `/opt/blockers/runner.py` loads the blocker modules below.
 - Version: mitmproxy 12.2.0 in `/opt/mitmproxy-venv`.
@@ -339,9 +339,10 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 
 ### Nginx routes
 - `vpn.kvylock.com/api` -> local VPN API.
-- `vpn.kvylock.com/directus/` -> local Directus (basic auth).
-- `vpn.kvylock.com/logs/` -> mitmweb UI (basic auth; adds an Authorization header in Nginx config).
-- `vpn.kvylock.com/squid/` -> Squid log UI (basic auth).
+- `admin.tripleu.org/directus/` -> HAProxy -> Directus (basic auth).
+- `admin.tripleu.org/logs/` -> mitmweb UI (basic auth; adds an Authorization header in Nginx config).
+- `admin.tripleu.org/squid/` -> Squid log UI (basic auth).
+- `admin.tripleu.org/live/` -> Live MITM logs UI (basic auth).
 - Basic auth file: `/etc/nginx/htpasswd-mitmweb` (user `tripleu`, PIN `Aa45301826`).
 
 ## Request map (server side)

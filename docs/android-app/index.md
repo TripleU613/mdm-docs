@@ -56,8 +56,8 @@
 - Block Wi-Fi: applies `UserManager.DISALLOW_CONFIG_WIFI` and stores `network.wifi_blocked`.
 - Block all traffic: uses VPN firewall; forces Wi-Fi block while active.
 - Enable private DNS: sets `private_dns_mode` + hostname; requires `WRITE_SECURE_SETTINGS`.
-- Enable VPN firewall: starts `AdVpnService`, sets Always-On, blocks VPN settings changes; per-app blocks use `firewall_rules`.
-- Whitelist domains: runs `WhitelistVpnService`, disables Private DNS and main VPN; DNS allowlist via `RuleDatabase`.
+- Enable VPN firewall: starts `PcapVpnService`, sets Always-On, blocks VPN settings changes; per-app blocks use `firewall_rules`.
+- Whitelist/Blacklist domains: handled inside `PcapVpnService` using `DomainFilter`; Private DNS can stay on.
 
 ## Accessibility tab
 - Android Auto quirk: returns Home on Google Search/Maps accessibility events.

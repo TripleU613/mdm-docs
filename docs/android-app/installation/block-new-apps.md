@@ -9,7 +9,6 @@
 - `app/src/main/java/com/tripleu/appcontrol/AppMonitorUtils.kt`
 - `app/src/main/java/com/tripleu/ui/fragments/UpdateAppsFragment.kt`
 - `app/src/main/java/com/tripleu/config/ConfigPoller.kt`
-- `app/src/main/java/com/tripleu/vpn/AdVpnService.java`
 - `app/src/main/java/com/tripleu/vpn/AdVpnServiceKt.kt`
 
 ## What it does
@@ -27,7 +26,6 @@
   - `AppInstallReceiver` catches `ACTION_PACKAGE_ADDED` and blocks any new package not in approvals.
   - `AppMonitorService` calls `AppMonitorUtils.monitorOnce()` to compare `known_installed_packages` vs current launchable apps.
   - `NewAppDetectorWorker` scans for new launchable apps and checks Firestore approval before blocking.
-  - `AdVpnService.monitorUserAppsOnce()` also runs when VPN is active.
 - When a new unapproved app is found:
   - `PolicyManager.toggleAppBlock(..., true)` + `PolicyManager.setAppSuspended(..., true)`.
   - Writes a pending app record to `AppSnapshotStorage` and Firestore.

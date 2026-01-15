@@ -293,6 +293,8 @@ Config keys (from `app/components/dashboard/constants.ts`):
 - network.wifi_blocked
 - network.domain_whitelist_enabled
 - network.domain_whitelist_hosts (JSON string)
+- network.domain_blacklist_enabled
+- network.domain_blacklist_hosts (JSON string)
 - network.private_dns_enabled
 - network.private_dns_hostname
 - settings.language
@@ -303,7 +305,7 @@ Config keys (from `app/components/dashboard/constants.ts`):
 Type handling (UI):
 - settings.app_density_percent -> int
 - settings.language, network.private_dns_hostname, auth.pin_sha256 -> string
-- network.domain_whitelist_hosts, updates.muted_packages, apps.approved, apps.known_installed -> JSON string arrays
+- network.domain_whitelist_hosts, network.domain_blacklist_hosts, updates.muted_packages, apps.approved, apps.known_installed -> JSON string arrays
 - all other keys -> boolean
 
 #### `devices/{deviceId}/apps` (collection)
@@ -418,7 +420,7 @@ Writes:
 - Policy sync: website `DashboardPage` writes `entries[]` + `cloudUpdated`; Android `CloudSyncManager` pulls/applies; Firebase `onConfigWrite` clears `deviceUpdated`.
 - App approvals: Android `NewAppDetectorWorker` + `AppInventoryUploader` write apps with `approved=false`; website Installation/Apps toggles; Android `AppRemoteWatcher` applies.
 - Remote control: website `RemoteControl.tsx` calls `remoteStart`/`remoteStop` and listens to `remote_session`; Android `CommandReceiver` + `RemoteStreamManager` stream/answer.
-- VPN firewall + whitelist: website toggles `network.*` + per-app `networkBlocked`; Android `ConfigPoller` + `AdVpnService`/`WhitelistVpnService`; Firebase config doc + apps docs.
+- Firewall VPN (pcapdroid): website toggles `network.*` + per-app `networkBlocked`; Android `ConfigPoller` + `PcapVpnService`; Firebase config doc + apps docs.
 - VPN2 WireGuard: website VPN tab starts checkout + edits Directus categories; Firebase writes `devices/{deviceId}.vpn` and `onDeviceWrite` provisions WG; Android `Vpn2RemoteWatcher` uploads `vpn.wgPublicKey` and starts WireGuard.
 - PIN recovery + uninstall: Android `AuthActivity` calls `validateRecoveryPin`, `MainActivity` watches `users/{uid}.pendingUninstall`; Firebase functions handle reset/uninstall tokens; website does not call these.
 - Tech take: Firebase `techTakeCron` writes `metadata/tech_take`; Android `TechTakeRepository` reads; website does not use it.

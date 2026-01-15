@@ -296,15 +296,16 @@
 
 ### UI
 - Enable VPN (master).
-- Block All Traffic (disabled while whitelist is on).
+- Block All Traffic (exclusive with whitelist/blacklist).
 - Block Wi-Fi.
 - Block Tethering.
 - Domain Whitelist Mode + host list editor.
-- Private DNS + hostname (disabled while whitelist is on).
+- Domain Blacklist Mode + host list editor.
+- Private DNS + hostname.
 - UI gating:
-  - Enable VPN + Block All are disabled when Domain Whitelist is on or Premium VPN is active.
-  - Domain Whitelist is disabled when Premium VPN is active.
-  - Private DNS is disabled while Domain Whitelist is on.
+  - Enable VPN + modes are disabled when Premium VPN is active.
+  - Block All / Whitelist / Blacklist are mutually exclusive.
+  - Modes require the master VPN toggle to be on.
 
 ### Config keys written
 - `network.vpn_enabled`
@@ -313,6 +314,8 @@
 - `system.tethering_blocked`
 - `network.domain_whitelist_enabled`
 - `network.domain_whitelist_hosts` (JSON array)
+- `network.domain_blacklist_enabled`
+- `network.domain_blacklist_hosts` (JSON array)
 - `network.private_dns_enabled`
 - `network.private_dns_hostname`
 

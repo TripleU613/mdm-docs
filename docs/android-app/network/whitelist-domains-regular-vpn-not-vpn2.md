@@ -4,26 +4,21 @@
 - `app/src/main/java/com/tripleu/ui/fragments/PrivacyFragment.kt`
 - `app/src/main/java/com/tripleu/ui/fragments/PrivacyDialogState.kt`
 - `app/src/main/java/com/tripleu/ui/components/HostWhitelistDialogUi.kt`
-- `app/src/main/java/com/tripleu/vpn/WhitelistVpnService.kt`
-- `app/src/main/java/com/tripleu/vpn/AdVpnThread.java`
+- `app/src/main/java/com/tripleu/vpn/PcapVpnService.kt`
+- `app/src/main/java/com/tripleu/vpn/DomainFilter.kt`
 - `app/src/main/java/com/tripleu/vpn/Configuration.java`
-- `app/src/main/java/com/tripleu/dp/RuleDatabase.java`
-- `app/src/main/java/com/tripleu/vpn/DnsPacketProxy.java`
 - `app/src/main/java/com/tripleu/config/ConfigPoller.kt`
 
 ## What it does
-- Enables the domain whitelist mode using `WhitelistVpnService` (extends `AdVpnService`).
-- Uses `Configuration.hosts` as the active host list.
-- Disables Private DNS and the main VPN toggle while whitelist mode is active.
-- DNS-level filtering only (no TLS decrypt).
+- Enables domain allowlist mode inside `PcapVpnService`.
+- Uses `Configuration.hosts` + `network.domain_whitelist_hosts` for the active list.
+- Private DNS can stay enabled; the DNS host is auto-allowed.
+- DNS/SNI/URL filtering only (no TLS decrypt).
 
 ## How domain filtering works
-- `RuleDatabase.initialize(...)` loads allowed hosts when `config.hosts.enabled=true`.
-- `DnsPacketProxy` checks `RuleDatabase.isAllowed(host)` for each DNS query:
-  - Allowed domains are forwarded to upstream DNS.
-  - Not allowed domains are answered with a negative response.
+- `DomainFilter.reload(...)` parses the host list into allowed domains/URLs.
+- Packets are checked via JNI callbacks using DNS/SNI/HTTP URL hints.
 - Subdomains are allowed when the parent domain is in the list.
-- Each `Configuration.Item` can be a single host or a file/URL; `RuleDatabase` parses hosts files when present.
 
 ## Import and edit
 - The whitelist UI is `HostWhitelistDialogCard`.
@@ -41,17 +36,15 @@
 - On save, `applyWhitelistSelection(...)`:
   - Writes hosts to config via `FileHelper` and to `ConfigStore` (`network.domain_whitelist_hosts`).
   - Sets `network.domain_whitelist_enabled=true`.
-  - Stops `AdVpnService` if running and forces Private DNS off.
-  - Starts `WhitelistVpnService` after VPN consent (`REQUEST_START_WHITELIST`).
-  - Calls `RuleDatabaseUpdateTask` to refresh host rules.
+  - Starts/refreshes `PcapVpnService` after VPN consent.
 - Toggle off runs `disableWhitelistMode()`:
-  - Sets `hosts.enabled=false`, stops `WhitelistVpnService`, re-enables VPN/Private DNS toggles.
+  - Sets `hosts.enabled=false` and refreshes `PcapVpnService`.
   - Writes `network.domain_whitelist_enabled=false` and clears `network.domain_whitelist_hosts`.
-- `AdVpnThread` treats `hosts.enabled` as whitelist mode and routes all apps through the VPN so DNS filtering applies.
+- `PcapVpnService` applies whitelist decisions for every connection.
 - Cloud config `network.domain_whitelist_enabled` + `network.domain_whitelist_hosts` are applied in `ConfigPoller` (skipped if `Vpn2State.shouldBlockLegacy(...)` is true).
 - Entering whitelist mode clears `firewall_rules` so per-app network rules do not conflict.
 
 ## On boot
-- `BootComplete` calls `AdVpnService.checkStartVpnOnBoot(...)`.
-- If `config.autoStart` is true and `hosts.enabled=true`, it starts `WhitelistVpnService`.
+- `BootComplete` calls `checkStartPcapOnBoot(...)`.
+- If `config.autoStart` is true and `hosts.enabled=true`, it starts `PcapVpnService`.
 - Legacy VPN is skipped if `Vpn2State.shouldBlockLegacy(...)` is true.

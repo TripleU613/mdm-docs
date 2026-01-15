@@ -1,11 +1,11 @@
 # Network + VPN internals
 
 ## Mode precedence (what wins)
-- Premium VPN (WireGuard) overrides legacy VPN and whitelist modes.
-- Domain whitelist mode disables Private DNS and the main VPN toggle.
-- Block all traffic requires the legacy VPN and is disabled while whitelist or premium VPN is active.
+- Premium VPN (WireGuard) overrides the Firewall VPN.
+- Whitelist/Blacklist modes run inside the Firewall VPN; Private DNS can stay enabled.
+- Block all traffic requires the Firewall VPN and is disabled while whitelist or premium VPN is active.
 - Per-app network blocks are stored in `firewall_rules`:
-  - Legacy VPN uses them to build a selective VPN.
+  - Firewall VPN blocks those apps locally.
   - Premium VPN passes them as excluded apps (those apps bypass the tunnel).
 - Master offline switches (server-enforced):
   - Portal keys `network.vpn_offline_non_chrome` and `network.chrome_offline`.

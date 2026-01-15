@@ -1,9 +1,9 @@
 # Network tab
 
 ## Overview
-- Legacy VPN features (Enable VPN, Block All, Domain Whitelist) are ignored when Premium VPN is active.
-- Domain Whitelist disables Private DNS and the main VPN toggle while it is on.
-- Block All Traffic requires the legacy VPN and is disabled while whitelist or premium VPN is active.
+- Firewall VPN (pcapdroid) features are ignored when Premium VPN is active.
+- Whitelist/Blacklist modes run inside the Firewall VPN; Private DNS can stay on (DNS host is auto-allowed).
+- Block All Traffic requires the Firewall VPN and is disabled while whitelist or premium VPN is active.
 - Master offline switches (premium only):
   - `network.vpn_offline_non_chrome` cuts all VPN/Squid traffic for the device.
   - `network.chrome_offline` cuts Chrome/MITM traffic.

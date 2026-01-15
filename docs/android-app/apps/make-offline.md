@@ -3,7 +3,7 @@
 ## Where it lives
 - `app/src/main/java/com/tripleu/ui/fragments/UpdateAppsFragment.kt`
 - `app/src/main/java/com/tripleu/network/FirewallManager.kt`
-- `app/src/main/java/com/tripleu/vpn/AdVpnService.java`
+- `app/src/main/java/com/tripleu/vpn/PcapVpnService.kt`
 
 ## What it does
 - Blocks or unblocks network access for a single app.
