@@ -4,8 +4,8 @@
 - Android app
 - Website
 - Firestore config
-- VPN + MITM proxy (WireGuard) on `kvylock`
-- Directus + Postgres (kvylock)
+- VPN + MITM proxy (WireGuard) on `kvy`
+- Directus + Postgres (kvy)
 - Admin portal (`admin.tripleu.org`)
 - Infra ops summary
 
@@ -19,7 +19,7 @@
 - Status offload details: `status-offload-plan`.
 
 ## Servers (current roles)
-- `kvylock`: public entrypoint, Nginx + HAProxy, WireGuard hub, MITM proxy, Squid, dnsmasq, Directus, Postgres.
+- `kvy`: public entrypoint, Nginx + HAProxy, WireGuard hub, MITM proxy, Squid, dnsmasq, Directus, Postgres.
 - `witness`: Gatus (status) + etcd for Patroni.
 
 ## Improvement goals
@@ -35,4 +35,4 @@
 - `wg-clean`/`wg-block` keys exist but no configs are present.
 - Directus/Postgres has no standby node right now.
 
-*Last updated: 2026-01-13*
+*Last updated: 2026-01-15*

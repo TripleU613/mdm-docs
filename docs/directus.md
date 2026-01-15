@@ -1,11 +1,11 @@
 # Directus
 
 ## Overview
-- Runs on `kvylock` only.
+- Runs on `kvy` only.
 - Image: `directus/directus:10.13.1`.
 - Directus container: `127.0.0.1:8055`.
-- HAProxy on kvylock: `127.0.0.1:8056` routes to the local Directus container.
-- Postgres: Patroni single-node on `kvylock`.
+- HAProxy on kvy: `127.0.0.1:8056` routes to the local Directus container.
+- Postgres: Patroni single-node on `kvy`.
 - Public path: `https://admin.tripleu.org/directus/` (Nginx reverse proxy, CF Access + basic auth user `tripleu`, PIN `Aa45301826`).
 - Storage:
   - Uploads: DO Spaces `kvylockstorage/directus-uploads`.
@@ -356,7 +356,7 @@ Content-Type: application/json
 - `website_categories`, `website_category_rules`.
 - `bad_words`, `store_apps`.
 ### Ops note
-- No systemd timer/service is configured for these import scripts on `kvylock`; runs are manual.
+- No systemd timer/service is configured for these import scripts on `kvy`; runs are manual.
 
 ## App policy data (Postgres)
 - `app_network_policies` and related `app_network_variants` and `app_network_hosts` are created by `import_app_policies.py`.

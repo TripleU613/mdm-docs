@@ -1,6 +1,6 @@
 # VPN + proxies (WireGuard)
 
-Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Directus).
+Scope: Android app behavior plus kvy server stack (WireGuard + MITM + Directus).
 
 ## Connections
 - Firebase control plane: `firestore-config`.
@@ -102,14 +102,14 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
   - `app/src/main/assets/mitmproxy-ca.pem`
 - Stores SHA-256 fingerprints in `vpn2_state` to avoid re-installing.
 
-## Server (kvylock)
+## Server (kvy)
 ### Core services
 - WireGuard: `wg-quick@wg-mitm` with config `/etc/wireguard/wg-mitm.conf`.
 - VPN API: `api-http.service` runs `/opt/api/server.py` on `127.0.0.1:8000`.
 - Squid: `squid.service` provides the VPN intercept proxy on `3128/3129`.
 - MITM proxy: `mitmproxy.service` runs `mitmweb` in explicit mode on `:8080` with web UI on `127.0.0.1:8081`.
 - DNS: `dnsmasq` listens on `0.0.0.0:5353` for VPN clients.
-- Directus: Docker `directus` on kvylock behind HAProxy (see `directus`).
+- Directus: Docker `directus` on kvy behind HAProxy (see `directus`).
 - Nginx: TLS entrypoint for `vpn.kvylock.com` and `admin.tripleu.org`.
 
 ### Admin UIs
@@ -356,13 +356,13 @@ Scope: Android app behavior plus kvylock server stack (WireGuard + MITM + Direct
 
 ## Cross-system flow (end-to-end)
 - Android writes `vpn.wgPublicKey` and reads `devices/{deviceId}.vpn` for WG details.
-- Firebase functions allocate WG address/keys and call the kvylock VPN API.
+- Firebase functions allocate WG address/keys and call the kvy VPN API.
 - VPN API updates WireGuard peers; MITM uses WG IP -> device id mapping.
 - Website writes Directus category prefs and site overrides; MITM enforces them.
 
-## Related services on kvylock
+## Related services on kvy
 ### TURN (remote control)
-- Service: `coturn.service` on `kvylock`.
+- Service: `coturn.service` on `kvy`.
 - Config: `/etc/turnserver.conf`.
 - Ports: `3478` (STUN/TURN) and `5349` (TLS).
 - Realm and external IP are set in the config; credentials use long-term auth.

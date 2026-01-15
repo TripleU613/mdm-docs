@@ -93,7 +93,7 @@
 ### External dependencies
 - Stripe (device slots + VPN subscriptions).
 - Directus (VPN categories, appeals, site overrides).
-- VPN API (WireGuard peer upsert/remove) hosted on `kvylock`; see `vpn-wireguard`.
+- VPN API (WireGuard peer upsert/remove) hosted on `kvy`; see `vpn-wireguard`.
 - Gemini API (tech take content).
 - GitHub API (latest release lookup).
 

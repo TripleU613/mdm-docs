@@ -17,7 +17,7 @@
 - Firestore: devices list, config state, apps, commands, notes, remote session.
 - Cloud Run: device slot checkout and VPN checkout (ID token in Authorization header).
 - Directus (via Firebase Functions): VPN categories, appeals, category prefs, site overrides.
-- WebRTC: STUN/TURN for Remote Control (TURN host on `kvylock`; see `vpn-wireguard`).
+- WebRTC: STUN/TURN for Remote Control (TURN host on `kvy` via `vpn.kvylock.com`; see `vpn-wireguard`).
 
 ## Auth + access
 - Login uses Firebase Auth email + password.
