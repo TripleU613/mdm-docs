@@ -14,7 +14,7 @@ This allows administrators to control which apps are available while still givin
 The admin-facing Store tab is accessible when the device is unlocked and managed.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Store tab (admin mode)](/assets/store-tab.png){ width=320 }
 
@@ -39,13 +39,13 @@ Available actions:
   - Typing a few words shows suggested package names
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Add apps in admin Store](/assets/store-admin-add.png){ width=320 }
 
 </details>
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Search apps by keyword](/assets/store-search.png){ width=320 }
 
@@ -65,7 +65,7 @@ The user-facing Store is available only when the following setting is enabled:
 - **Installation tab → Show Store on Lock Screen**
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Store link on lock screen](/assets/store-lockscreen.png){ width=320 }
 
@@ -95,7 +95,7 @@ Once submitted:
 - The app is not available until approved by an administrator
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![User requesting apps](/assets/store-user-request.png){ width=320 }
 
@@ -112,7 +112,7 @@ In the admin Store tab:
 - Approved apps immediately become available in the user Store
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Admin review of requests](/assets/store-admin-requests.png){ width=320 }
 

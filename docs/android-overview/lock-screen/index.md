@@ -4,7 +4,7 @@ After completing setup, the app opens to the **Lock Screen**.
 This is the default entry point to the MDM and requires authentication before any managed features can be accessed.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![MDM lock screen showing PIN entry, device info, and lock status icon](/assets/lock-screen.png){ width=320 }
 
@@ -54,7 +54,7 @@ If you forget your PIN:
 3. Reset the PIN after successful verification
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Forgot access code](/assets/forgot-pin.png){ width=320 }
 

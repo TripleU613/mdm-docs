@@ -4,7 +4,7 @@ The **Apps** tab is the main **application management terminal**.
 It provides visibility and control over all apps on the device and allows policies to be applied at the individual app level.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Apps tab showing User, System, and Managed sub-tabs](/assets/apps-tab.png){ width=320 }
 
@@ -44,7 +44,7 @@ Displays apps that currently have **MDM policies applied**.
 - Useful for auditing and reviewing applied restrictions
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Managed tab at a glance](/assets/managed-tab.png){ width=320 }
 
@@ -59,13 +59,13 @@ When you **tap an app** or **long-press to multi-select**, a set of action chips
 > Available actions may vary depending on enabled MDM features (for example, VPN-related controls).
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Multi-select actions](/assets/apps-multiselect.png){ width=320 }
 
 </details>
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![App actions list](/assets/app-actions.png){ width=320 }
 

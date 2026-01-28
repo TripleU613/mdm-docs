@@ -4,7 +4,7 @@ The **Accessibility** tab contains multiple behavior-based and overlay-driven co
 Each switch targets specific in-app features and prevents access by detecting UI elements and immediately exiting the screen when triggered.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Accessibility tab showing content and app behavior restriction switches](/assets/accessibility-tab.png){ width=320 }
 
@@ -29,7 +29,7 @@ When enabled:
 - This approach ensures Android Auto itself is not disrupted
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Android Auto selector](/assets/android-auto-selector.png){ width=320 }
 
@@ -105,13 +105,13 @@ This switch functions as:
 - **Disabled** → Allow all, block only specified apps
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![App management with Block All In-App Browsers OFF](/assets/inapp-browsers-off.png){ width=320 }
 
 </details>
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![App management with Block All In-App Browsers ON](/assets/inapp-browsers-on.png){ width=320 }
 
@@ -138,7 +138,7 @@ Available Telegram filters:
 - Block Telegram profiles
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Telegram sub-switches](/assets/telegram-filters.png){ width=320 }
 

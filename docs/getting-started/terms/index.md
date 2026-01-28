@@ -5,7 +5,7 @@
 When you open the app for the first time, you are presented with the **Privacy Policy** and **Terms of Service** screen.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Welcome and consent screen](/assets/welcome-consent.png){ width=320 }
 

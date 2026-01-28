@@ -3,7 +3,7 @@
 The **System** tab contains core device-level restrictions that control user behavior and access to sensitive system features.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![System tab showing device restriction switches](/assets/system-tab.png){ width=320 }
 
@@ -28,7 +28,7 @@ When enabling this option:
 - Or **skip setting an FRP account**
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![FRP screen](/assets/frp-screen.png){ width=320 }
 

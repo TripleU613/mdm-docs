@@ -3,7 +3,7 @@
 The **Network** tab controls VPN behavior and device-level network restrictions.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Network tab overview](/assets/network-tab.png){ width=320 }
 
@@ -29,7 +29,7 @@ Legacy VPN supports two modes:
 - Apps must be explicitly added in **Apps Management**
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Include or Exclude mode selector](/assets/include-exclude-mode.png){ width=320 }
 
@@ -41,13 +41,13 @@ Legacy VPN supports two modes:
 All app selection and exception handling is configured through the **Apps Management** tab.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Exclude apps in Apps Management](/assets/exclude-apps.png){ width=320 }
 
 </details>
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Include apps in Apps Management](/assets/include-apps.png){ width=320 }
 
@@ -76,7 +76,7 @@ Capabilities:
 - Supports wildcard domains using `*`
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Whitelist domains example](/assets/whitelist-domains.png){ width=320 }
 
@@ -121,7 +121,7 @@ Configures a custom Private DNS provider for the device.
 - Applies system-wide
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Private DNS setting](/assets/private-dns.png){ width=320 }
 

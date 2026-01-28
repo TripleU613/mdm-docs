@@ -4,13 +4,13 @@ The **Settings** tab contains account-level actions, application preferences, ma
 Use caution with account and uninstall options.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Settings tab (part 1)](/assets/settings-1.png){ width=320 }
 
 </details>
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Settings tab (part 2)](/assets/settings-2.png){ width=320 }
 
@@ -42,7 +42,7 @@ Controls how dense the UI layout appears.
 - Adjusts spacing and layout compactness
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![App density options](/assets/app-density.png){ width=320 }
 
@@ -76,7 +76,7 @@ Displays:
 - **Account email address**
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Account info](/assets/account-info.png){ width=320 }
 

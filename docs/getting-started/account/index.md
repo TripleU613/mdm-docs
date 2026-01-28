@@ -13,7 +13,7 @@ You can either **sign in to an existing account** or **create a new account**.
 To create a new account, you must provide the following information:
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Create account screen](/assets/create-account.png){ width=320 }
 
@@ -45,7 +45,7 @@ After completing all fields, submit the form to create your account and continue
 After you tap **Create Account**, an OTP is sent to your email inbox. Check **Primary** or **Spam**, then enter the OTP in the app to verify your account and continue.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![OTP verification screen](/assets/otp-verify.png){ width=320 }
 
@@ -58,7 +58,7 @@ After you tap **Create Account**, an OTP is sent to your email inbox. Check **Pr
 To sign in to an existing account, enter:
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Login screen](/assets/login.png){ width=320 }
 
@@ -93,7 +93,7 @@ If you see the sign-in screen again on a new device, that device will count as a
 On the **Create Account**, **Login**, and **Permissions** screens, there is a hidden option:
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Clear device owner action](/assets/clear-device-owner.png){ width=320 }
 
@@ -116,7 +116,7 @@ This is useful if:
 If you forgot your account password:
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Forgot password screen](/assets/forgot-password.png){ width=320 }
 

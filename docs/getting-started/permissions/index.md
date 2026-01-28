@@ -5,7 +5,7 @@
 After you finish account setup and verification, TripleUMDM opens the **Permissions** screen. The app requires **two mandatory permissions** and will not continue until both are granted.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Permissions screen](/assets/permissions.png){ width=320 }
 

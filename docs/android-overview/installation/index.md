@@ -3,7 +3,7 @@
 The **Installation** tab controls how applications can be installed, updated, and accessed on the device.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Installation tab showing app installation policy switches](/assets/installation-tab.png){ width=320 }
 
@@ -36,13 +36,13 @@ Approval workflow:
 When an app is detected as new, it will show as **Detected**. Tap it to review, then approve.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Detected app in Managed list](/assets/detected-app.png){ width=320 }
 
 </details>
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Allow open prompt](/assets/allow-open.png){ width=320 }
 
