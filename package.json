@@ -8,8 +8,11 @@
     "serve": "vitepress serve docs"
   },
   "devDependencies": {
-    "vue": "3.2.44",
-    "vitepress": "1.0.0-alpha.28"
+    "vitepress": "^1.6.4",
+    "vue": "3.2.44"
+  },
+  "overrides": {
+    "esbuild": "0.27.2"
   },
   "pnpm": {
     "peerDependencyRules": {
