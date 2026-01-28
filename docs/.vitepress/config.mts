@@ -9,11 +9,6 @@ export default defineConfig({
     nav: [
       { text: 'Getting Started', link: '/getting-started/' },
       { text: 'Android Overview', link: '/android-overview/' },
-      { text: 'Restrictions', link: '/basic-restrictions/' },
-      { text: 'Remote', link: '/remote-connection/' },
-      { text: 'VPN', link: '/premium-vpn/' },
-      { text: 'Store', link: '/store/' },
-      { text: 'Help', link: '/help/' },
     ],
     sidebar: {
       '/': [
@@ -43,12 +38,6 @@ export default defineConfig({
                 { text: 'Settings Tab', link: '/android-overview/settings/' },
               ],
             },
-            { text: 'Basic Restrictions', link: '/basic-restrictions/' },
-            { text: 'Remote Connection', link: '/remote-connection/' },
-            { text: 'Legacy VPN', link: '/legacy-vpn/' },
-            { text: 'Premium VPN', link: '/premium-vpn/' },
-            { text: 'Store', link: '/store/' },
-            { text: 'Help', link: '/help/' },
           ],
         },
       ],
