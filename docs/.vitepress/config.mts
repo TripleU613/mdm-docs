@@ -4,8 +4,12 @@ export default defineConfig({
   lang: 'en-US',
   title: 'TripleUMDM Docs',
   description: 'A guide website that will help you set up or troubleshoot TripleUMDM.',
+  appearance: false,
   themeConfig: {
     siteTitle: 'TripleUMDM Docs',
+    search: {
+      provider: 'local',
+    },
     nav: [
       { text: 'Getting Started', link: '/getting-started/' },
       { text: 'Android Overview', link: '/android-overview/' },
