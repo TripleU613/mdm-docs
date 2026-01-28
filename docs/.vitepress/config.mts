@@ -7,6 +7,7 @@ export default defineConfig({
   appearance: false,
   themeConfig: {
     siteTitle: 'TripleUMDM Docs',
+    logo: '/logo.png',
     search: {
       provider: 'local',
     },
