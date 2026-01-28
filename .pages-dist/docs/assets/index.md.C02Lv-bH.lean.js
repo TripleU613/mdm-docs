@@ -1,1 +1,0 @@
-import{_ as o,c as i,o as s,ae as a}from"./chunks/framework.Cqi9LMMK.js";const p=JSON.parse('{"title":"MDM Docs","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),r={name:"index.md"};function l(d,e,t,c,n,u){return s(),i("div",null,[...e[0]||(e[0]=[a("",9)])])}const h=o(r,[["render",l]]);export{p as __pageData,h as default};
