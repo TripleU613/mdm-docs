@@ -1,4 +1,12 @@
 :root {
+  /* VitePress alpha (brand vars) */
+  --vp-c-brand: #3b82f6;
+  --vp-c-brand-light: #60a5fa;
+  --vp-c-brand-lighter: #93c5fd;
+  --vp-c-brand-dark: #2563eb;
+  --vp-c-brand-darker: #1d4ed8;
+
+  /* VitePress newer vars */
   --vp-c-brand-1: #3b82f6;
   --vp-c-brand-2: #60a5fa;
   --vp-c-brand-3: #93c5fd;
