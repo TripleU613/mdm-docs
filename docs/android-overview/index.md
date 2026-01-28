@@ -7,7 +7,7 @@ After completing account setup and entering your **App PIN** on the authenticati
 The Home page provides a high-level overview of the device and its current MDM state.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Home screen after PIN authentication](/assets/home-screen.png){ width=320 }
 
@@ -36,7 +36,7 @@ The Home page includes the following elements:
   This ensures support can identify exactly which device is contacting them.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
   ![Contact support form](/assets/contact-support.png){ width=320 }
 
@@ -56,7 +56,7 @@ This page is intended as a **status dashboard**, giving you a quick view of what
 From the Home screen, you can open the **sidebar navigation menu** to access all major sections of the app.
 
 <details>
-<summary>Image</summary>
+<summary>image</summary>
 
 ![Sidebar navigation menu](/assets/sidebar-nav.png){ width=320 }
 

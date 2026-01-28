@@ -4,6 +4,14 @@
   --vp-c-bg-alt: #0b1020;
   --vp-c-bg-elv: #0b1020;
   --vp-c-bg-soft: #0f172a;
+  --vp-c-bg-mute: #0b1020;
+
+  /* Text + dividers for contrast */
+  --vp-c-text-1: rgba(255, 255, 255, 0.95);
+  --vp-c-text-2: rgba(226, 232, 240, 0.8);
+  --vp-c-text-3: rgba(226, 232, 240, 0.6);
+  --vp-c-divider: rgba(148, 163, 184, 0.12);
+  --vp-c-border: rgba(148, 163, 184, 0.12);
 
   /* VitePress alpha (brand vars) */
   --vp-c-brand: #3b82f6;
@@ -24,4 +32,46 @@
   --vp-c-bg-alt: #0b1020;
   --vp-c-bg-elv: #0b1020;
   --vp-c-bg-soft: #0f172a;
+  --vp-c-bg-mute: #0b1020;
+  --vp-c-text-1: rgba(255, 255, 255, 0.95);
+  --vp-c-text-2: rgba(226, 232, 240, 0.8);
+  --vp-c-text-3: rgba(226, 232, 240, 0.6);
+  --vp-c-divider: rgba(148, 163, 184, 0.12);
+  --vp-c-border: rgba(148, 163, 184, 0.12);
+}
+
+.vp-doc details {
+  margin: 8px 0 14px;
+}
+
+.vp-doc details > summary {
+  list-style: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--vp-c-text-3);
+  opacity: 0.65;
+  cursor: pointer;
+}
+
+.vp-doc details > summary:hover {
+  color: var(--vp-c-text-2);
+  opacity: 0.8;
+}
+
+.vp-doc details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.vp-doc details > summary::marker {
+  content: '';
+}
+
+/* Right sidebar (On this page) — softer lines */
+.VPDocOutline .content {
+  border-left-color: rgba(148, 163, 184, 0.08);
+}
+
+.VPDocOutlineItem .outline-marker {
+  background-color: rgba(148, 163, 184, 0.08);
 }
