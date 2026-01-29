@@ -7,3 +7,4 @@ Welcome to the TripleUMDM guide.
 - [Getting Started](/getting-started/)
 - [Android App Overview](/android-overview/)
 - [Website](/website/)
+- [Website Features](/website-features/)
