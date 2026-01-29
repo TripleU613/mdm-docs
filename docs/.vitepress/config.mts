@@ -14,37 +14,34 @@ export default defineConfig({
     nav: [
       { text: 'Getting Started', link: '/getting-started/' },
       { text: 'Android Overview', link: '/android-overview/' },
+      { text: 'Website', link: '/website/' },
     ],
     sidebar: {
       '/': [
         {
-          text: 'Guide',
+          text: 'Getting Started',
+          link: '/getting-started/',
           items: [
-            {
-              text: 'Getting Started',
-              link: '/getting-started/',
-              items: [
-                { text: 'Terms & Privacy', link: '/getting-started/terms/' },
-                { text: 'Account Setup', link: '/getting-started/account/' },
-                { text: 'Permissions & Installation', link: '/getting-started/permissions/' },
-              ],
-            },
-            {
-              text: 'Android Overview',
-              link: '/android-overview/',
-              items: [
-                { text: 'Lock Screen', link: '/android-overview/lock-screen/' },
-                { text: 'System Tab', link: '/android-overview/system/' },
-                { text: 'Installation Tab', link: '/android-overview/installation/' },
-                { text: 'Accessibility Tab', link: '/android-overview/accessibility/' },
-                { text: 'Network Tab', link: '/android-overview/network/' },
-                { text: 'Store Tab', link: '/android-overview/store/' },
-                { text: 'Apps Tab', link: '/android-overview/apps/' },
-                { text: 'Settings Tab', link: '/android-overview/settings/' },
-              ],
-            },
+            { text: 'Terms & Privacy', link: '/getting-started/terms/' },
+            { text: 'Account Setup', link: '/getting-started/account/' },
+            { text: 'Permissions & Installation', link: '/getting-started/permissions/' },
           ],
         },
+        {
+          text: 'Android Overview',
+          link: '/android-overview/',
+          items: [
+            { text: 'Lock Screen', link: '/android-overview/lock-screen/' },
+            { text: 'System Tab', link: '/android-overview/system/' },
+            { text: 'Installation Tab', link: '/android-overview/installation/' },
+            { text: 'Accessibility Tab', link: '/android-overview/accessibility/' },
+            { text: 'Network Tab', link: '/android-overview/network/' },
+            { text: 'Store Tab', link: '/android-overview/store/' },
+            { text: 'Apps Tab', link: '/android-overview/apps/' },
+            { text: 'Settings Tab', link: '/android-overview/settings/' },
+          ],
+        },
+        { text: 'Website', link: '/website/' },
       ],
     },
   },
