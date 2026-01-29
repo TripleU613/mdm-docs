@@ -6,5 +6,6 @@ Welcome to the TripleUMDM guide.
 
 - [Getting Started](/getting-started/)
 - [Android App Overview](/android-overview/)
-- [Website](/website/)
+- [Website Basics](/website/)
 - [Website Features](/website-features/)
+- [VPN System](/vpn/)

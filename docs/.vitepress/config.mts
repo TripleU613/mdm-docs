@@ -32,6 +32,7 @@ export default defineConfig({
       { text: 'Android Overview', link: '/android-overview/' },
       { text: 'Website Basics', link: '/website/' },
       { text: 'Website Features', link: '/website-features/' },
+      { text: 'VPN System', link: '/vpn/' },
     ],
     sidebar: {
       '/': [
@@ -84,6 +85,16 @@ export default defineConfig({
             { text: 'Send Notification', link: '/website-features/send-notification/' },
             { text: 'Uninstall MDM', link: '/website-features/uninstall/' },
             { text: 'Factory Reset', link: '/website-features/factory-reset/' },
+          ],
+        },
+        {
+          text: 'VPN System',
+          link: '/vpn/',
+          items: [
+            { text: 'VPN Introduction', link: '/vpn/' },
+            { text: 'Control Options', link: '/vpn/controls/' },
+            { text: 'Website Configuration', link: '/vpn/website-config/' },
+            { text: 'Filtering Rules', link: '/vpn/filtering/' },
           ],
         },
       ],
