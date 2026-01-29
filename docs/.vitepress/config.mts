@@ -14,7 +14,8 @@ export default defineConfig({
     nav: [
       { text: 'Getting Started', link: '/getting-started/' },
       { text: 'Android Overview', link: '/android-overview/' },
-      { text: 'Website', link: '/website/' },
+      { text: 'Website Basics', link: '/website/' },
+      { text: 'Website Features', link: '/website-features/' },
     ],
     sidebar: {
       '/': [
@@ -41,7 +42,34 @@ export default defineConfig({
             { text: 'Settings Tab', link: '/android-overview/settings/' },
           ],
         },
-        { text: 'Website', link: '/website/' },
+        {
+          text: 'Website Basics',
+          link: '/website/',
+          items: [
+            { text: 'Home', link: '/website/home/' },
+            { text: 'System', link: '/website/system/' },
+            { text: 'Installation', link: '/website/installation/' },
+            { text: 'Store', link: '/website/store/' },
+            { text: 'Accessibility', link: '/website/accessibility/' },
+            { text: 'Network', link: '/website/network/' },
+            { text: 'Apps', link: '/website/apps/' },
+            { text: 'Settings', link: '/website/settings/' },
+          ],
+        },
+        {
+          text: 'Website Features',
+          link: '/website-features/',
+          items: [
+            { text: 'Device Notes', link: '/website-features/device-notes/' },
+            { text: 'Remote Lockout', link: '/website-features/remote-lockout/' },
+            { text: 'Remote App Approval', link: '/website-features/app-approval/' },
+            { text: 'APK Upload & Assignment', link: '/website-features/apk-upload/' },
+            { text: 'Remote Control', link: '/website-features/remote-control/' },
+            { text: 'Send Notification', link: '/website-features/send-notification/' },
+            { text: 'Uninstall MDM', link: '/website-features/uninstall/' },
+            { text: 'Factory Reset', link: '/website-features/factory-reset/' },
+          ],
+        },
       ],
     },
   },
