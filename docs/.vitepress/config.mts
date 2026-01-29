@@ -4,12 +4,28 @@ export default defineConfig({
   lang: 'en-US',
   title: 'TripleUMDM Docs',
   description: 'A guide website that will help you set up or troubleshoot TripleUMDM.',
-  appearance: false,
+  appearance: true,
   themeConfig: {
     siteTitle: 'TripleUMDM Docs',
     logo: '/logo.png',
     search: {
       provider: 'local',
+    },
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/TripleU613/TripleUMDM_Public' },
+      {
+        icon: {
+          svg: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3Zm-7-2a2 2 0 1 1 4 0v2h-4V6Zm8 11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6Z"/></svg>',
+        },
+        link: 'https://tripleumdm.com',
+      },
+    ],
+    editLink: {
+      pattern: 'https://github.com/TripleU613/mdm-docs/edit/main/docs/:path',
+      text: 'Edit this page on GitHub',
+    },
+    lastUpdated: {
+      text: 'Last updated',
     },
     nav: [
       { text: 'Getting Started', link: '/getting-started/' },

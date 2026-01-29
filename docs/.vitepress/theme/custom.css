@@ -1,19 +1,5 @@
 :root {
-  /* Darker backgrounds */
-  --vp-c-bg: #05070f;
-  --vp-c-bg-alt: #0b1020;
-  --vp-c-bg-elv: #0b1020;
-  --vp-c-bg-soft: #0f172a;
-  --vp-c-bg-mute: #0b1020;
-
-  /* Text + dividers for contrast */
-  --vp-c-text-1: rgba(255, 255, 255, 0.95);
-  --vp-c-text-2: rgba(226, 232, 240, 0.8);
-  --vp-c-text-3: rgba(226, 232, 240, 0.6);
-  --vp-c-divider: rgba(148, 163, 184, 0.12);
-  --vp-c-border: rgba(148, 163, 184, 0.12);
-
-  /* VitePress alpha (brand vars) */
+  /* Blue brand accents on top of default VitePress dark theme */
   --vp-c-brand: #3b82f6;
   --vp-c-brand-light: #60a5fa;
   --vp-c-brand-lighter: #93c5fd;
@@ -27,51 +13,30 @@
   --vp-c-brand-soft: rgba(59, 130, 246, 0.16);
 }
 
-.dark {
-  --vp-c-bg: #05070f;
-  --vp-c-bg-alt: #0b1020;
-  --vp-c-bg-elv: #0b1020;
-  --vp-c-bg-soft: #0f172a;
-  --vp-c-bg-mute: #0b1020;
-  --vp-c-text-1: rgba(255, 255, 255, 0.95);
-  --vp-c-text-2: rgba(226, 232, 240, 0.8);
-  --vp-c-text-3: rgba(226, 232, 240, 0.6);
-  --vp-c-divider: rgba(148, 163, 184, 0.12);
-  --vp-c-border: rgba(148, 163, 184, 0.12);
+/* Make top-right social icons circular */
+.VPSocialLinks {
+  gap: 10px;
 }
 
-.vp-doc details {
-  margin: 8px 0 14px;
+.VPSocialLinks .VPSocialLink {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background-color: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.vp-doc details > summary {
-  list-style: none;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: var(--vp-c-text-3);
-  opacity: 0.65;
-  cursor: pointer;
+.VPSocialLinks .VPSocialLink:hover {
+  background-color: var(--vp-c-bg-mute);
+  border-color: var(--vp-c-brand);
+  transform: translateY(-1px);
 }
 
-.vp-doc details > summary:hover {
-  color: var(--vp-c-text-2);
-  opacity: 0.8;
-}
-
-.vp-doc details > summary::-webkit-details-marker {
-  display: none;
-}
-
-.vp-doc details > summary::marker {
-  content: '';
-}
-
-/* Right sidebar (On this page) — softer lines */
-.VPDocOutline .content {
-  border-left-color: rgba(148, 163, 184, 0.08);
-}
-
-.VPDocOutlineItem .outline-marker {
-  background-color: rgba(148, 163, 184, 0.08);
+.VPSocialLinks .VPSocialLink svg {
+  width: 18px;
+  height: 18px;
 }
