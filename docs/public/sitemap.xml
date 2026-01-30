@@ -25,9 +25,15 @@
   <url><loc>https://docs.tripleumdm.com/website-features/send-notification/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website-features/uninstall/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/vpn/controls/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/vpn/filtering/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/website-config/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/vpn/website-config/appeals/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/vpn/website-config/block-list/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/vpn/website-config/custom-rules/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/vpn/website-config/google-search/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/vpn/website-config/help-categorize/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/vpn/website-config/master-controls/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/vpn/website-config/on-device-actions/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/vpn/website-config/website-categories/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/accessibility/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/apps/</loc></url>
