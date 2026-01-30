@@ -11,4 +11,5 @@ This section documents **website-only or premium features** that either do not e
 - [Remote Control (Screen Viewing)](/website-features/remote-control/)
 - [Send Notification](/website-features/send-notification/)
 - [Uninstall MDM](/website-features/uninstall/)
+- [Reboot Device](/website-features/reboot-device/)
 - [Factory Reset](/website-features/factory-reset/)

@@ -150,6 +150,12 @@ Available Telegram filters:
 
 ---
 
+## Split-Screen Guard
+
+The accessibility service monitors window layout and **forces a jump to Home** if split‑screen is detected.
+
+This prevents users from staying in split‑screen mode while the MDM is active.
+
 ## Summary
 
 - Accessibility policies rely on **UI detection and overlays**
