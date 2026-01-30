@@ -16,6 +16,7 @@ This is the default entry point to the MDM and requires authentication before an
 
 - You must enter your **MDM PIN** to unlock the app
 - The PIN is required every time you access the MDM interface
+- The **Enter** button sits next to the PIN field for faster unlock
 
 ---
 
@@ -80,6 +81,21 @@ Then the Lock Screen includes a link to the **Store**.
 
 - Allows users to view and install approved apps
 - Also allows requesting new apps (if permitted)
+- Appears as a **split action** next to **Chat with admin**
+
+## Chat with Admin (Lock Screen)
+
+Users can open a **live chat** with the admin directly from the Lock Screen.
+
+- Opens the Remote Chat feature
+- Useful for support without unlocking the app
+
+---
+
+## Forgot PIN
+
+The **Forgot access code** link is placed below the quick actions.
+Use it to reset the MDM PIN when needed.
 
 ---
 
