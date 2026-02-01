@@ -95,12 +95,15 @@ These actions are always available:
 #### Uninstall / Reinstall
 - **User apps**:
   - Fully uninstalled from the device
+  - Removed from the Apps list after uninstall
 - **System apps**:
-  - Uninstalled for the current user only
+  - Not removed from the system image
+  - Hidden + suspended for the current user (acts like uninstall)
+  - Remain visible so you can **Reinstall** later
 
 Reinstall behavior:
-- User apps can be reinstalled normally
-- System apps are restored as existing system components
+- User apps can be installed again normally (they reappear after install)
+- System apps are restored by **Reinstall** (unhide + unsuspend)
 
 This option is primarily intended for **remote uninstall scenarios**, but is also available locally.
 
