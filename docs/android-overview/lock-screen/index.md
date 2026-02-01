@@ -89,6 +89,7 @@ Users can open a **live chat** with the admin directly from the Lock Screen.
 
 - Opens the Remote Chat feature
 - Useful for support without unlocking the app
+- Requires **Remote Access** to be enabled for the device
 
 ---
 
