@@ -90,7 +90,10 @@ The sidebar contains the following tabs:
 8. **Apps**  
    Application management. See the detailed overview below.
 
-9. **Settings**  
+9. **Kiosk**  
+   Kiosk mode controls. See the detailed overview below.
+
+10. **Settings**  
    General app and account settings. See the detailed overview below.
 
 Each tab provides access to a specific category of device management features.
@@ -138,6 +141,12 @@ For a full breakdown of Store behavior, see:
 For a full breakdown of Apps management, see:
 
 - [Apps Tab](/android-overview/apps/)
+
+## Kiosk Tab Overview
+
+For a full breakdown of Kiosk mode, see:
+
+- [Kiosk Tab](/android-overview/kiosk/)
 
 ## Settings Tab Overview
 

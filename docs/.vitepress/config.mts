@@ -56,6 +56,7 @@ export default defineConfig({
             { text: 'Network Tab', link: '/android-overview/network/' },
             { text: 'Store Tab', link: '/android-overview/store/' },
             { text: 'Apps Tab', link: '/android-overview/apps/' },
+            { text: 'Kiosk Tab', link: '/android-overview/kiosk/' },
             { text: 'Settings Tab', link: '/android-overview/settings/' },
           ],
         },
