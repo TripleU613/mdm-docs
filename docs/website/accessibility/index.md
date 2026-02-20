@@ -1,17 +1,12 @@
 # Accessibility Tab (Website)
 
-The **Accessibility** tab mirrors app accessibility restrictions:
+Website Accessibility tab mirrors Android accessibility policy toggles.
 
-- Android Auto port modes
-- WhatsApp updates, channels, and status blocks
-- Block Play Store Books tab
-- Block in-app AI
-- In-app browser controls
-- Telegram filters
+## Includes
 
-<details>
-<summary>image</summary>
+- In-app browser policy
+- In-app AI restrictions
+- Telegram feature blockers (including Stories)
+- Other app-specific UI detection controls
 
-![Website Accessibility tab](/assets/website-accessibility-tab.png){ width=520 }
-
-</details>
+Changes sync to device and are enforced by accessibility runtime.

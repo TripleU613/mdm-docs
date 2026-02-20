@@ -1,17 +1,13 @@
 # Network Tab (Website)
 
-The **Network** tab mirrors app network controls:
+Network tab manages remote network policy values consumed by device runtime.
 
-- Legacy VPN include/exclude modes
-- Block all traffic
-- Block Wi‑Fi
-- Disable hotspot/tethering
-- Domain whitelist / blacklist
-- Private DNS
+## Current Direction
 
-<details>
-<summary>image</summary>
+- PCAP/local filtering model is the active path.
+- App include/exclude and domain list policy are primary controls.
 
-![Website Network tab](/assets/website-network-tab.png){ width=520 }
+## Legacy VPN Area
 
-</details>
+Legacy VPN controls may still appear for transition accounts but are being phased out.
+Do not base new deployments on legacy VPN tab behavior.

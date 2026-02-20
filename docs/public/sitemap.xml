@@ -6,11 +6,13 @@
   <url><loc>https://docs.tripleumdm.com/android-overview/accessibility/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/apps/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/installation/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/android-overview/kiosk/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/lock-screen/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/network/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/settings/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/store/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/system/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/android-overview/time/</loc></url>
   <url><loc>https://docs.tripleumdm.com/getting-started/</loc></url>
   <url><loc>https://docs.tripleumdm.com/getting-started/account/</loc></url>
   <url><loc>https://docs.tripleumdm.com/getting-started/permissions/</loc></url>
@@ -45,4 +47,5 @@
   <url><loc>https://docs.tripleumdm.com/website/settings/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/store/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/system/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website/time/</loc></url>
 </urlset>

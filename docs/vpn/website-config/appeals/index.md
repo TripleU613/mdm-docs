@@ -1,13 +1,7 @@
-# Appeals Tab
+# Legacy Appeals
 
-If a website is blocked and the user submits an appeal from the device:
+Legacy appeals allow review of blocked-domain disputes from old VPN controls.
 
-- The appeal appears in the **Appeals** tab
+## Status
 
-Available actions:
-- **Approve by category** (allows all sites in that category)
-- **Approve site only** (allows only the specific site)
-
-This allows fine-grained exceptions without opening an entire category.
-
-<!-- <screenshot please: VPN Appeals tab showing pending appeal actions> -->
+Kept for existing datasets/accounts using legacy VPN paths.

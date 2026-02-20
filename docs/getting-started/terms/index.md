@@ -1,20 +1,17 @@
-# Terms & Privacy
+# Terms and Privacy
 
-## Agreeing to the Privacy Policy and Terms of Service
+## First Launch
 
-When you open the app for the first time, you are presented with the **Privacy Policy** and **Terms of Service** screen.
+On first launch, users must accept policy and consent screens before account flow continues.
 
-<details>
-<summary>image</summary>
+## Operational Reminder
 
-![Welcome and consent screen](/assets/welcome-consent.png){ width=320 }
+TripleUMDM applies device-owner and accessibility policy. Make sure users are informed that:
 
-</details>
+- App behavior can be restricted by policy.
+- Some controls are enforced immediately after sync.
+- Device-owner actions can block user-level changes in Android settings.
 
-To continue using the app:
+## Policy Links
 
-1. Review the Privacy Policy and Terms of Service.
-2. Tap **Accept** to agree.
-
-You **must accept** both the Privacy Policy and the Terms of Service to proceed.
-If you do not accept them, the app will not allow you to continue past this screen.
+Use the in-app and website policy links from Settings for the latest published legal text.

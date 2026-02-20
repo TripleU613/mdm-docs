@@ -1,23 +1,14 @@
 # Home Tab (Website)
 
-The **Home** tab provides summary information similar to the app:
+Home provides per-device status and quick operational context.
 
-- **Applied Policies Count**
-- **Tech Tip of the Day**
-- **Quick Facts**
-- **Contact Support**
-- **Policy Status Overview**
+## Typical Data
 
-<details>
-<summary>image</summary>
+- Device identity and connection state
+- Policy summary badges
+- Remote access state
+- Action shortcuts for high-frequency tasks
 
-![Website Home tab (basic info)](/assets/website-home-basic.png){ width=520 }
+## Notes
 
-</details>
-
-<details>
-<summary>image</summary>
-
-![Website Home tab (more info)](/assets/website-home-more.png){ width=520 }
-
-</details>
+Use Home as the first check when a device is reported out of sync.

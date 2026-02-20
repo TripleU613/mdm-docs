@@ -1,16 +1,9 @@
 # Device Notes
 
-**Device Notes** allow you to attach internal notes to a specific device.
+Device Notes provides per-device internal notes for operators.
 
-- Intended for customer or client-related information
-- Functions like a simple notepad
-- Notes are visible only in the website console
+## Use
 
-Use this feature however it best fits your internal workflow.
-
-<details>
-<summary>image</summary>
-
-![Website device notes](/assets/website-notes.png){ width=520 }
-
-</details>
+- Track operational context for a device.
+- Record known issues, handoff details, and incident notes.
+- Keep notes concise and dated.

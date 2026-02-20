@@ -1,13 +1,8 @@
 # Uninstall MDM (Remote)
 
-The website supports **remote MDM uninstallation**.
+Remote uninstall removes managed app state for the target device flow.
 
-- Completely removes the MDM from the device
-- Use with extreme caution, as this removes management control
+## Caution
 
-<details>
-<summary>image</summary>
-
-![Website settings screen](/assets/website-settings-screen.png){ width=520 }
-
-</details>
+- Uninstall removes enforcement.
+- Ensure you have an approved fallback management path before executing.

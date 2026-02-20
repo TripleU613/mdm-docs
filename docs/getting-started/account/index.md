@@ -1,129 +1,44 @@
 # Account Setup
 
-## Signing In or Creating an Account
+## Signup vs Signin
 
-After accepting the Privacy Policy and Terms of Service, the app displays the **Sign In** screen.
+### Signup
 
-You can either **sign in to an existing account** or **create a new account**.
+Signup requires:
 
----
+- Name
+- Phone
+- Email
+- Password
+- Local app PIN
 
-## Creating an Account
+After signup, email verification is required before full access is granted.
 
-To create a new account, you must provide the following information:
+### Signin
 
-<details>
-<summary>image</summary>
+Signin requires:
 
-![Create account screen](/assets/create-account.png){ width=320 }
+- Email
+- Password
+- Local app PIN
 
-</details>
+Verified users can sign in directly. Signin does not require OTP when the email is already verified.
 
-- **Full name**
-- **Phone number**
-- **Email address**
-- **Account password**
-- **Confirm password**
-- **App PIN**
+## PIN vs Password
 
-### Account Password vs App PIN
+- **Password**: account-level credential (app and website).
+- **PIN**: local unlock credential for the Android MDM app.
 
-- **Account password**
-  - Used to access your account on:
-    - Other devices
-    - The web portal
-  - Allows you to manage and control devices associated with your account
+## Device Slot Rules
 
-- **App PIN**
-  - Used to unlock and access the MDM app locally
-  - Works even when the device is offline
+Account access depends on available device slots. If slot capacity is reached, additional signins on new devices require slot expansion.
 
-After completing all fields, submit the form to create your account and continue setup.
+## Hidden Recovery Action
 
-### Email Verification (OTP)
+A hidden long-press action on auth/permissions hero animations can clear device owner for recovery flows when the device is stuck during setup.
 
-After you tap **Create Account**, an OTP is sent to your email inbox. Check **Primary** or **Spam**, then enter the OTP in the app to verify your account and continue.
+Use only for recovery. Clearing device owner removes enforced management state.
 
-<details>
-<summary>image</summary>
+## Password Recovery
 
-![OTP verification screen](/assets/otp-verify.png){ width=320 }
-
-</details>
-
----
-
-## Signing In
-
-To sign in to an existing account, enter:
-
-<details>
-<summary>image</summary>
-
-![Login screen](/assets/login.png){ width=320 }
-
-</details>
-
-- **Email address**
-- **Account password**
-- **App PIN**
-
-Once entered, tap **Sign In** to continue.
-
----
-
-## Device Slot Limitation
-
-Each account includes **one free device slot**.
-
-Important notes:
-
-- If you have already used your free device slot, signing in on a **new device** will require purchasing an additional device slot.
-- This applies even if:
-  - Setup was not completed previously
-  - You are returned to the sign-in screen on a different device
-- Re-signing into the **same device** does consume an additional slot.
-
-If you see the sign-in screen again on a new device, that device will count as a new slot.
-
----
-
-## Hidden Action: Clearing Device Owner
-
-On the **Create Account**, **Login**, and **Permissions** screens, there is a hidden option:
-
-<details>
-<summary>image</summary>
-
-![Clear device owner action](/assets/clear-device-owner.png){ width=320 }
-
-</details>
-
-- Tap the **avatar image** at the top of the screen (the animated character).
-- This clears the **Device Owner** state from the device.
-
-This is useful if:
-- The device is stuck with Device Owner set
-- You do not currently have access to an account
-- You need to restart setup cleanly
-
-> This action is intentionally hidden and should be used only for recovery scenarios.
-
----
-
-## Resetting a Forgotten Password
-
-If you forgot your account password:
-
-<details>
-<summary>image</summary>
-
-![Forgot password screen](/assets/forgot-password.png){ width=320 }
-
-</details>
-
-1. Enter your **email address** on the password reset option.
-2. Tap **Submit**.
-3. You will receive your password via email.
-
-After resetting your password, return to the sign-in screen and log in normally.
+Use the Reset Password flow from the signin screen to trigger password reset through your configured backend flow.

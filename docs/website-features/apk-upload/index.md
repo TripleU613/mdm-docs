@@ -1,31 +1,12 @@
-# APK Upload & Assignment
+# APK Upload and Assignment
 
-The **Store** tab is a website-only feature used to manage APK distribution.
+APK upload allows controlled deployment of internal APKs.
 
-## APK Upload
+## Recommended Process
 
-- Upload APK files directly to the website
-- Uploaded APKs are **automatically parsed** for:
-  - App icon
-  - File size
-  - Package name
-  - Version
-  - Architecture (ABI)
+1. Upload signed APK artifact.
+2. Assign to target device group/device.
+3. Trigger install/update through managed flow.
+4. Validate install result and app launch behavior.
 
-## APK Assignment
-
-- Assign uploaded APKs to **any device** under your account
-- APKs are synced and reusable across all devices linked to the account
-
-## Storage Limit
-
-- **1 GB total storage cap per account**
-- This limit is shared across all devices
-- Typically sufficient for most use cases
-
-<details>
-<summary>image</summary>
-
-![APK uploader](/assets/website-apk-uploader.png){ width=520 }
-
-</details>
+Use ABI-aware release artifacts to avoid split mismatch failures.

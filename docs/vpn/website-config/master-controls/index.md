@@ -1,8 +1,7 @@
-# Master VPN Controls
+# Legacy Master Controls
 
-The **Master Controls** section includes global VPN behavior settings, such as:
+Legacy master controls apply global behavior toggles in old VPN flow.
 
-- Disable manual proxy (Chrome-specific)
-- Enable or disable Squid (excluding manual proxy)
+## Status
 
-These controls affect how Chrome traffic is routed and intercepted.
+Use only where existing deployment requires it. Do not use as new baseline.

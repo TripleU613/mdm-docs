@@ -1,22 +1,8 @@
-# Custom Rules
+# Legacy Custom Rules
 
-The **Custom Rules** tab allows manual rule creation.
+Legacy custom rules support specific URL/domain matching in older VPN flow.
 
-You can define:
-- Domain or subdomain
-- Exact domain match
-- Action:
-  - Allow
-  - Block
-- Optional overrides:
-  - Allow images for this rule
-  - Allow words for this rule
+## Status
 
-This is useful for exceptions or highly specific access control.
-
-<details>
-<summary>image</summary>
-
-![VPN custom rules](/assets/vpn-custom-rules.png){ width=520 }
-
-</details>
+- Maintained for backward compatibility.
+- New deployments should implement policy through current network controls.

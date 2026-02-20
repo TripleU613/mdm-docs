@@ -1,18 +1,9 @@
-# Factory Reset (Device-Dependent)
+# Factory Reset
 
-The website can issue a **factory reset command**, but support depends on the device.
+Factory reset is a destructive operation and device-support dependent.
 
-- Only works if:
-  - The OEM supports factory reset via MDM
-  - The device allows MDM-initiated reset
-- **Not supported on emulators**
-- Some physical devices do support this feature
+## Before Running
 
-This action fully wipes the device and should only be used when explicitly required.
-
-<details>
-<summary>image</summary>
-
-![Website settings screen](/assets/website-settings-screen.png){ width=520 }
-
-</details>
+- Confirm ownership and approval workflow.
+- Confirm data-loss acceptance.
+- Confirm post-reset provisioning path.

@@ -1,16 +1,10 @@
 # Remote App Approval
 
-Although app approval exists in the MDM app, the website provides a convenient way to manage it remotely.
+Remote App Approval controls whether requested apps become approved for install/use.
 
-- Approve detected apps
-- Block or leave apps in a pending state
-- Used in combination with the **Detect New Apps** feature
+## Flow
 
-This makes remote app governance significantly easier.
-
-<details>
-<summary>image</summary>
-
-![App detection console](/assets/website-app-detection.png){ width=520 }
-
-</details>
+1. User requests app from device flow.
+2. Admin reviews request in dashboard.
+3. Admin approves or rejects.
+4. Device receives updated policy/state.

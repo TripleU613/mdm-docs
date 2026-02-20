@@ -1,20 +1,7 @@
-# On-Device User Actions
+# Legacy On-Device Actions
 
-When browsing on the device:
+This page covers user-side actions related to legacy VPN controls.
 
-- **Blocked pages**
-  - Users can submit an appeal
-- **Uncategorized pages**
-  - Users can request categorization
+## Current Recommendation
 
-## Reporting Any Website
-
-Users can report any website manually:
-
-1. Open the website in **Chrome**
-2. Tap **Share**
-3. Share with the **www.ndm app**
-4. Select **Report to www.ndm**
-5. Choose the appropriate category
-
-Reports are reviewed and handled by the administration.
+Use current Android Network tab + website Network tab policies for new rollouts.

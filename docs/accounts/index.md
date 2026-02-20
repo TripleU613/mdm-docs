@@ -1,17 +1,22 @@
 # Accounts
 
-Manage user access, logins, and device ownership.
+This section summarizes account-level behavior.
 
-## Create an account
+## Core Rules
 
-- Use a valid email address.
-- Verify your email before enrolling devices.
+- One account can manage multiple devices, subject to slot limits.
+- Account password controls account access.
+- App PIN controls local access on each device.
 
-## Sign in
+## Verification
 
-- Use your email and password.
-- Reset your password if you cannot sign in.
+- Signup requires verification before full access.
+- Signin for verified users is direct.
 
-## Roles
+## Destructive Actions
 
-Assign the minimum access needed for each team member.
+From Settings, account deletion is permanent and removes associated account state and managed-device access for that account.
+
+## Audit Recommendation
+
+For production deployments, keep a controlled list of active admins and periodic checks for slot usage and verified account status.

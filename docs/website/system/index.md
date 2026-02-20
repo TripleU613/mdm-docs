@@ -1,17 +1,13 @@
 # System Tab (Website)
 
-The **System** tab matches the app’s system-level restrictions:
+System tab remotely manages device-level restrictions.
 
-- Disallow adding users
-- Disable factory reset
-- Block developer options
-- Disable app settings control
-- Block phone calls
-- Disable SMS/MMS
+## Typical Controls
 
-<details>
-<summary>image</summary>
+- Core restriction toggles mirrored from Android System tab
+- Remote lockout related controls
+- High-impact actions through guarded workflows
 
-![Website System tab](/assets/website-system-tab.png){ width=520 }
+## Operational Guidance
 
-</details>
+Apply system policy in small batches and verify device sync before broad rollout.

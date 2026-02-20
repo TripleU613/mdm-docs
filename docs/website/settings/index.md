@@ -1,14 +1,13 @@
 # Settings Tab (Website)
 
-The **Settings** tab includes app settings that are available remotely:
+Website settings covers operator-level dashboard preferences and account/device controls.
 
-- System language
-- Display density
-- Reset MDM PIN
+## Includes
 
-<details>
-<summary>image</summary>
+- Theme preference selection
+- Operator account/session controls
+- Device-level management options and admin links
 
-![Website Settings tab](/assets/website-settings-tab.png){ width=520 }
+## Recommendation
 
-</details>
+Use Settings to standardize operator UI mode and review high-impact account actions before applying them.

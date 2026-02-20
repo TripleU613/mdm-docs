@@ -1,21 +1,11 @@
 # Remote Lockout
 
-Located in the **System** tab.
+Remote Lockout allows admins to lock down access from the website side.
 
-- When enabled, the user is **locked out of the device**
-- The device remains locked until you manually unlock it from the website
-- Use this feature with caution, as it immediately restricts user access
+## Typical Use
 
-<details>
-<summary>image</summary>
+- Emergency containment
+- Lost or compromised device response
+- Temporary admin lockdown during troubleshooting
 
-![Remote lockout (system tab)](/assets/website-remote-lockout-1.png){ width=520 }
-
-</details>
-
-<details>
-<summary>image</summary>
-
-![Remote lockout (details)](/assets/website-remote-lockout-2.png){ width=520 }
-
-</details>
+Always verify unlock path before enabling lockout in production.

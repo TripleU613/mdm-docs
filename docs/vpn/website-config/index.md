@@ -1,24 +1,12 @@
-# VPN Website Controls Overview
+# Legacy Website VPN Controls
 
-This section explains the **Premium VPN controls**, tab by tab, as they appear on the website. These controls define what content is allowed or blocked, primarily for **Google Chrome**, with limited system-wide filtering.
+This section documents legacy website VPN controls that may still be visible.
 
-## Tabs in this section
+## Scope
 
-- [Block List (App Allowlist)](/vpn/website-config/block-list/)
-- [Website Categories](/vpn/website-config/website-categories/)
-- [Help Categorize](/vpn/website-config/help-categorize/)
-- [Appeals](/vpn/website-config/appeals/)
-- [Google Search Controls](/vpn/website-config/google-search/)
-- [Custom Rules](/vpn/website-config/custom-rules/)
-- [Master Controls](/vpn/website-config/master-controls/)
-- [On-Device User Actions](/vpn/website-config/on-device-actions/)
+- Transitional compatibility only.
+- Existing deployments may still depend on these values.
 
----
+## Recommendation
 
-## Notes and Future Improvements
-
-- More apps may be added to the **Block List** tab in the future
-- Website categorization depends heavily on community contribution
-- User participation helps improve filtering quality over time
-
-This concludes the **Premium VPN website overview**.
+For new policy design, use the current Network/PCAP model and avoid adding new dependencies on legacy VPN features.

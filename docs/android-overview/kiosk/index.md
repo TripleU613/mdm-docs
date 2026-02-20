@@ -1,47 +1,37 @@
 # Kiosk Tab
 
-The **Kiosk** tab locks the device to a limited set of allowed apps and applies kiosk-only restrictions.
+Kiosk mode locks the device into an allowlisted runtime.
 
-## Kiosk Mode
+## Core
 
-Enable **Kiosk Mode** to restrict the device to **allowed apps** only.
+- Enable kiosk mode only after selecting allowed apps.
+- Kiosk controls apply only while kiosk mode is active.
 
-- Allowed apps are managed from **Apps > Add to kiosk**
-- Turning kiosk off returns the device to normal app access
+## Controls
 
-## Kiosk Controls
+- Full screen
+- Status bar blocked
+- Lockscreen enabled
+- Screenshots enabled
+- Touch block
+- Lock power/volume buttons
+- Keep screen on
+- Block recents
+- Block notifications
+- USB file transfer blocked
+- Optional website kiosk mode (single-site)
 
-These controls apply **only while kiosk mode is enabled**:
+## Launcher Behavior
 
-### Status Bar Enabled
-Shows the kiosk status bar overlay. The system bar stays hidden.
+Current kiosk launcher supports:
 
-### Lockscreen Enabled
-Allows the lock screen while kiosk mode is enabled.
+- App drawer flow
+- Drag and drop placement
+- Widget placement and resize
+- Remove zone behavior while dragging
+- Long-press menu for launcher actions
 
-### Screenshots Enabled
-Allows screenshots and screen recording in kiosk mode.
+## Exit and Admin Access
 
-### Block Touchscreen
-Disables touch input so only hardware keys work.
-
-### Lock Power & Volume Buttons
-Disables the power menu and volume adjustments in kiosk mode.
-
-### Keep Screen On
-Keeps the screen on while kiosk mode is enabled.
-
-### Block Recents
-Hides the recent apps screen in kiosk mode.
-
-### Block Notifications
-Disables the notification shade in kiosk mode.
-
-### Disable USB Data
-Blocks USB file transfer while kiosk mode is enabled.
-
-## Summary
-
-- Kiosk mode locks the device to allowed apps only
-- Controls let you decide which system surfaces remain available
-- All kiosk controls apply only while kiosk is enabled
+- Entering MDM from kiosk requires PIN-gated admin path.
+- Recovery gestures are retained for controlled admin entry.

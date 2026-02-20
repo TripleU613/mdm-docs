@@ -1,14 +1,14 @@
 # Apps Tab (Website)
 
-The **Apps** tab mirrors app-level management and per-app controls.
+Apps tab is the remote package policy table.
 
-## Uninstall / Reinstall behavior
-- **User apps**: Uninstall removes the app and it disappears from the list until it is installed again.
-- **System apps**: Uninstall hides + suspends the app (it stays listed) and shows **Reinstall** to restore it.
+## What You Can Manage
 
-<details>
-<summary>image</summary>
+- Per-app restrictions and states
+- Kiosk allowlist membership
+- Network include/exclude flags
+- Time-management visibility and clear actions
 
-![Website Apps tab](/assets/website-apps-tab.png){ width=520 }
+## Sync Notes
 
-</details>
+Apps tab reflects current time-policy markers so admin can see which apps are time-controlled.
