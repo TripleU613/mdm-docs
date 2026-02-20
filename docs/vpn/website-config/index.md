@@ -1,12 +1,5 @@
-# Legacy Website VPN Controls
+# Legacy Website VPN Controls (Moved)
 
-This section documents legacy website VPN controls that may still be visible.
+This page moved to:
 
-## Scope
-
-- Transitional compatibility only.
-- Existing deployments may still depend on these values.
-
-## Recommendation
-
-For new policy design, use the current Network/PCAP model and avoid adding new dependencies on legacy VPN features.
+- [Archive / VPN / Website Controls](/archive/vpn/website-config/)

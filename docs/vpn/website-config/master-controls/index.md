@@ -1,7 +1,5 @@
-# Legacy Master Controls
+# Legacy Master Controls (Moved)
 
-Legacy master controls apply global behavior toggles in old VPN flow.
+This page moved to:
 
-## Status
-
-Use only where existing deployment requires it. Do not use as new baseline.
+- [Archive / VPN / Master Controls](/archive/vpn/website-config/master-controls/)

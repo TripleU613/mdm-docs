@@ -1,9 +1,15 @@
 # Factory Reset
 
-Factory reset is a destructive operation and device-support dependent.
+Factory reset is destructive and device-support dependent.
 
-## Before Running
+## Pre-Flight Checklist
 
-- Confirm ownership and approval workflow.
+- Confirm ownership and explicit approval.
 - Confirm data-loss acceptance.
-- Confirm post-reset provisioning path.
+- Confirm re-provisioning path after wipe.
+
+## Post-Action Checklist
+
+- Verify device state changed as expected.
+- Remove stale policy references from active fleet lists.
+- Document action in Device Notes.

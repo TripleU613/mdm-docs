@@ -1,7 +1,5 @@
-# Legacy Categorization Queue
+# Legacy Categorization Queue (Moved)
 
-Legacy categorization queue covers requests to classify uncategorized domains in old VPN workflows.
+This page moved to:
 
-## Status
-
-Backward-compatibility reference only.
+- [Archive / VPN / Help Categorize](/archive/vpn/website-config/help-categorize/)

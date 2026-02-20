@@ -1,13 +1,22 @@
 # Network Tab (Website)
 
-Network tab manages remote network policy values consumed by device runtime.
+Network tab controls the active PCAP-based network policy path.
 
-## Current Direction
+## Active Controls
 
-- PCAP/local filtering model is the active path.
-- App include/exclude and domain list policy are primary controls.
+- `network.vpn_enabled`
+- `network.vpn_app_mode` (include/exclude)
+- `network.block_all_traffic`
+- `network.domain_whitelist_enabled`
+- `network.domain_blacklist_enabled`
+- `network.private_dns_enabled`
 
-## Legacy VPN Area
+## Operational Notes
 
-Legacy VPN controls may still appear for transition accounts but are being phased out.
-Do not base new deployments on legacy VPN tab behavior.
+- Whitelist and blacklist modes are mutually exclusive.
+- Block-all should only be used when VPN is active.
+- Chrome SafeSearch enforcement is kept enabled by device policy.
+
+## Legacy Note
+
+Old WireGuard/premium VPN model is deprecated and documented only in [Archive VPN](/archive/vpn/).

@@ -1,14 +1,21 @@
 # Installation Tab (Website)
 
-Installation tab handles remote installation policy and installer workflows.
+Installation tab manages app install governance and request approval flow.
 
-## Use Cases
+## Main Actions
 
-- Manage install policy states remotely
-- Control package workflows used by managed devices
-- Coordinate release delivery for MDM app updates
+- Toggle **Block new apps** policy
+- Review pending apps and approve/reject
+- Keep approved and known-installed package sets aligned
 
-## Installer Notes
+## Recommended Flow
 
-- Installer fetch is on-demand in current website flow.
-- Keep release assets aligned with ABI/split build outputs.
+1. Keep `apps.block_new_apps` enabled for controlled fleets.
+2. Review pending list daily.
+3. Approve only required packages.
+4. Reconcile approved list if user reports blocked updates.
+
+## Failure Modes
+
+- App remains paused after install: package still not approved.
+- Approval appears saved but device unchanged: config sync delay or stale cache.

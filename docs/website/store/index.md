@@ -1,13 +1,21 @@
 # Store Tab (Website)
 
-Store tab controls app request, approval, install, and update flows.
+Store tab handles app request and update operations.
 
 ## Current Behavior
 
-- Separate request and update contexts
-- Refresh logic re-fetches data on tab context switches
-- Install/update path is split-aware
+- Request and update views are separate contexts.
+- Switching contexts should trigger a fresh fetch.
+- Update/install flow is split-aware.
+
+## Operator Runbook
+
+1. Open **Updates** and refresh.
+2. Apply selected updates.
+3. Re-open updates to confirm remaining list.
+4. If mismatch is reported, compare with device-side store list.
 
 ## Troubleshooting
 
-If update counts look stale, trigger refresh after switching context and verify backend response health.
+- Only one update appears unexpectedly: force context switch and refresh.
+- Install fails for large packages: verify required shared-library/split handling.

@@ -1,8 +1,5 @@
-# Legacy Block List
+# Legacy Block List (Moved)
 
-Legacy block-list controls define predefined block groups in old VPN workflows.
+This page moved to:
 
-## Status
-
-- Kept for backward compatibility.
-- Not recommended for new deployment design.
+- [Archive / VPN / Block List](/archive/vpn/website-config/block-list/)

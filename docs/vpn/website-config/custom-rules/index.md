@@ -1,8 +1,5 @@
-# Legacy Custom Rules
+# Legacy Custom Rules (Moved)
 
-Legacy custom rules support specific URL/domain matching in older VPN flow.
+This page moved to:
 
-## Status
-
-- Maintained for backward compatibility.
-- New deployments should implement policy through current network controls.
+- [Archive / VPN / Custom Rules](/archive/vpn/website-config/custom-rules/)

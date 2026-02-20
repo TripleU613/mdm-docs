@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://docs.tripleumdm.com/</loc></url>
   <url><loc>https://docs.tripleumdm.com/accounts/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/android-overview/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/accessibility/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/apps/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/android-overview/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/installation/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/kiosk/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/lock-screen/</loc></url>
@@ -13,39 +12,56 @@
   <url><loc>https://docs.tripleumdm.com/android-overview/store/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/system/</loc></url>
   <url><loc>https://docs.tripleumdm.com/android-overview/time/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/getting-started/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/vpn/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/vpn/website-config/appeals/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/vpn/website-config/block-list/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/vpn/website-config/custom-rules/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/vpn/website-config/google-search/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/vpn/website-config/help-categorize/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/vpn/website-config/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/vpn/website-config/master-controls/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/vpn/website-config/on-device-actions/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/archive/vpn/website-config/website-categories/</loc></url>
   <url><loc>https://docs.tripleumdm.com/getting-started/account/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/getting-started/</loc></url>
   <url><loc>https://docs.tripleumdm.com/getting-started/permissions/</loc></url>
   <url><loc>https://docs.tripleumdm.com/getting-started/terms/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/</loc></url>
   <url><loc>https://docs.tripleumdm.com/q-and-a/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website-features/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website-features/apk-upload/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website-features/app-approval/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website-features/device-notes/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website-features/factory-reset/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website-features/remote-control/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website-features/remote-chat/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website-features/remote-lockout/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website-features/send-notification/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website-features/uninstall/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/reference/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/reference/policy-keys/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/reference/state-indicators/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/reference/sync-behavior/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/vpn/website-config/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/website-config/appeals/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/website-config/block-list/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/website-config/custom-rules/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/website-config/google-search/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/website-config/help-categorize/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/vpn/website-config/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/website-config/master-controls/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/website-config/on-device-actions/</loc></url>
   <url><loc>https://docs.tripleumdm.com/vpn/website-config/website-categories/</loc></url>
-  <url><loc>https://docs.tripleumdm.com/website/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/accessibility/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/apps/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/home/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/installation/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/network/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/settings/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/store/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/system/</loc></url>
   <url><loc>https://docs.tripleumdm.com/website/time/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/apk-upload/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/app-approval/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/device-notes/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/factory-reset/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/reboot-device/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/remote-chat/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/remote-control/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/remote-lockout/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/send-notification/</loc></url>
+  <url><loc>https://docs.tripleumdm.com/website-features/uninstall/</loc></url>
 </urlset>

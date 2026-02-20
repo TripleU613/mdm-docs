@@ -1,14 +1,23 @@
 # Home Tab (Website)
 
-Home provides per-device status and quick operational context.
+Home is the first triage screen for a single device.
 
-## Typical Data
+## What to Check First
 
-- Device identity and connection state
-- Policy summary badges
-- Remote access state
-- Action shortcuts for high-frequency tasks
+- Device identity and last known online state
+- Policy badges and critical restrictions
+- Remote access and operator action shortcuts
+- Recent sync freshness
 
-## Notes
+## Standard Triage Flow
 
-Use Home as the first check when a device is reported out of sync.
+1. Confirm the selected device ID/name is correct.
+2. Verify online/offline state.
+3. Check whether policy has pending changes.
+4. If state looks stale, refresh config/apps data and re-check badges.
+
+## If Data Looks Stale
+
+- Refresh once after tab switch.
+- Verify backend health and device reachability.
+- Compare with Apps and Settings tabs to confirm latest write timestamp.

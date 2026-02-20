@@ -1,8 +1,8 @@
 # Website Features
 
-This section documents remote features that are primarily operated from the website.
+These are remote operations primarily executed from the dashboard.
 
-## Pages
+## Feature Set
 
 - Device Notes
 - Remote Lockout
@@ -14,3 +14,10 @@ This section documents remote features that are primarily operated from the webs
 - Reboot Device
 - Uninstall MDM
 - Factory Reset
+
+## Operating Standard
+
+1. Validate correct target device.
+2. Apply action once.
+3. Verify result in device status and logs.
+4. Record outcome in Device Notes for traceability.

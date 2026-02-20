@@ -1,7 +1,5 @@
-# Legacy Google Search Controls
+# Legacy Google Search Controls (Moved)
 
-Legacy Google Search controls target selected search-surface filtering behavior.
+This page moved to:
 
-## Status
-
-Compatibility mode only. Prefer current Network/PCAP controls for durable policy.
+- [Archive / VPN / Google Search](/archive/vpn/website-config/google-search/)

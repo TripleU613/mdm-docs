@@ -1,10 +1,13 @@
 # Website Dashboard
 
-The website is the remote policy and operations surface for managed devices.
+The website is the remote operations surface for managed devices.
 
-## Scope
+## Operator Workflow
 
-Website tabs mirror Android policy groups and include remote-only operations.
+1. Open **Home** first and verify device online state.
+2. Apply policy changes in the specific tab (System, Network, Apps, Time, etc.).
+3. Save changes and wait for config sync.
+4. Confirm effect on device status and app snapshot fields.
 
 ## Tab Map
 
@@ -18,15 +21,15 @@ Website tabs mirror Android policy groups and include remote-only operations.
 - [Time Management](/website/time/)
 - [Settings](/website/settings/)
 
-## Theme and UI
-
-Dashboard supports theme preference selection (system/light/dark) and persists user preference.
-
 ## Auth Rules
 
-- Signup requires verification.
-- Signin for verified accounts is direct.
+- Signup requires email verification before first successful app session.
+- Signin remains direct for verified accounts.
 
-## Legacy Note
+## Theme
 
-VPN tab is marked legacy for transition; avoid depending on deprecated paths for new deployments.
+Dashboard supports system, light, and dark theme preference.
+
+## Legacy Notice
+
+Legacy VPN pages are now archive-only documentation. See [Archive VPN](/archive/vpn/).

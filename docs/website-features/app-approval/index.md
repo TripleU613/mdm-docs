@@ -1,10 +1,15 @@
 # Remote App Approval
 
-Remote App Approval controls whether requested apps become approved for install/use.
+Remote App Approval governs requested app promotion to approved state.
 
 ## Flow
 
-1. User requests app from device flow.
-2. Admin reviews request in dashboard.
+1. Device requests app.
+2. Request appears in dashboard.
 3. Admin approves or rejects.
-4. Device receives updated policy/state.
+4. Device sync applies decision.
+
+## Notes
+
+- Newly approved apps should be removed from pending/jump-out state.
+- Keep approved list curated to minimize policy drift.

@@ -1,14 +1,23 @@
 # Apps Tab (Website)
 
-Apps tab is the remote package policy table.
+Apps tab is the per-package policy surface.
 
 ## What You Can Manage
 
-- Per-app restrictions and states
-- Kiosk allowlist membership
+- Hide/unhide
+- Suspend/unsuspend
+- Disable/enable (where supported)
+- Jump-out policy
 - Network include/exclude flags
-- Time-management visibility and clear actions
+- Kiosk allowlist state
+- Time-control visibility and cleanup
 
-## Sync Notes
+## Time-Control Integration
 
-Apps tab reflects current time-policy markers so admin can see which apps are time-controlled.
+- Apps with saved time policy are marked as time-controlled.
+- Clearing time control removes policy and updates app snapshot state.
+
+## Troubleshooting
+
+- App policy appears inconsistent: refresh apps list and verify `managed` and policy flags.
+- Icon missing: verify icon exists in backend app snapshot for that package.

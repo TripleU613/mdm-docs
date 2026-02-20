@@ -1,8 +1,5 @@
-# Legacy Website Categories
+# Legacy Website Categories (Moved)
 
-Legacy category controls map broad site categories to allow/block behavior.
+This page moved to:
 
-## Status
-
-- Transitional only.
-- Category results can differ across sources and should not be treated as strict guarantees.
+- [Archive / VPN / Website Categories](/archive/vpn/website-config/website-categories/)

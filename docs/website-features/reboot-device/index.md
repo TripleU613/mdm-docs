@@ -2,7 +2,13 @@
 
 Reboot Device sends a managed reboot command.
 
-## Guidance
+## Use Cases
 
-- Use after major policy or service recovery operations.
-- Confirm device-owner capability before relying on remote reboot.
+- Apply policy/service recovery after drift.
+- Recover transient platform states.
+- Complete pending enforcement updates.
+
+## Validation
+
+- Confirm device reconnects after reboot.
+- Confirm required services resume (VPN/time/accessibility when applicable).

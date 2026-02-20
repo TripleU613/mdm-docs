@@ -1,13 +1,23 @@
 # System Tab (Website)
 
-System tab remotely manages device-level restrictions.
+System tab controls device-wide restrictions.
 
 ## Typical Controls
 
-- Core restriction toggles mirrored from Android System tab
-- Remote lockout related controls
-- High-impact actions through guarded workflows
+- Developer options restriction
+- App settings restriction
+- APK install restriction
+- Calls, SMS, tethering restrictions
+- Factory reset/safe boot restrictions
+- Global lockout mode
 
-## Operational Guidance
+## Safe Rollout Pattern
 
-Apply system policy in small batches and verify device sync before broad rollout.
+1. Apply to one device.
+2. Confirm sync and behavior.
+3. Expand to additional devices.
+
+## Recovery Checklist
+
+- If a restriction is too aggressive, revert from System tab and save.
+- If lockout was applied, verify unlock/admin path before leaving the session.

@@ -1,7 +1,5 @@
-# Legacy On-Device Actions
+# Legacy On-Device Actions (Moved)
 
-This page covers user-side actions related to legacy VPN controls.
+This page moved to:
 
-## Current Recommendation
-
-Use current Android Network tab + website Network tab policies for new rollouts.
+- [Archive / VPN / On-Device Actions](/archive/vpn/website-config/on-device-actions/)

@@ -1,9 +1,14 @@
 # Device Notes
 
-Device Notes provides per-device internal notes for operators.
+Device Notes stores operator context for each device.
 
-## Use
+## Good Usage
 
-- Track operational context for a device.
-- Record known issues, handoff details, and incident notes.
-- Keep notes concise and dated.
+- Write dated, short operational notes.
+- Record incidents and temporary exceptions.
+- Log handoff status between admins.
+
+## Avoid
+
+- Credentials or sensitive secrets in free-text notes.
+- Long unstructured paragraphs.

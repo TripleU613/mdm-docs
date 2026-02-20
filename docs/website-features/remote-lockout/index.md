@@ -1,11 +1,13 @@
 # Remote Lockout
 
-Remote Lockout allows admins to lock down access from the website side.
+Remote Lockout immediately restricts user interaction from website control.
 
-## Typical Use
+## Use Cases
 
-- Emergency containment
-- Lost or compromised device response
-- Temporary admin lockdown during troubleshooting
+- Lost/stolen device containment
+- Temporary lockdown during incident response
+- Emergency operational hold
 
-Always verify unlock path before enabling lockout in production.
+## Safety Rule
+
+Always verify unlock/recovery path before enabling lockout in production.

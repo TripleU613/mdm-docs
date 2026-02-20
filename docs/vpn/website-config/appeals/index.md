@@ -1,7 +1,5 @@
-# Legacy Appeals
+# Legacy Appeals (Moved)
 
-Legacy appeals allow review of blocked-domain disputes from old VPN controls.
+This page moved to:
 
-## Status
-
-Kept for existing datasets/accounts using legacy VPN paths.
+- [Archive / VPN / Appeals](/archive/vpn/website-config/appeals/)
